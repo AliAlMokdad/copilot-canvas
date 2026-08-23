@@ -706,12 +706,12 @@ function buildThread(){
     return {tl:c(-1,-1), tr:c(1,-1), br:c(1,1), bl:c(-1,1)};
   }
   var c2=corners(g2), c1=corners(g1), c3=corners(g3);
-  /* out of the end of the road, trace each document, then carry the gold to the word */
+  /* one serpentine: leave the road, kiss each document once, dive into the word */
   var pts=[
     [er.right-er.width*0.035, er.top+er.height*0.5],
-    c2.br, c2.tr, c2.tl, c2.bl, c2.br,
-    c1.br, c1.tr, c1.tl, c1.bl, c1.br,
-    c3.tr, c3.tl, c3.bl, c3.br, c3.tr,
+    [(c2.tl[0]+c2.bl[0])/2, (c2.tl[1]+c2.bl[1])/2],
+    c1.bl,
+    c3.tr,
     [(rw.right+r3.left)/2, rw.top-40],
     [rw.right+16, rw.top+rw.height*0.55]
   ];
