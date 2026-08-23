@@ -162,21 +162,21 @@ body.entered #s0 .in{opacity:0}
 .road{position:relative;height:392px;margin-inline:calc(50% - 47vw);width:94vw}
 .axis{position:absolute;left:0;right:0;top:196px;height:2px;background:#D8C6BE}
 .axis .done{position:absolute;left:0;top:-1px;height:4px;border-radius:2px;background:linear-gradient(90deg,rgba(186,23,28,.35),var(--red));width:0;transition-property:width;transition-timing-function:var(--e)}
-.yr{position:absolute;top:197px;transform:translate(-50%,-50%);font-family:var(--serif);font-size:17.5px;font-weight:600;letter-spacing:.12em;color:#8F7059;background:var(--paper);padding:2px 15px;z-index:2}
+.yr{position:absolute;top:197px;transform:translate(-50%,-50%);font-family:var(--serif);font-size:19.5px;font-weight:600;letter-spacing:.12em;color:#8F7059;background:var(--paper);padding:2px 15px;z-index:2}
 .msw{position:absolute;top:0;height:392px}
 .ms{position:absolute;top:196px;left:0;transform:translate(-50%,-50%);width:26px;height:26px;display:grid;place-items:center;z-index:3;opacity:0;transition:opacity .4s var(--e)}
 .msw.seen .ms{opacity:1}
 .ms::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--ink);transition:.35s var(--e)}
 .msw.act .ms::after{background:var(--red);width:15px;height:15px;box-shadow:0 0 0 6px rgba(186,23,28,.14)}
-.rlb{position:absolute;left:0;width:142px;transform:translateX(-50%);font-size:14.5px;line-height:1.32;opacity:0;transition:opacity .5s var(--e) .15s}
+.rlb{position:absolute;left:0;width:156px;transform:translateX(-50%);font-size:16px;line-height:1.32;opacity:0;transition:opacity .5s var(--e) .15s}
 .msw.seen .rlb{opacity:1}
-.rlb .d{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#7A5F52;display:block;margin-bottom:3px;font-weight:500}
+.rlb .d{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#7A5F52;display:block;margin-bottom:3px;font-weight:500}
 .rlb b{font-weight:600;color:var(--ink2)}
 .msw.act .rlb b{color:var(--red)}
 .lstem{position:absolute;left:0;width:1px;background:var(--hair);transform:translateX(-.5px);opacity:0;transition:opacity .5s var(--e) .15s}
 .msw.seen .lstem{opacity:1}
-.rlb.u1{bottom:216px} .rlb.u2{bottom:272px} .rlb.u3{bottom:328px}
-.rlb.d1{top:248px} .rlb.d2{top:304px} .rlb.d3{top:352px}
+.rlb.u1{bottom:216px} .rlb.u2{bottom:280px} .rlb.u3{bottom:344px}
+.rlb.d1{top:248px} .rlb.d2{top:312px} .rlb.d3{top:368px}
 .gapmark{position:absolute;top:122px;height:22px;border-left:1px dashed #D9CBC3;border-right:1px dashed #D9CBC3;opacity:0;transition:opacity .8s var(--e)}
 .gapmark.seen{opacity:1}
 .gapmark span{position:absolute;top:-14px;left:50%;transform:translateX(-50%);
@@ -188,7 +188,7 @@ body.entered #s0 .in{opacity:0}
 .brp{fill:none;stroke-width:2.5;stroke-linecap:round;transition:stroke-dashoffset 1.6s var(--e) .2s}
 .bp1{stroke:#4E6E86}
 .bp2{stroke:#6E8B6A}
-.brlab{position:absolute;transform:translate(-50%,-50%);font-family:var(--mono);font-size:12.5px;font-weight:600;
+.brlab{position:absolute;transform:translate(-50%,-50%);font-family:var(--mono);font-size:13.5px;font-weight:600;
   letter-spacing:.16em;text-transform:uppercase;background:var(--paper);padding:3px 14px;
   opacity:0;transition:opacity .7s var(--e) 1s;pointer-events:none}
 .brlab::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:9px;vertical-align:1px}
@@ -448,7 +448,7 @@ ANTI_SLOP_BRIEF
           <circle class="et-now" cx="318" cy="130" r="5"/>
         </svg>
       </div>
-      <div class="foot"><span>ID MGT / Finance meeting</span><span>Update &middot; 27 August 2026</span></div>
+      <div class="foot"><span>International department management and finance meeting</span><span>Update &middot; 27 August 2026</span></div>
     </section>
 
     <section class="view" id="sA">
@@ -725,8 +725,8 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
   /* collision-free lanes */
   var LANE=[
     {c:"u1",b:216,dir:-1},{c:"d1",top:248,dir:1},
-    {c:"u2",b:272,dir:-1},{c:"d2",top:304,dir:1},
-    {c:"u3",b:328,dir:-1},{c:"d3",top:352,dir:1}
+    {c:"u2",b:280,dir:-1},{c:"d2",top:312,dir:1},
+    {c:"u3",b:344,dir:-1},{c:"d3",top:368,dir:1}
   ];
   var H=392, AX=196;
   function place(){
