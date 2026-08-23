@@ -103,7 +103,7 @@ body.entered #s0 .in{opacity:0}
 .road{position:relative;height:392px;margin-inline:calc(50% - 47vw);width:94vw}
 .axis{position:absolute;left:0;right:0;top:196px;height:2px;background:#D8C6BE}
 .axis .done{position:absolute;left:0;top:-1px;height:4px;border-radius:2px;background:linear-gradient(90deg,rgba(186,23,28,.35),var(--red));width:0;transition-property:width;transition-timing-function:var(--e)}
-.yr{position:absolute;top:344px;transform:translateX(-50%);font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:.06em;color:#96775F}
+.yr{position:absolute;top:197px;transform:translate(-50%,-50%);font-family:var(--serif);font-size:17.5px;font-weight:600;letter-spacing:.12em;color:#8F7059;background:var(--paper);padding:2px 15px;z-index:2}
 .msw{position:absolute;top:0;height:392px}
 .ms{position:absolute;top:196px;left:0;transform:translate(-50%,-50%);width:26px;height:26px;display:grid;place-items:center;z-index:3;opacity:0;transition:opacity .4s var(--e)}
 .msw.seen .ms{opacity:1}
@@ -178,19 +178,28 @@ body.entered.stA #ctl{display:flex}
   will-change:transform;transition:transform .55s var(--e),opacity .35s var(--e)}
 .d0pg::before{content:"";position:absolute;left:9px;right:9px;top:12px;height:2px;background:#E8E2DC}
 .d0pg::after{content:"";position:absolute;left:9px;right:20px;top:19px;height:2px;background:#F0EBE5}
-#d0card{position:fixed;left:50%;top:44%;width:250px;height:340px;transform:translate(-50%,-50%) scale(.65);
-  background:linear-gradient(160deg,#FFFDFB,#F7EFE9);border-radius:5px;opacity:0;overflow:hidden;
-  box-shadow:0 6px 22px rgba(30,8,8,.30),0 50px 130px rgba(30,8,8,.45);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
-  transition:opacity .45s var(--e),transform .6s cubic-bezier(.22,1.4,.36,1)}
+#d0card{position:fixed;left:50%;top:44%;width:330px;height:452px;transform:translate(-50%,-50%) scale(.6);
+  opacity:0;transform-style:preserve-3d;
+  transition:opacity .45s var(--e),transform .65s cubic-bezier(.22,1.4,.36,1)}
 #d0.boom #d0card{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.d0c-eye{font-family:var(--mono);font-size:10px;letter-spacing:.26em;color:var(--gold-ink)}
-.d0c-t{font-family:var(--serif);font-size:46px;font-weight:700;letter-spacing:-.02em;color:var(--red)}
-.d0c-s{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3)}
-.d0c-shine{position:absolute;top:-20%;bottom:-20%;left:-70%;width:46%;transform:skewX(-18deg);
+#d0.flip #d0card{transform:translate(-50%,-50%) scale(1) rotateY(180deg);transition:transform .9s var(--e)}
+.d0face{position:absolute;inset:0;border-radius:5px;overflow:hidden;backface-visibility:hidden;
+  box-shadow:0 6px 22px rgba(30,8,8,.30),0 54px 140px rgba(30,8,8,.48);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  background:linear-gradient(160deg,#FFFDFB,#F7EFE9)}
+.d0f-b{transform:rotateY(180deg);background:var(--red-deep)}
+.d0f-b img{width:100%;height:100%;object-fit:cover}
+.d0c-eye{font-family:var(--mono);font-size:11px;letter-spacing:.26em;color:var(--gold-ink)}
+.d0c-t{font-family:var(--serif);font-size:62px;font-weight:700;letter-spacing:-.02em;color:var(--red)}
+.d0c-s{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3)}
+.d0c-shine{position:absolute;top:-20%;bottom:-20%;left:-70%;width:46%;transform:skewX(-18deg);z-index:2;
   background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,246,214,.95),rgba(255,255,255,0))}
-#d0.boom .d0c-shine{animation:d0shine 1.05s var(--e) .25s both}
+#d0.boom .d0f-a .d0c-shine{animation:d0shine 1.05s var(--e) .25s both}
+#d0.flip .d0f-b .d0c-shine{animation:d0shine 1.1s var(--e) .55s both}
 @keyframes d0shine{from{left:-70%}to{left:130%}}
+#d0lab{position:fixed;left:50%;top:calc(44% + 262px);transform:translateX(-50%);
+  font-family:var(--mono);font-size:13px;letter-spacing:.34em;color:var(--gold);opacity:0;transition:opacity .6s var(--e) .7s}
+#d0.flip #d0lab{opacity:1}
 @media (prefers-reduced-motion:reduce){#d0{display:none}}
 /* ---------- reader ---------- */
 #reader{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:0;transition:opacity .45s var(--e);background:rgba(40,15,15,.46);backdrop-filter:blur(20px) saturate(1.05)}
@@ -208,7 +217,7 @@ body.entered.stA #ctl{display:flex}
   background:radial-gradient(85% 72% at 46% 50%, rgba(38,12,12,.5), rgba(38,12,12,.28) 46%, rgba(38,12,12,0) 70%);
   opacity:0;transition:opacity .7s var(--e) .3s,transform .7s var(--e) .3s;pointer-events:none}
 #reader.xray.on #rside{opacity:1;transform:translateY(-50%)}
-.rs-eye{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.3em;color:var(--gold);margin-bottom:26px}
+.rs-eye{font-family:var(--mono);font-size:13.5px;font-weight:600;letter-spacing:.3em;color:#EFDFAE;text-shadow:0 1px 10px rgba(30,8,8,.5);margin-bottom:26px}
 #reader.xray #rside .rs-i{opacity:0;transform:translateX(22px);transition:opacity .55s var(--e),transform .55s var(--e)}
 #reader.xray.on #rside .rs-i{opacity:1;transform:none}
 #reader.xray.on #rside .rs-i:nth-child(2){transition-delay:.5s}
@@ -224,7 +233,7 @@ body.entered.stA #ctl{display:flex}
 #reader.xray.on #rside .rs-i:nth-child(4)::after{transform:scaleX(1);transition-delay:1.18s}
 #reader.xray.on #rside .rs-i:nth-child(5)::after{transform:scaleX(1);transition-delay:1.46s}
 #reader.xray.on #rside .rs-i:nth-child(6)::after{transform:scaleX(1);transition-delay:1.7s}
-.rs-i b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--gold);font-weight:500}
+.rs-i b{font-size:15px;color:#EFDFAE;text-shadow:0 1px 8px rgba(30,8,8,.5)}
 .rs-i span{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:-.012em;color:#FBF3F0;text-shadow:0 1px 14px rgba(30,8,8,.35)}
 #rclose{position:absolute;top:28px;right:34px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);font-size:18px;color:#fff;display:grid;place-items:center;transition:.3s var(--e)}
 #rclose:hover{background:#fff;color:var(--red);transform:rotate(90deg)}
@@ -341,20 +350,27 @@ ANTI_SLOP_BRIEF
 
 <div id="d0" aria-hidden="true">
   <div id="d0card">
-    <div class="d0c-eye">16 JULY 2026</div>
-    <div class="d0c-t">Draft 0</div>
-    <div class="d0c-s">submitted for review</div>
-    <i class="d0c-shine"></i>
+    <div class="d0face d0f-a">
+      <div class="d0c-eye">16 JULY 2026</div>
+      <div class="d0c-t">Draft 0</div>
+      <div class="d0c-s">submitted for review</div>
+      <i class="d0c-shine"></i>
+    </div>
+    <div class="d0face d0f-b">
+      <img src="assets/cover.jpg" alt="Draft 1 cover">
+      <i class="d0c-shine"></i>
+    </div>
   </div>
+  <div id="d0lab">DRAFT 1</div>
 </div>
 <div id="reader"><div id="rmount"></div>
   <aside id="rside" aria-label="Every SOP contains">
     <div class="rs-eye">EVERY SOP CONTAINS</div>
-    <div class="rs-i"><b>01</b><span>Purpose and scope</span></div>
-    <div class="rs-i"><b>02</b><span>The procedure, in numbered sections</span></div>
-    <div class="rs-i"><b>03</b><span>Roles and responsibilities &middot; RACI</span></div>
-    <div class="rs-i"><b>04</b><span>Process flow</span></div>
-    <div class="rs-i"><b>05</b><span>Tools</span></div>
+    <div class="rs-i"><b>&#10022;</b><span>Purpose and scope</span></div>
+    <div class="rs-i"><b>&#10022;</b><span>The procedure, in numbered sections</span></div>
+    <div class="rs-i"><b>&#10022;</b><span>Roles and responsibilities &middot; RACI</span></div>
+    <div class="rs-i"><b>&#10022;</b><span>Process flow</span></div>
+    <div class="rs-i"><b>&#10022;</b><span>Tools</span></div>
   </aside>
   <div id="rhint">Scroll to zoom &middot; drag to move</div>
   <button id="rclose" aria-label="Close">&times;</button></div>
@@ -547,56 +563,63 @@ $("#roadzone").addEventListener("click",function(e){
 });
 
 
-/* ---------- the Draft 0 assembly: pages fly in, stack, become the draft ---------- */
+/* ---------- the Draft 0 assembly: 31 documents fly in, stack, become the draft, then Draft 1 ---------- */
 var D0_DONE=false;
 function playD0(){
   if(D0_DONE||RM) return; D0_DONE=true;
   var ov=$("#d0");
   Array.prototype.forEach.call(document.querySelectorAll(".d0pg"),function(x){ x.parentNode.removeChild(x); });
-  var NUMS=["1.1","1.2","2.1","2.2","2.3","2.4","2.5","3.1","3.2","3.3","3.4","3.5","3.6","3.7","3.8","3.9","3.10","3.11","3.12","3.13","3.14","4.1","4.2"];
-  var pgs=[];
+  /* the Draft 0 set as submitted on 16 July: 31 SOPs */
+  var NUMS=["1.1","1.2","2.1","2.2","2.3","2.4","2.5","3.1","3.2","3.3","3.4","3.5","3.6","3.7","3.8","3.9","3.11","3.12","3.13","3.14","3.15","4.2","4.4","4.5","5","6.2","6.3","6.4","6.5","6.6","6.7"];
+  var pgs=[], stg=0;
   NUMS.forEach(function(n){
     var d=el("div","d0pg","SOP "+n);
     d.style.transform="translate("+(innerWidth+120)+"px,"+(innerHeight*0.3)+"px) rotate(24deg)";
     ov.appendChild(d); pgs.push(d);
   });
   ov.classList.add("on");
-  /* 1: fly in to the library grid */
   var COLS=8, CW=78, RH=100;
-  var gw=COLS*CW, gx=(innerWidth-gw)/2, gy=innerHeight*0.20;
+  var gw=COLS*CW, gx=(innerWidth-gw)/2, gy=innerHeight*0.16;
   setTimeout(function(){
+    if(stg>0) return;
     pgs.forEach(function(d,i){
       var c=i%COLS, r=Math.floor(i/COLS);
-      setTimeout(function(){
+      setTimeout(function(){ if(stg>0) return;
         d.style.transform="translate("+(gx+c*CW)+"px,"+(gy+r*RH)+"px) rotate(0deg)";
-      }, i*42);
+      }, i*38);
     });
   },80);
-  /* 2: rush to the stack */
   var sx=innerWidth/2-29, sy=innerHeight*0.44-39;
   setTimeout(function(){
+    if(stg>0) return;
     pgs.forEach(function(d,i){
-      setTimeout(function(){
+      setTimeout(function(){ if(stg>0) return;
         var rot=((i%7)-3)*2.2, ox=((i%5)-2)*1.6, oy=((i%3)-1)*1.6;
         d.style.transform="translate("+(sx+ox)+"px,"+(sy+oy)+"px) rotate("+rot+"deg)";
-      }, i*22);
+      }, i*20);
     });
-  },1980);
-  /* 3: boom */
-  setTimeout(function(){
+  },2150);
+  function boom(){
+    if(stg>0) return; stg=1;
     pgs.forEach(function(d){ d.style.opacity="0"; });
     ov.classList.add("boom");
-  },3050);
-  function shut(e){
-    if(e){ e.stopPropagation(); e.preventDefault(); }
-    ov.classList.remove("on","boom");
-    setTimeout(function(){ pgs.forEach(function(d){ if(d.parentNode) d.parentNode.removeChild(d); }); },480);
-    ov.removeEventListener("click",shut);
-    document.removeEventListener("keydown",keyshut,true);
   }
-  function keyshut(e){ shut(e); }
-  ov.addEventListener("click",shut);
-  document.addEventListener("keydown",keyshut,true);
+  setTimeout(boom,3300);
+  function shut(){
+    ov.classList.remove("on","boom","flip");
+    setTimeout(function(){ pgs.forEach(function(d){ if(d.parentNode) d.parentNode.removeChild(d); }); },480);
+    ov.removeEventListener("click",step);
+    document.removeEventListener("keydown",keystep,true);
+  }
+  function step(e){
+    if(e){ e.stopPropagation(); e.preventDefault(); }
+    if(stg===0){ boom(); }
+    else if(stg===1){ stg=2; ov.classList.add("flip"); }
+    else shut();
+  }
+  function keystep(e){ step(e); }
+  ov.addEventListener("click",step);
+  document.addEventListener("keydown",keystep,true);
 }
 
 /* ---------- reader: FLIP open, wheel zoom, drag pan ---------- */
