@@ -9,7 +9,7 @@
 <style>
 :root{
   --red:#BA171C; --red-hi:#DB2E2F; --red-deep:#710C14;
-  --gold:#DEC583; --gold-ink:#A8874C;
+  --gold:#DEC583; --gold-ink:#8A6A2F;
   --paper:#FBF3F0; --paper2:#F5EAE4;
   --ink:#2A2226; --ink2:#5D5458; --ink3:#8D8489;
   --hair:#E7DCD6; --hair2:#F0E7E1;
@@ -24,6 +24,13 @@ html,body{margin:0;height:100%}
 body{background:var(--paper);font-family:var(--sans);color:var(--ink);overflow:hidden;font-size:17px}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
 img{display:block}
+.wash{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.2s var(--e);
+  background:
+    radial-gradient(58vw 52vw at 10% 6%,  rgba(0,183,255,.085), transparent 62%),
+    radial-gradient(52vw 48vw at 90% 12%, rgba(40,112,234,.065), transparent 62%),
+    radial-gradient(56vw 54vw at 78% 90%, rgba(142,81,232,.070), transparent 64%),
+    radial-gradient(50vw 46vw at 14% 94%, rgba(233,73,138,.055), transparent 62%);}
+body.entered .wash{opacity:1}
 .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.022;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");}
 .xc{position:fixed;top:0;left:0;width:150px;height:150px;z-index:2;pointer-events:none;opacity:0;transition:opacity 1.4s var(--e);will-change:transform}
@@ -44,7 +51,7 @@ body.entered #field{opacity:1}
 #shell > *{pointer-events:auto}
 #topbar{position:absolute;top:0;left:0;right:0;z-index:9;display:flex;align-items:center;gap:26px;padding:18px 40px;opacity:0;transform:translateY(-10px);transition:.7s var(--e)}
 body.entered #topbar{opacity:1;transform:none}
-.mk{display:flex;align-items:center;gap:12px}
+.mk{display:flex;align-items:center;gap:12px;cursor:pointer}
 .mk .cr{width:34px;height:34px;border-radius:6px;background:#fff;display:grid;place-items:center;box-shadow:0 1px 4px rgba(42,20,20,.15)}
 .mk .cr svg{width:20px;height:20px;fill:var(--red)}
 .mk .wt{font-size:14.5px;font-weight:700;letter-spacing:-.01em;line-height:1.12}
@@ -53,7 +60,8 @@ body.entered #topbar{opacity:1;transform:none}
 .seg{padding:8px 20px;border-radius:100px;font-size:14px;font-weight:600;color:var(--ink2);transition:.28s var(--e)}
 .seg:hover{color:var(--ink)}
 .seg.on{background:var(--red);color:#fff}
-.tb-right{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.tb-right{margin-left:auto;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);text-align:right;line-height:1.5}
+.tb-right span{display:block;color:var(--ink3);font-size:10.5px}
 #views{position:absolute;inset:0}
 .view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .55s var(--e);overflow:hidden}
 .view.on{opacity:1;pointer-events:auto}
@@ -71,7 +79,7 @@ body.entered #s0 .in{opacity:0}
 .cv-logo .cr svg{width:32px;height:32px;fill:var(--red)}
 .cv-logo .wt{color:#fff;font-weight:700;font-size:19px;line-height:1.15}
 .cv-logo .wt span{display:block;font-weight:400;font-size:14px;color:rgba(255,255,255,.72)}
-.cv-eye{font-family:var(--mono);font-size:clamp(13px,1.3vw,16px);letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;opacity:0;animation:up .9s var(--e) .3s both}
+.cv-eye{font-family:var(--mono);font-size:clamp(15px,1.6vw,20px);font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);text-shadow:0 1px 0 rgba(0,0,0,.15);margin-bottom:22px;opacity:0;animation:up .9s var(--e) .3s both}
 .cv-title{font-size:clamp(52px,7.4vw,104px);line-height:.99;font-weight:700;letter-spacing:-.025em;color:#FBF3F0;margin:0;opacity:0;animation:up 1s var(--e) .42s both}
 .cv-title em{font-style:normal;font-weight:400;color:var(--gold)}
 .cv-dash{width:64px;height:3px;background:var(--gold);margin:34px 0 0;opacity:0;animation:up 1s var(--e) .55s both}
@@ -82,14 +90,14 @@ body.entered #s0 .in{opacity:0}
 .pill:hover{background:var(--gold);border-color:var(--gold);color:var(--red-deep)}
 .pill:hover .n,.pill:hover .ar{color:var(--red-deep)}
 .pill:hover .ar{transform:translateX(4px)}
-#s0 .foot{position:absolute;left:clamp(48px,9vw,140px);right:clamp(48px,9vw,140px);bottom:52px;border-top:1px solid rgba(222,197,131,.4);padding-top:16px;font-family:var(--mono);font-size:13px;letter-spacing:.12em;color:rgba(222,197,131,.85);opacity:0;animation:up 1s var(--e) .9s both}
+#s0 .foot{position:absolute;left:clamp(48px,9vw,140px);right:clamp(48px,9vw,140px);bottom:52px;border-top:1px solid rgba(222,197,131,.4);padding-top:16px;font-family:var(--mono);font-size:14px;letter-spacing:.12em;color:#EBD9A8;display:flex;justify-content:space-between;gap:20px;opacity:0;animation:up 1s var(--e) .9s both}
 @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
 /* ---------- shared heads ---------- */
 .aHead{padding:6px 0 0}
 .aHead h2{font-family:var(--serif);font-size:clamp(30px,3.6vw,46px);font-weight:600;letter-spacing:-.02em;margin:10px 0 0}
 .aHead p.hint{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin:14px 0 0}
-#sA,#sB{overflow-y:auto;background:var(--paper);scrollbar-width:thin;scrollbar-color:#D8C6BE transparent}
+#sA,#sB{overflow-y:auto;background:transparent;scrollbar-width:thin;scrollbar-color:#D8C6BE transparent}
 #sA::-webkit-scrollbar,#sB::-webkit-scrollbar{width:9px}
 #sA::-webkit-scrollbar-track,#sB::-webkit-scrollbar-track{background:transparent}
 #sA::-webkit-scrollbar-thumb,#sB::-webkit-scrollbar-thumb{background:#DCCBC3;border-radius:5px;border:2px solid var(--paper)}
@@ -99,16 +107,16 @@ body.entered #s0 .in{opacity:0}
 .road{position:relative;height:300px}
 .axis{position:absolute;left:0;right:0;top:150px;height:2px;background:#D8C6BE}
 .axis .done{position:absolute;left:0;top:-1px;height:4px;border-radius:2px;background:linear-gradient(90deg,rgba(186,23,28,.35),var(--red));width:0;transition-property:width;transition-timing-function:var(--e)}
-.yr{position:absolute;top:184px;transform:translateX(-50%);font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--ink3)}
+.yr{position:absolute;top:178px;transform:translateX(-50%);font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:.04em;color:#C4AB9D}
 .yr::before{content:"";position:absolute;left:50%;top:-32px;width:1px;height:24px;background:var(--hair)}
 .msw{position:absolute;top:0;height:300px}
 .ms{position:absolute;top:150px;left:0;transform:translate(-50%,-50%);width:26px;height:26px;display:grid;place-items:center;z-index:3;opacity:0;transition:opacity .4s var(--e)}
 .msw.seen .ms{opacity:1}
 .ms::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--ink);transition:.35s var(--e)}
 .msw.act .ms::after{background:var(--red);width:15px;height:15px;box-shadow:0 0 0 6px rgba(186,23,28,.14)}
-.rlb{position:absolute;left:0;width:132px;transform:translateX(-50%);font-size:13.5px;line-height:1.32;opacity:0;transition:opacity .5s var(--e) .15s}
+.rlb{position:absolute;left:0;width:142px;transform:translateX(-50%);font-size:14.5px;line-height:1.32;opacity:0;transition:opacity .5s var(--e) .15s}
 .msw.seen .rlb{opacity:1}
-.rlb .d{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:2px}
+.rlb .d{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#7A5F52;display:block;margin-bottom:3px;font-weight:500}
 .rlb b{font-weight:600;color:var(--ink2)}
 .msw.act .rlb b{color:var(--red)}
 .lstem{position:absolute;left:0;width:1px;background:var(--hair);transform:translateX(-.5px);opacity:0;transition:opacity .5s var(--e) .15s}
@@ -117,13 +125,13 @@ body.entered #s0 .in{opacity:0}
 .rlb.d1{top:190px} .rlb.d2{top:232px} .rlb.d3{top:274px} .rlb.d4{top:274px}
 .gapmark{position:absolute;top:122px;height:22px;border-left:1px dashed #D9CBC3;border-right:1px dashed #D9CBC3;opacity:0;transition:opacity .8s var(--e)}
 .gapmark.seen{opacity:1}
-.gapmark span{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);white-space:nowrap;background:var(--paper);padding:0 8px}
+.gapmark span{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7A5F52;font-weight:500;white-space:nowrap;background:var(--paper);padding:0 8px}
 
 /* ---------- the focus panel ---------- */
 #focus{position:relative;border-top:1px solid var(--hair);margin-top:2px;padding:30px 0 26px;min-height:230px;display:grid;grid-template-columns:1fr 210px;gap:44px;align-items:start}
 #fmain{opacity:0;transform:translateY(10px)}
 #fmain.in{opacity:1;transform:none;transition:opacity .5s var(--e),transform .5s var(--e)}
-.f-date{font-family:var(--mono);font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:10px}
+.f-date{font-family:var(--mono);font-size:14px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#7A5F52;margin-bottom:10px}
 .f-date b{color:var(--red);font-weight:500}
 .f-title{font-family:var(--serif);font-size:clamp(28px,3.4vw,44px);font-weight:600;letter-spacing:-.018em;line-height:1.06;margin:0 0 14px}
 .f-body{font-size:clamp(16px,1.35vw,19px);line-height:1.6;color:var(--ink2);max-width:66ch;margin:0}
@@ -133,7 +141,7 @@ body.entered #s0 .in{opacity:0}
 #fcover{align-self:start;margin-top:6px;width:200px;opacity:0;transform:translateY(18px) rotate(1.2deg);transition:opacity .8s var(--e),transform .8s var(--e);cursor:pointer}
 #fcover.in{opacity:1;transform:none}
 #fcover img{width:100%;border-radius:4px;box-shadow:0 3px 10px rgba(60,20,20,.14),0 26px 60px rgba(60,20,20,.22)}
-#fhint{position:absolute;top:34px;font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3)}
+#fhint{position:absolute;top:34px;font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#7A5F52;transition:opacity .4s var(--e)}
 
 /* presenter controls */
 #ctl{position:fixed;right:44px;bottom:34px;z-index:8;display:none;align-items:center;gap:14px}
@@ -165,59 +173,37 @@ body.entered.stA #ctl{display:flex}
 .bf-txt li::before{content:"";position:absolute;left:0;top:14px;width:6px;height:1px;background:var(--red)}
 
 /* ---------- state B : the real document ---------- */
-.arts{display:grid;grid-template-columns:minmax(0,400px) minmax(0,400px) 1fr;gap:64px;margin:42px 0 0;align-items:start}
+.arts{display:grid;grid-template-columns:repeat(3,minmax(0,300px)) 1fr;gap:48px;margin:46px 0 0;align-items:start}
+.skel{align-self:center;padding-left:8px}
 .art{cursor:pointer}
 .art-fr{position:relative;border-radius:4px;overflow:hidden;background:#fff;
   box-shadow:0 3px 10px rgba(60,20,20,.10),0 26px 66px rgba(60,20,20,.16);
   transition:transform .6s var(--e),box-shadow .6s var(--e)}
 .art:hover .art-fr{transform:translateY(-7px);box-shadow:0 5px 16px rgba(60,20,20,.12),0 40px 90px rgba(60,20,20,.22)}
 .art-fr img{width:100%}
-.art-cap{display:flex;align-items:baseline;gap:14px;margin-top:16px}
-.art-cap b{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:-.01em}
-.art-cap span{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
-.anat{margin:86px 0 30px;display:grid;grid-template-columns:1fr 420px;gap:70px;align-items:center}
-.an-stage{position:relative;height:340px;perspective:1500px;cursor:pointer}
-.lay{position:absolute;left:50%;top:50%;width:232px;height:302px;background:#fff;border:1px solid var(--hair);border-radius:4px;
-  box-shadow:0 12px 46px rgba(60,20,20,.13);transform-style:preserve-3d;transition:transform 1.05s var(--e);will-change:transform;padding:20px 18px}
-.lay .ln{font-family:var(--mono);font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--red);font-weight:500}
-.lay .lbar{margin-top:12px;height:2px;width:40px;background:var(--gold)}
-.lay .lg{margin-top:18px;display:flex;flex-direction:column;gap:8px}
-.lay .lg i{height:2.5px;background:var(--hair2);border-radius:2px}
-.lay.raci .lg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.lay.raci .lg i{height:13px}
-.lay.wf .lg{flex-direction:row;align-items:center;gap:7px}
-.lay.wf .lg i{height:15px;width:27px;border-radius:3px}
 .sect-n{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--gold-ink);margin:0 0 14px}
 .an-i{display:flex;gap:16px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--hair2);transition:.3s var(--e)}
 .an-i b{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink3);width:20px}
 .an-i span{font-family:var(--serif);font-size:19px;font-weight:600}
 .an-i:hover{padding-left:8px}
 
-/* the phase ledger, read from the contents page */
-.ledg{align-self:center;padding-top:8px}
-.ledg .lh{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--gold-ink);margin-bottom:18px}
-.lrow{display:flex;align-items:baseline;gap:16px;padding:15px 0;border-bottom:1px solid var(--hair2)}
-.lrow .rn{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--pc);width:34px;font-weight:500}
-.lrow .nm{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.01em}
-.lrow .ct{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--ink3)}
-.lrow.tot{border-bottom:0;padding-top:18px}
-.lrow.tot .nm{font-size:16px;color:var(--ink2);font-weight:400;font-family:var(--sans)}
-.lrow.tot .ct{color:var(--ink);font-weight:500}
 
 /* ---------- reader ---------- */
 #reader{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:0;transition:opacity .45s var(--e);background:rgba(42,18,18,.38);backdrop-filter:blur(18px) saturate(1.1)}
 #reader.on{opacity:1;pointer-events:auto}
-#rmount{position:absolute;left:0;top:0;border-radius:4px;overflow:hidden;background:#fff;
+#rmount{position:absolute;left:0;top:0;border-radius:4px;overflow:auto;background:#fff;cursor:zoom-in;scrollbar-width:thin;scrollbar-color:#C9B5AC transparent;
   box-shadow:0 40px 110px rgba(30,8,8,.45);
   transition:transform .72s var(--e),width .72s var(--e),height .72s var(--e)}
-#rmount img{width:100%;height:100%;object-fit:cover}
+#rmount img{width:100%;transition:width .35s var(--e)}
+#rmount.zoomed{cursor:zoom-out}
+#rmount.zoomed img{width:220%;transition:none}
 #rclose{position:absolute;top:28px;right:34px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);font-size:18px;color:#fff;display:grid;place-items:center;transition:.3s var(--e)}
 #rclose:hover{background:#fff;color:var(--red);transform:rotate(90deg)}
 
 @media (max-width:1080px){
-  .anat,.before{grid-template-columns:1fr;gap:30px}
+  .before{grid-template-columns:1fr;gap:30px}
   .arts{grid-template-columns:1fr 1fr;gap:30px}
-  .ledg{grid-column:1/-1}
+  .skel{grid-column:1/-1}
   .eff-g{grid-template-columns:1fr 1fr}
   .ef+.ef{border-left:0;padding-left:0}
   #focus{grid-template-columns:1fr}
@@ -235,39 +221,41 @@ ANTI_SLOP_BRIEF
   type:       the document's own faces. Source Serif 4 for titles, Source Sans 3 for body,
               IBM Plex Mono for every date and label.
   colour:     sampled from the Draft 1 PDF. Red field DB2E2F to 710C14, gold DEC583,
-              blush paper FBF3F0, and the book's phase colours 4E6E86 6E8B6A A9793F 4F847A.
+              blush paper FBF3F0. The interior carries a faint Microsoft Copilot wash,
+              cyan blue violet rose, for the digital-solutions direction being explored.
   shape:      a sequence (the road, presenter-paced) and the artefact itself (real page
               renders). Not cards.
   verifiable: every date, name, number and phrase from the 12 August 2026 update deck;
               the cover and contents are renders of the actual Draft 1 PDF; per-phase
               counts 2 5 14 2 read from its contents page.
 -->
+<div class="wash" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
-<div class="xc" id="xc2" aria-hidden="true"><svg viewBox="0 0 100 100"><path class="arm" d="M38 6h24v32h32v24H62v32H38V62H6V38h32z"/></svg></div>
-<div class="xc" id="xc1" aria-hidden="true"><svg viewBox="0 0 100 100"><path class="arm" d="M38 6h24v32h32v24H62v32H38V62H6V38h32z"/></svg></div>
+<div class="xc" id="xc2" aria-hidden="true"><svg viewBox="0 0 90 90"><path class="arm" d="M30 0h30v30h30v30H60v30H30V60H0V30h30z"/></svg></div>
+<div class="xc" id="xc1" aria-hidden="true"><svg viewBox="0 0 90 90"><path class="arm" d="M30 0h30v30h30v30H60v30H30V60H0V30h30z"/></svg></div>
 <div id="field" aria-hidden="true"></div>
 
 <div id="shell">
   <div id="topbar">
-    <div class="mk">
-      <div class="cr"><svg viewBox="0 0 100 100"><path d="M38 6h24v32h32v24H62v32H38V62H6V38h32z"/></svg></div>
+    <div class="mk" data-go="0" role="button" tabindex="0" aria-label="Home">
+      <div class="cr"><svg viewBox="0 0 90 90"><path d="M30 0h30v30h30v30H60v30H30V60H0V30h30z"/></svg></div>
       <div class="wt">Danish Red Cross<span>R&oslash;de Kors &middot; International Finance</span></div>
     </div>
     <div class="segs">
       <button class="seg" data-go="A">SOP Development</button>
       <button class="seg" data-go="B">Draft 1</button>
     </div>
-    <div class="tb-right">Update &middot; 12 August 2026</div>
+    <div class="tb-right">ID MGT / Finance meeting<span>Update &middot; 27 August 2026</span></div>
   </div>
 
   <div id="views">
 
     <section class="view on" id="s0">
       <div class="frame" aria-hidden="true"></div>
-      <svg class="ghost" viewBox="0 0 100 100" aria-hidden="true"><path d="M38 6h24v32h32v24H62v32H38V62H6V38h32z"/></svg>
+      <svg class="ghost" viewBox="0 0 90 90" aria-hidden="true"><path d="M30 0h30v30h30v30H60v30H30V60H0V30h30z"/></svg>
       <div class="in">
         <div class="cv-logo">
-          <div class="cr"><svg viewBox="0 0 100 100"><path d="M38 6h24v32h32v24H62v32H38V62H6V38h32z"/></svg></div>
+          <div class="cr"><svg viewBox="0 0 90 90"><path d="M30 0h30v30h30v30H60v30H30V60H0V30h30z"/></svg></div>
           <div class="wt">Danish Red Cross<span>R&oslash;de Kors</span></div>
         </div>
         <div class="cv-eye">International Finance</div>
@@ -278,7 +266,7 @@ ANTI_SLOP_BRIEF
           <button class="pill" data-go="B"><span class="n">02</span> Draft 1 <span class="ar">&rarr;</span></button>
         </div>
       </div>
-      <div class="foot">Update &middot; 12 August 2026</div>
+      <div class="foot"><span>ID MGT / Finance meeting</span><span>Update &middot; 27 August 2026</span></div>
     </section>
 
     <section class="view" id="sA">
@@ -327,27 +315,15 @@ ANTI_SLOP_BRIEF
           <h2>The document</h2>
         </div>
         <div class="arts" id="arts">
-          <div class="art"><div class="art-fr"><img src="assets/cover.jpg" alt="Draft 1 cover page"></div>
-            <div class="art-cap"><b>Cover</b><span>Draft 1 &middot; August 2026</span></div></div>
-          <div class="art"><div class="art-fr"><img src="assets/contents.jpg" alt="Draft 1 contents page"></div>
-            <div class="art-cap"><b>Contents</b><span>23 SOPs &middot; Phases I to IV</span></div></div>
-          <div class="ledg">
-            <div class="lh">IN THIS DRAFT</div>
-            <div class="lrow" style="--pc:var(--p1)"><span class="rn">I</span><span class="nm">Inception</span><span class="ct">2 SOPs</span></div>
-            <div class="lrow" style="--pc:var(--p2)"><span class="rn">II</span><span class="nm">Initiation</span><span class="ct">5 SOPs</span></div>
-            <div class="lrow" style="--pc:var(--p3)"><span class="rn">III</span><span class="nm">Implementation</span><span class="ct">14 SOPs</span></div>
-            <div class="lrow" style="--pc:var(--p4)"><span class="rn">IV</span><span class="nm">Completion</span><span class="ct">2 SOPs</span></div>
-            <div class="lrow tot"><span class="rn"></span><span class="nm">126 pages</span><span class="ct">23 SOPs</span></div>
-          </div>
-        </div>
-        <div class="anat">
-          <div class="an-stage" id="anStage" title="Click to assemble"></div>
-          <div class="an-txt">
+          <div class="art"><div class="art-fr"><img src="assets/cover.jpg" alt="Draft 1 cover page"></div></div>
+          <div class="art"><div class="art-fr"><img src="assets/contents.jpg" alt="Draft 1 contents page, 23 SOPs"></div></div>
+          <div class="art"><div class="art-fr"><img src="assets/sop.jpg" alt="A Draft 1 SOP page"></div></div>
+          <div class="skel">
             <div class="sect-n">EVERY SOP CONTAINS</div>
-            <div class="an-i"><b>01</b><span>Scope and purpose</span></div>
-            <div class="an-i"><b>02</b><span>Process description and steps</span></div>
-            <div class="an-i"><b>03</b><span>RACI matrix</span></div>
-            <div class="an-i"><b>04</b><span>Workflow</span></div>
+            <div class="an-i"><b>01</b><span>Purpose and scope</span></div>
+            <div class="an-i"><b>02</b><span>The procedure, in numbered sections</span></div>
+            <div class="an-i"><b>03</b><span>Roles and responsibilities</span></div>
+            <div class="an-i"><b>04</b><span>Process flow</span></div>
           </div>
         </div>
       </div>
@@ -513,7 +489,7 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
     {c:"u3",top:14, dir:-1},{c:"d3",top:274,dir:1}
   ];
   function place(){
-    var W=rd.clientWidth||1000, LW=132, GAP=9, last=[];
+    var W=rd.clientWidth||1000, LW=142, GAP=10, last=[];
     LANE.forEach(function(){ last.push(-1e9); });
     ROWS.forEach(function(o){
       var cx=o.pc/100*W, l=cx-LW/2, chosen=-1;
@@ -621,6 +597,7 @@ $("#roadzone").addEventListener("click",function(e){
   function zoom(fr){
     var r=fr.getBoundingClientRect();
     while(mt.firstChild) mt.removeChild(mt.firstChild);
+    mt.classList.remove("zoomed");
     mt.appendChild(fr.querySelector("img").cloneNode(true));
     mt.style.transition="none";
     mt.style.width=r.width+"px"; mt.style.height=r.height+"px";
@@ -643,36 +620,23 @@ $("#roadzone").addEventListener("click",function(e){
   $("#arts").addEventListener("click",function(e){
     var a=e.target.closest(".art"); if(a) zoom(a.querySelector(".art-fr"));
   });
+  mt.addEventListener("click",function(e){
+    var was=mt.classList.contains("zoomed");
+    if(was){ mt.classList.remove("zoomed"); return; }
+    var box=mt.getBoundingClientRect();
+    var rx=(e.clientX-box.left+mt.scrollLeft)/mt.scrollWidth;
+    var ry=(e.clientY-box.top+mt.scrollTop)/mt.scrollHeight;
+    mt.classList.add("zoomed");
+    requestAnimationFrame(function(){
+      mt.scrollLeft=mt.scrollWidth*rx-mt.clientWidth/2;
+      mt.scrollTop=mt.scrollHeight*ry-mt.clientHeight/2;
+    });
+  });
   $("#rclose").addEventListener("click",shut);
   rd.addEventListener("click",function(e){ if(e.target===rd) shut(); });
   document.addEventListener("keydown",function(e){
     if(e.key==="Escape" && rd.classList.contains("on")){ e.stopPropagation(); shut(); }
   },true);
-})();
-
-/* ---------- anatomy ---------- */
-(function(){
-  var L=[["Scope and purpose","sc",7],["Process description and steps","st",8],["RACI matrix","raci",12],["Workflow","wf",4]];
-  var st=$("#anStage");
-  L.forEach(function(l,i){
-    var d=el("div","lay "+l[1]);
-    d.appendChild(el("div","ln","0"+(i+1)+" · "+l[0]));
-    d.appendChild(el("div","lbar"));
-    var g=el("div","lg");
-    for(var k=0;k<l[2];k++) g.appendChild(el("i"));
-    d.appendChild(g);
-    st.appendChild(d);
-  });
-  var lays=st.querySelectorAll(".lay"), tog=false;
-  function set(on){
-    Array.prototype.forEach.call(lays,function(l,i){
-      l.style.transitionDelay=(i*70)+"ms";
-      if(on) l.style.transform="translate(-50%,-50%) translate3d("+(i*2)+"px,"+(i*-2)+"px,"+(i*5)+"px)";
-      else l.style.transform="translate(-50%,-50%) translate3d("+((i-1.5)*128)+"px,"+((i-1.5)*20)+"px,"+(i*40)+"px) rotateY(-19deg) rotateX(5deg)";
-    });
-  }
-  set(false);
-  st.addEventListener("click",function(){ tog=!tog; set(tog); });
 })();
 
 /* ---------- state machine ---------- */
