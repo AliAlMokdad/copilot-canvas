@@ -218,10 +218,10 @@ body.entered #s0 .in{opacity:0}
 #fcover img{width:100%;border-radius:4px;box-shadow:0 3px 10px rgba(60,20,20,.14),0 26px 60px rgba(60,20,20,.22)}
 /* every few seconds, a light passes over the Draft 1 cover */
 #fcover::after{content:"";position:absolute;inset:0;border-radius:4px;pointer-events:none;mix-blend-mode:screen;
-  background:linear-gradient(105deg,transparent 42%,rgba(255,246,214,.05) 47%,rgba(255,248,225,.7) 50%,rgba(255,246,214,.05) 53%,transparent 58%);
+  background:linear-gradient(105deg,transparent 36%,rgba(255,246,214,.04) 44%,rgba(255,248,225,.4) 50%,rgba(255,246,214,.04) 56%,transparent 64%);
   background-size:240% 100%;background-position:130% 0;
-  animation:fsheen 6.5s cubic-bezier(.45,.05,.55,.95) 2.4s infinite}
-@keyframes fsheen{0%{background-position:130% 0}18%{background-position:-30% 0}100%{background-position:-30% 0}}
+  animation:fsheen 8s cubic-bezier(.45,.05,.55,.95) 2.4s infinite}
+@keyframes fsheen{0%{background-position:130% 0}32%{background-position:-30% 0}100%{background-position:-30% 0}}
 @media (prefers-reduced-motion:reduce){#fcover::after{animation:none;opacity:0}}
 #fhint{position:absolute;top:34px;font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#7A5F52;transition:opacity .4s var(--e)}
 
