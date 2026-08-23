@@ -242,6 +242,21 @@ body.entered.stA #ctl{display:flex}
 .art-fr img{width:100%}
 
 
+/* ---------- the gold escort: the line carries you into the road ---------- */
+#lw{position:fixed;inset:0;z-index:58;pointer-events:none;opacity:0}
+#lw.run{opacity:1}
+#lwsvg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#lwl{fill:none;stroke:var(--gold);stroke-width:2;stroke-linecap:round;
+  stroke-dasharray:1000;stroke-dashoffset:1000;filter:drop-shadow(0 0 6px rgba(222,197,131,.6))}
+#lw.run #lwl{animation:lwdraw 1.05s cubic-bezier(.65,.05,.36,1) both}
+@keyframes lwdraw{0%{stroke-dashoffset:1000;opacity:1}62%{stroke-dashoffset:0;opacity:1}84%{opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+#lwh{position:absolute;width:14px;height:14px;border-radius:50%;top:0;left:0;
+  background:radial-gradient(circle,#FFF6D6 0%,var(--gold) 45%,rgba(222,197,131,0) 72%);
+  box-shadow:0 0 22px 6px rgba(222,197,131,.55);opacity:0}
+#lw.run #lwh{animation:lwhead 1.05s cubic-bezier(.65,.05,.36,1) both}
+@keyframes lwhead{0%{opacity:0}6%{opacity:1}58%{opacity:1}70%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){#lw{display:none}}
+
 /* ---------- the red wash between the two parts ---------- */
 #wipe{position:fixed;inset:0;z-index:60;pointer-events:none;transform:translateX(-103%);
   background:radial-gradient(120% 90% at 50% 12%, var(--red-hi) 0%, var(--red) 42%, #8E1016 76%, var(--red-deep) 100%);
@@ -482,6 +497,10 @@ ANTI_SLOP_BRIEF
   <button class="nav" id="nvNext" aria-label="Forward">&rarr;</button>
 </div>
 
+<div id="lw" aria-hidden="true">
+  <svg id="lwsvg"><path id="lwl" pathLength="1000"/></svg>
+  <i id="lwh"></i>
+</div>
 <div id="wipe" aria-hidden="true">
   <svg class="wghost" viewBox="0 0 90 90"><path d="M30 0h30v30h30v30H60v30H30V60H0V30h30z"/></svg>
 </div>
@@ -1017,6 +1036,20 @@ function go(s){
     var w=$("#wipe");
     w.classList.remove("run"); void w.offsetWidth; w.classList.add("run");
     setTimeout(function(){ goNow(s); },570);
+    return;
+  }
+  if(s==="A" && STATE==="0" && !RM){
+    var lw=$("#lw"), lwl=$("#lwl"), lwh=$("#lwh");
+    /* the comet travels at the exact height where the road is about to live */
+    var road=$("#road");
+    var y=road ? road.getBoundingClientRect().top+196 : innerHeight*0.42;
+    lwl.setAttribute("d","M -80 "+y+" H "+(innerWidth+80));
+    lwh.style.top=(y-7)+"px";
+    lwh.animate([{left:"-60px"},{left:(innerWidth+60)+"px"}],
+      {duration:1050,easing:"cubic-bezier(.65,.05,.36,1)",fill:"both"});
+    lw.classList.remove("run"); void lw.offsetWidth; lw.classList.add("run");
+    setTimeout(function(){ goNow("A"); },330);
+    setTimeout(function(){ lw.classList.remove("run"); },1250);
     return;
   }
   goNow(s);
