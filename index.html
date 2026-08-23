@@ -567,10 +567,7 @@ var MS=[
  {d:"2025-06-01",lab:"From Q2 2025",t:"Internal drafting ownership",st:"done",
   txt:"The ICAs and ICC agreed to divide the SOPs between them and mobilize internal expertise."},
  {d:"2026-05-15",lab:"Mid-May 2026",t:"Consultant onboarded",st:"done",
-  pts:["One-to-one meetings with ICAs",
-       "Group exercise with ICAs",
-       "Conversations with country finance focal points, country managers, and other colleagues in other departments"],
-  txt:"Information and documents from the ICAs and selected Country Finance teams were consolidated into draft SOPs."},
+  txt:"One-to-one meetings and a group exercise with the ICAs, alongside conversations with country finance focal points, Country Managers and colleagues in other departments. Emails, dashboards and documents from the ICAs and selected Country Finance teams were consolidated into draft SOPs."},
  {d:"2026-06-05",lab:"May to July 2026",t:"Desk review",st:"done",
   txt:"International Finance, Grants and Project Cycle, and administrative documents. Atlas and Kompas."},
  {d:"2026-07-16",lab:"16 July 2026",t:"Draft 0 submitted",st:"done",
@@ -586,7 +583,7 @@ var MS=[
  {d:"2026-11-01",lab:"1 November 2026",t:"Change request submissions and log",st:"fut",
   txt:"Subject to approval and feasibility. Users apply the SOPs in practice and submit change requests. Super-users appointed. Awareness and training with country finance teams, Country Managers, Finance and International Department units. Publish and communicate."},
  {d:"2027-01-31",lab:"31 January 2027",t:"Alignment with the new ID structure",st:"fut",
-  txt:"End of the testing phase. The period also allows the International Department to finalise and announce its restructuring."},
+  txt:"Further alignment with the new International Department structure, with any needed changes and edits applied."},
  {d:"2027-03-31",lab:"End Q1 2027",t:"Fully functional",st:"fut",
   txt:"Final revision on pilot feedback, publication of the final versions, and wide communication to all stakeholders. Then continuous maintenance, led by the appointed super-users."}
 ];
@@ -657,8 +654,8 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
     var W=rd.clientWidth||1000;
     function slotFor(i){ if(i<4) return px(MS[i].d); return 38+(i-4)*(58.5/(MS.length-5)); }
     var x0=(slotFor(9)+slotFor(10))/2*W/100+14, AXY=196;
-    /* merge back through the free gap just before the Publication label */
-    var xm=(slotFor(12)+slotFor(13))/2*W/100+26;
+    /* merge back before the Fully functional label so the curves never cross its text */
+    var xm=Math.min((slotFor(12)+slotFor(13))/2*W/100+26, slotFor(13)*W/100-96);
     var L1=340, L2=374;
     brsvg.setAttribute("viewBox","0 0 "+W+" 392");
     brsvg.setAttribute("width",W); brsvg.setAttribute("height",392);
