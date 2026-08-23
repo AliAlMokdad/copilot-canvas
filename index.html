@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canvas</title>
+<style>
+  :root{
+    --cyan:#00B7FF;
+    --blue:#2870EA;
+    --violet:#8E51E8;
+    --pink:#E9498A;
+    --paper:#FFFFFF;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--paper);
+    font-family:"Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,sans-serif;
+    color:#1B1C1E;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  /* the wash: four soft Copilot-coloured fields, barely there */
+  .wash{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background:
+      radial-gradient(58vw 52vw at 12% 8%,  rgba(0,183,255,.070), transparent 62%),
+      radial-gradient(52vw 48vw at 88% 14%, rgba(40,112,234,.055), transparent 62%),
+      radial-gradient(56vw 54vw at 76% 88%, rgba(142,81,232,.060), transparent 64%),
+      radial-gradient(50vw 46vw at 18% 92%, rgba(233,73,138,.045), transparent 62%);
+  }
+
+  /* a whisper of grain so the gradients never band */
+  .grain{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    opacity:.020;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  main{position:relative;z-index:2;min-height:100%}
+</style>
+</head>
+<body>
+  <div class="wash" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <main></main>
+</body>
+</html>
