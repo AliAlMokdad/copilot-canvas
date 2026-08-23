@@ -161,13 +161,16 @@ body.entered #s0 .in{opacity:0}
 .tdmk.dn{top:219px}
 .msw.seen .tdmk{opacity:1}
 @media (prefers-reduced-motion:reduce){.msw.seen .ms.tdy::after{animation:none;opacity:.6}}
-.gapmark{position:absolute;top:122px;height:22px;border-left:1px dashed #D9CBC3;border-right:1px dashed #D9CBC3;opacity:0;transition:opacity .8s var(--e)}
+/* the stalled stretch: dashed brackets frame the period through the line,
+   the story told beneath it at a size the room can read */
+.gapmark{position:absolute;top:122px;height:160px;border-left:1px dashed #D9CBC3;border-right:1px dashed #D9CBC3;opacity:0;transition:opacity .8s var(--e)}
 .gapmark.seen{opacity:1}
-.gapnote{position:absolute;top:88px;left:50%;transform:translateX(-50%);width:max-content;max-width:min(300px,22vw);
-  text-align:center;font-size:12px;line-height:1.42;color:#8F7059}
-.gapmark span{position:absolute;top:-14px;left:50%;transform:translateX(-50%);
-  font-family:var(--serif);font-style:italic;font-size:16px;letter-spacing:.34em;
-  color:#8A6F60;white-space:nowrap;padding:0 10px}
+.gapmark span{position:absolute;top:100px;left:50%;transform:translateX(-50%);
+  font-family:var(--serif);font-style:italic;font-size:clamp(17px,1.5vw,21px);font-weight:600;letter-spacing:.16em;
+  color:#6E5240;white-space:nowrap;padding:0 10px}
+.gapnote{position:absolute;top:138px;left:50%;transform:translateX(-50%);width:max-content;max-width:min(360px,25vw);
+  text-align:center;font-size:13.5px;line-height:1.5;color:#84685A}
+@media (max-width:1280px){.gapnote{max-width:200px;font-size:12.5px}}
 
 /* the parallel workstreams */
 .brsvg{position:absolute;inset:0;pointer-events:none;overflow:visible}
