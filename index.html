@@ -77,9 +77,9 @@ body.entered #topbar{opacity:1;transform:none;visibility:visible;transition:opac
 /* ---------- state 0 : the cover ---------- */
 #s0{background:radial-gradient(120% 90% at 50% 12%, var(--red-hi) 0%, var(--red) 42%, #8E1016 76%, var(--red-deep) 100%)}
 #s0 .frame{position:absolute;inset:26px;border:1px solid rgba(255,255,255,.16);pointer-events:none}
-#s0 .ghost{position:absolute;right:-6%;bottom:-14%;width:46vmin;height:46vmin;pointer-events:none;opacity:.05}
+#s0 .ghost{position:absolute;right:-6%;bottom:-14%;width:46vmin;height:46vmin;pointer-events:none;opacity:.07}
 #s0 .ghost path{fill:#fff}
-#s0 .in{position:absolute;left:clamp(48px,9vw,140px);top:50%;transform:translateY(-54%);max-width:900px;transition:opacity .5s var(--e)}
+#s0 .in{position:absolute;left:clamp(72px,11vw,190px);top:50%;transform:translateY(-54%);max-width:900px;transition:opacity .5s var(--e)}
 body.entered #s0 .in{opacity:0}
 .cv-logo{display:flex;align-items:center;gap:14px;margin-bottom:clamp(40px,8vh,86px);opacity:0;animation:up .9s var(--e) .15s both}
 .cv-logo .cr{width:52px;height:52px;border-radius:9px;background:#fff;display:grid;place-items:center;box-shadow:0 8px 30px rgba(0,0,0,.25)}
@@ -97,25 +97,25 @@ body.entered #s0 .in{opacity:0}
 .pill:hover{background:var(--gold);border-color:var(--gold);color:var(--red-deep)}
 .pill:hover .n,.pill:hover .ar{color:var(--red-deep)}
 .pill:hover .ar{transform:translateX(4px)}
-#s0 .foot{position:absolute;left:clamp(48px,9vw,140px);right:clamp(48px,9vw,140px);bottom:52px;border-top:1px solid rgba(222,197,131,.4);padding-top:16px;font-family:var(--mono);font-size:13px;letter-spacing:.09em;color:#EBD9A8;display:flex;justify-content:space-between;gap:20px;opacity:0;animation:up 1s var(--e) .9s both}
+#s0 .foot{position:absolute;left:clamp(72px,11vw,190px);right:clamp(72px,11vw,190px);bottom:52px;border-top:1px solid rgba(222,197,131,.4);padding-top:16px;font-family:var(--mono);font-size:13px;letter-spacing:.09em;color:#EBD9A8;display:flex;justify-content:space-between;gap:20px;opacity:0;animation:up 1s var(--e) .9s both}
 @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
 /* ghost pages: the documents themselves, drifting far behind the glass */
 .gpgs{position:absolute;inset:0;pointer-events:none;transition:transform 1.6s var(--e)}
-.gpg{position:absolute;border-radius:6px;background:rgba(255,255,255,.024);
-  border:1px solid rgba(255,255,255,.04)}
-.gpg::before,.gpg::after{content:"";position:absolute;left:12%;right:14%;height:2px;background:rgba(255,255,255,.042)}
+.gpg{position:absolute;border-radius:6px;background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.05)}
+.gpg::before,.gpg::after{content:"";position:absolute;left:12%;right:14%;height:2px;background:rgba(255,255,255,.052)}
 .gpg::before{top:14%}
 .gpg::after{top:22%;right:32%}
 .g1{width:22vmin;height:30vmin;right:16%;top:7%;transform:rotate(-9deg);animation:gfloat 52s ease-in-out infinite alternate}
 .g2{width:18vmin;height:25vmin;right:8%;top:26%;transform:rotate(7deg);animation:gfloat 64s ease-in-out -20s infinite alternate-reverse}
 .g3{width:13vmin;height:18vmin;right:36%;top:44%;transform:rotate(-4deg);animation:gfloat 74s ease-in-out -40s infinite alternate}
 /* the deeper layer: fainter still, further behind */
-.g4,.g5,.g6{background:rgba(255,255,255,.016);border-color:rgba(255,255,255,.027)}
-.g4::before,.g4::after,.g5::before,.g5::after,.g6::before,.g6::after{background:rgba(255,255,255,.028)}
+.g4,.g5,.g6{background:rgba(255,255,255,.02);border-color:rgba(255,255,255,.034)}
+.g4::before,.g4::after,.g5::before,.g5::after,.g6::before,.g6::after{background:rgba(255,255,255,.035)}
 .g4{width:10vmin;height:14vmin;right:27%;top:10%;transform:rotate(12deg);animation:gfloat 88s ease-in-out -12s infinite alternate-reverse}
 .g5{width:16vmin;height:22vmin;right:1%;top:33%;transform:rotate(-6deg);animation:gfloat 96s ease-in-out -55s infinite alternate}
-.g6{width:8vmin;height:11vmin;right:45%;top:23%;transform:rotate(5deg);animation:gfloat 80s ease-in-out -30s infinite alternate-reverse}
+.g6{width:8vmin;height:11vmin;right:33%;top:58%;transform:rotate(5deg);animation:gfloat 80s ease-in-out -30s infinite alternate-reverse}
 @keyframes gfloat{from{margin-top:0}to{margin-top:26px}}
 @media (prefers-reduced-motion:reduce){.gpg{animation:none}}
 
@@ -286,7 +286,7 @@ body.stQ .mk .wt span{color:rgba(255,255,255,.72)}
 /* the document shadows read a touch stronger on the questions card */
 #sQ .gpg{background:rgba(255,255,255,.032);border-color:rgba(255,255,255,.052)}
 #sQ .gpg::before,#sQ .gpg::after{background:rgba(255,255,255,.055)}
-#sQ .qin{position:absolute;left:clamp(48px,9vw,140px);top:50%;transform:translateY(-54%);max-width:900px}
+#sQ .qin{position:absolute;left:clamp(72px,11vw,190px);top:50%;transform:translateY(-54%);max-width:900px}
 .q-eye{font-family:var(--mono);font-size:clamp(15px,1.6vw,20px);font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);text-shadow:0 1px 0 rgba(0,0,0,.15);margin-bottom:22px;opacity:0}
 .q-title{font-family:var(--serif);font-size:clamp(56px,7.6vw,110px);line-height:1.02;font-weight:600;letter-spacing:-.02em;color:#FBF3F0;margin:0;opacity:0}
 .q-lines{margin-top:38px;display:flex;flex-direction:column;gap:17px}
@@ -294,7 +294,7 @@ body.stQ .mk .wt span{color:rgba(255,255,255,.72)}
 .q-lines i:nth-child(1){width:min(360px,30vw);background:rgba(222,197,131,.8)}
 .q-lines i:nth-child(2){width:min(230px,19vw);background:rgba(222,197,131,.55)}
 .q-lines i:nth-child(3){width:min(130px,11vw);background:rgba(222,197,131,.35)}
-#sQ .qfoot{position:absolute;left:clamp(48px,9vw,140px);right:clamp(48px,9vw,140px);bottom:52px;border-top:1px solid rgba(222,197,131,.4);padding-top:16px;font-family:var(--mono);font-size:13px;letter-spacing:.09em;color:#EBD9A8;display:flex;justify-content:space-between;gap:20px;opacity:0}
+#sQ .qfoot{position:absolute;left:clamp(72px,11vw,190px);right:clamp(72px,11vw,190px);bottom:52px;border-top:1px solid rgba(222,197,131,.4);padding-top:16px;font-family:var(--mono);font-size:13px;letter-spacing:.09em;color:#EBD9A8;display:flex;justify-content:space-between;gap:20px;opacity:0}
 #sQ.reveal .q-eye{animation:up .9s var(--e) .35s both}
 #sQ.reveal .q-title{animation:up 1.05s var(--e) .5s both}
 #sQ.reveal .q-lines i{animation:qline .9s var(--e) both}
