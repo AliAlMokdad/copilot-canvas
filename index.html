@@ -104,13 +104,13 @@ body.entered #s0 .in{opacity:0}
 
 /* ---------- the road ---------- */
 #roadzone{position:relative;margin-top:6px;cursor:pointer}
-.road{position:relative;height:300px}
-.axis{position:absolute;left:0;right:0;top:150px;height:2px;background:#D8C6BE}
+.road{position:relative;height:392px;margin-inline:calc(50% - 47vw);width:94vw}
+.axis{position:absolute;left:0;right:0;top:196px;height:2px;background:#D8C6BE}
 .axis .done{position:absolute;left:0;top:-1px;height:4px;border-radius:2px;background:linear-gradient(90deg,rgba(186,23,28,.35),var(--red));width:0;transition-property:width;transition-timing-function:var(--e)}
-.yr{position:absolute;top:178px;transform:translateX(-50%);font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:.04em;color:#C4AB9D}
+.yr{position:absolute;top:348px;transform:translateX(-50%);font-family:var(--serif);font-size:27px;font-weight:600;letter-spacing:.04em;color:#C9AF9F}
 .yr::before{content:"";position:absolute;left:50%;top:-32px;width:1px;height:24px;background:var(--hair)}
-.msw{position:absolute;top:0;height:300px}
-.ms{position:absolute;top:150px;left:0;transform:translate(-50%,-50%);width:26px;height:26px;display:grid;place-items:center;z-index:3;opacity:0;transition:opacity .4s var(--e)}
+.msw{position:absolute;top:0;height:392px}
+.ms{position:absolute;top:196px;left:0;transform:translate(-50%,-50%);width:26px;height:26px;display:grid;place-items:center;z-index:3;opacity:0;transition:opacity .4s var(--e)}
 .msw.seen .ms{opacity:1}
 .ms::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--ink);transition:.35s var(--e)}
 .msw.act .ms::after{background:var(--red);width:15px;height:15px;box-shadow:0 0 0 6px rgba(186,23,28,.14)}
@@ -121,8 +121,8 @@ body.entered #s0 .in{opacity:0}
 .msw.act .rlb b{color:var(--red)}
 .lstem{position:absolute;left:0;width:1px;background:var(--hair);transform:translateX(-.5px);opacity:0;transition:opacity .5s var(--e) .15s}
 .msw.seen .lstem{opacity:1}
-.rlb.u1{top:104px} .rlb.u2{top:62px} .rlb.u3{top:20px}
-.rlb.d1{top:190px} .rlb.d2{top:232px} .rlb.d3{top:274px} .rlb.d4{top:274px}
+.rlb.u1{bottom:202px} .rlb.u2{bottom:260px} .rlb.u3{bottom:318px}
+.rlb.d1{top:234px} .rlb.d2{top:292px} .rlb.d3{top:350px}
 .gapmark{position:absolute;top:122px;height:22px;border-left:1px dashed #D9CBC3;border-right:1px dashed #D9CBC3;opacity:0;transition:opacity .8s var(--e)}
 .gapmark.seen{opacity:1}
 .gapmark span{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7A5F52;font-weight:500;white-space:nowrap;background:var(--paper);padding:0 8px}
@@ -200,6 +200,7 @@ body.entered.stA #ctl{display:flex}
 #rclose{position:absolute;top:28px;right:34px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);font-size:18px;color:#fff;display:grid;place-items:center;transition:.3s var(--e)}
 #rclose:hover{background:#fff;color:var(--red);transform:rotate(90deg)}
 
+@media (max-height:840px){ #fcover{width:150px} }
 @media (max-width:1080px){
   .before{grid-template-columns:1fr;gap:30px}
   .arts{grid-template-columns:1fr 1fr;gap:30px}
@@ -484,22 +485,28 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
 
   /* collision-free lanes */
   var LANE=[
-    {c:"u1",top:98, dir:-1},{c:"d1",top:190,dir:1},
-    {c:"u2",top:56, dir:-1},{c:"d2",top:232,dir:1},
-    {c:"u3",top:14, dir:-1},{c:"d3",top:274,dir:1}
+    {c:"u1",b:202,dir:-1},{c:"d1",top:234,dir:1},
+    {c:"u2",b:260,dir:-1},{c:"d2",top:292,dir:1},
+    {c:"u3",b:318,dir:-1},{c:"d3",top:350,dir:1}
   ];
+  var H=392, AX=196;
   function place(){
-    var W=rd.clientWidth||1000, LW=142, GAP=10, last=[];
+    var W=rd.clientWidth||1000, LW=142, GAP=12, last=[];
     LANE.forEach(function(){ last.push(-1e9); });
     ROWS.forEach(function(o){
       var cx=o.pc/100*W, l=cx-LW/2, chosen=-1;
       for(var k=0;k<LANE.length;k++){ if(l>last[k]+GAP){ chosen=k; break; } }
       if(chosen<0){ chosen=0; for(var j=1;j<LANE.length;j++) if(last[j]<last[chosen]) chosen=j; }
       last[chosen]=l+LW;
-      o.lb.className="rlb "+LANE[chosen].c;
-      var t=LANE[chosen].top;
-      if(LANE[chosen].dir<0){ o.stem.style.top=(t+40)+"px"; o.stem.style.height=Math.max(0,150-t-42)+"px"; }
-      else { o.stem.style.top="152px"; o.stem.style.height=Math.max(0,t-158)+"px"; }
+      var L=LANE[chosen];
+      o.lb.className="rlb "+L.c;
+      if(L.dir<0){
+        /* label bottom edge sits at H-L.b; the stem ties it to the axis */
+        var yb=H-L.b+4;
+        o.stem.style.top=yb+"px"; o.stem.style.height=Math.max(0,AX-yb-4)+"px";
+      } else {
+        o.stem.style.top=(AX+2)+"px"; o.stem.style.height=Math.max(0,L.top-AX-8)+"px";
+      }
     });
   }
   place();
@@ -541,8 +548,8 @@ function setBeat(b){
     o.w.classList.toggle("act", i===b);
   });
   /* the line draws with distance-proportional time, so the long stall is felt */
-  var target = b<0 ? 0 : (b>=MS.length ? 96.5 : ROWS[b].pc);
-  var from = prev<0 ? 0 : (prev>=MS.length ? 96.5 : ROWS[prev].pc);
+  var target = b<0 ? 0 : (b>=MS.length ? ROWS[MS.length-1].pc : ROWS[b].pc);
+  var from = prev<0 ? 0 : (prev>=MS.length ? ROWS[MS.length-1].pc : ROWS[prev].pc);
   var dur = RM ? 0 : Math.min(2200, 300 + Math.abs(target-from)*36);
   doneBar.style.transitionDuration=dur+"ms";
   doneBar.style.width=target+"%";
@@ -550,7 +557,7 @@ function setBeat(b){
   fhint.style.opacity = b<0 ? "1" : "0";
   fcover.classList.toggle("in", b>=DRAFT1_IDX);
   renderFocus(b);
-  cnt.textContent = b<0 ? "" : (b>=MS.length ? "close" : ((b+1<10?"0":"")+(b+1)+" / "+MS.length));
+  cnt.textContent = (b<0||b>=MS.length) ? "" : ((b+1<10?"0":"")+(b+1)+" / "+MS.length);
 }
 $("#nvNext").addEventListener("click",function(e){ e.stopPropagation(); setBeat(BEAT+1); });
 $("#nvPrev").addEventListener("click",function(e){ e.stopPropagation(); setBeat(BEAT-1); });
