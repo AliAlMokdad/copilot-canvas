@@ -99,14 +99,19 @@ body.entered #s0 .in{opacity:0}
 .g1{width:22vmin;height:30vmin;right:16%;top:7%;transform:rotate(-9deg);animation:gfloat 52s ease-in-out infinite alternate}
 .g2{width:18vmin;height:25vmin;right:8%;top:26%;transform:rotate(7deg);animation:gfloat 64s ease-in-out -20s infinite alternate-reverse}
 .g3{width:13vmin;height:18vmin;right:36%;top:44%;transform:rotate(-4deg);animation:gfloat 74s ease-in-out -40s infinite alternate}
+/* the deeper layer: fainter still, further behind */
+.g4,.g5,.g6{background:rgba(255,255,255,.011);border-color:rgba(255,255,255,.019)}
+.g4::before,.g4::after,.g5::before,.g5::after,.g6::before,.g6::after{background:rgba(255,255,255,.02)}
+.g4{width:10vmin;height:14vmin;right:27%;top:10%;transform:rotate(12deg);animation:gfloat 88s ease-in-out -12s infinite alternate-reverse}
+.g5{width:16vmin;height:22vmin;right:2%;top:56%;transform:rotate(-6deg);animation:gfloat 96s ease-in-out -55s infinite alternate}
+.g6{width:8vmin;height:11vmin;right:45%;top:23%;transform:rotate(5deg);animation:gfloat 80s ease-in-out -30s infinite alternate-reverse}
 @keyframes gfloat{from{margin-top:0}to{margin-top:26px}}
 @media (prefers-reduced-motion:reduce){.gpg{animation:none}}
 
 /* the thread: the line leaves the etching, gathers the shadows, and feeds the word */
 #threadw{position:absolute;inset:0;pointer-events:none;transition:transform 1.2s var(--e)}
 #threadsvg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-#thr{fill:none;stroke:rgba(222,197,131,.68);stroke-width:1.5;stroke-linecap:round;
-  filter:drop-shadow(0 0 6px rgba(222,197,131,.35));
+#thr{fill:none;stroke:rgba(222,197,131,.34);stroke-width:1.1;stroke-linecap:round;
   stroke-dasharray:1000;stroke-dashoffset:1000;
   animation:thrdraw 11s var(--e) 1.6s infinite}
 @keyframes thrdraw{
@@ -422,7 +427,7 @@ ANTI_SLOP_BRIEF
       </div>
       <div id="threadw" aria-hidden="true"><svg id="threadsvg"><path id="thr" pathLength="1000"/></svg></div>
       <div class="gpgs" id="gpgs" aria-hidden="true">
-        <i class="gpg g1"></i><i class="gpg g2"></i><i class="gpg g3"></i>
+        <i class="gpg g1"></i><i class="gpg g2"></i><i class="gpg g3"></i><i class="gpg g4"></i><i class="gpg g5"></i><i class="gpg g6"></i>
       </div>
       <div class="etch" id="etch" aria-hidden="true">
         <svg viewBox="0 0 640 260">
