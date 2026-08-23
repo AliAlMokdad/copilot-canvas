@@ -122,22 +122,36 @@ body.entered #s0 .in{opacity:0}
 /* the thread: the line leaves the etching, gathers the shadows, and feeds the word */
 #threadw{position:absolute;inset:0;pointer-events:none;transition:transform 1.2s var(--e)}
 #threadsvg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-#thr{fill:none;stroke:rgba(222,197,131,.34);stroke-width:1.1;stroke-linecap:round;
-  stroke-dasharray:1000;stroke-dashoffset:1000;
-  animation:thrdraw 11s var(--e) 1.6s infinite}
-@keyframes thrdraw{
-  0%,22%{stroke-dashoffset:1000;opacity:1}
-  70%{stroke-dashoffset:0;opacity:1}
-  86%{stroke-dashoffset:0;opacity:1}
-  94%{opacity:0}
-  96%,100%{stroke-dashoffset:1000;opacity:0}}
+/* the comet: a bright head with a fading tail, fired from the road's end;
+   it circles each document once, glides to the word, and the word swallows the tail */
+.cm{fill:none;stroke-linecap:round}
+.cmA{stroke:rgba(255,243,208,.9);stroke-width:1.8;stroke-dasharray:26 1000;stroke-dashoffset:26;animation:cmA 11s cubic-bezier(.3,.4,.4,1) 1.6s infinite}
+.cmB{stroke:rgba(222,197,131,.5);stroke-width:1.3;stroke-dasharray:70 1000;stroke-dashoffset:70;animation:cmB 11s cubic-bezier(.3,.4,.4,1) 1.6s infinite}
+.cmC{stroke:rgba(222,197,131,.22);stroke-width:1.1;stroke-dasharray:130 1000;stroke-dashoffset:130;animation:cmC 11s cubic-bezier(.3,.4,.4,1) 1.6s infinite}
+@keyframes cmA{0%,20%{stroke-dashoffset:26}70%{stroke-dashoffset:-974}73%,100%{stroke-dashoffset:-1000}}
+@keyframes cmB{0%,20%{stroke-dashoffset:70}70%{stroke-dashoffset:-930}74.5%,100%{stroke-dashoffset:-1000}}
+@keyframes cmC{0%,20%{stroke-dashoffset:130}70%{stroke-dashoffset:-870}77%,100%{stroke-dashoffset:-1000}}
+#thrhead{position:absolute;left:0;top:0;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;
+  background:radial-gradient(circle,#FFF3D0 0%,rgba(222,197,131,.9) 45%,rgba(222,197,131,0) 75%);
+  filter:drop-shadow(0 0 6px rgba(222,197,131,.85));
+  offset-rotate:0deg;opacity:0;
+  animation:thrhead 11s cubic-bezier(.3,.4,.4,1) 1.6s infinite}
+@keyframes thrhead{
+  0%,20%{offset-distance:0%;opacity:0}
+  22%{opacity:1}
+  69%{opacity:1}
+  70%{offset-distance:100%;opacity:0}
+  100%{offset-distance:100%;opacity:0}}
 .cv-title em{animation:up 1s var(--e) .42s both, wordfeed 11s var(--e) 1.6s infinite}
 @keyframes wordfeed{
   0%,62%{text-shadow:none}
   74%{text-shadow:0 0 30px rgba(222,197,131,.6),0 0 8px rgba(222,197,131,.35)}
   86%{text-shadow:0 0 22px rgba(222,197,131,.45),0 0 6px rgba(222,197,131,.25)}
   94%,100%{text-shadow:none}}
-@media (prefers-reduced-motion:reduce){#thr{animation:none;stroke-dashoffset:0}.cv-title em{animation:up 1s var(--e) .42s both}}
+@media (prefers-reduced-motion:reduce){
+  .cmA,.cmC,#thrhead{display:none}
+  .cmB{animation:none;stroke-dasharray:none;stroke-dashoffset:0;stroke:rgba(222,197,131,.3)}
+  .cv-title em{animation:up 1s var(--e) .42s both}}
 @media (max-width:1180px){#threadw{display:none}}
 
 /* the etching: the journey engraved in gold on the cover's field */
@@ -496,7 +510,7 @@ ANTI_SLOP_BRIEF
           <button class="pill" data-go="B"><span class="n">02</span> Draft 1 <span class="ar">&rarr;</span></button>
         </div>
       </div>
-      <div id="threadw" aria-hidden="true"><svg id="threadsvg"><path id="thr" pathLength="1000"/></svg></div>
+      <div id="threadw" aria-hidden="true"><svg id="threadsvg"><path class="cm cmC" pathLength="1000"/><path class="cm cmB" pathLength="1000"/><path class="cm cmA" pathLength="1000"/></svg><div id="thrhead"></div></div>
       <div class="gpgs" id="gpgs" aria-hidden="true">
         <i class="gpg g1"></i><i class="gpg g2"></i><i class="gpg g3"></i><i class="gpg g4"></i><i class="gpg g5"></i><i class="gpg g6"></i>
       </div>
@@ -689,41 +703,45 @@ function px(d){
 
 /* ---------- the thread path, rebuilt from the live layout ---------- */
 function buildThread(){
-  var svg=$("#threadsvg"), pth=$("#thr");
-  if(!svg||!pth) return;
+  var svg=$("#threadsvg");
+  if(!svg) return;
+  var cms=svg.querySelectorAll(".cm"), head=$("#thrhead");
+  if(!cms.length) return;
   var e=$("#etch"), g1=document.querySelector(".g1"), g2=document.querySelector(".g2"), g3=document.querySelector(".g3");
   var em=document.querySelector(".cv-title em");
   if(!e||!g1||!em) return;
-  var er=e.getBoundingClientRect(), r1=g1.getBoundingClientRect(), r2=g2.getBoundingClientRect(), r3=g3.getBoundingClientRect(), rw=em.getBoundingClientRect();
-  /* waypoints: leave the line, circle the pages, arrive at the word */
-  /* the true rotated corners of a drifting page */
-  function corners(el){
+  var er=e.getBoundingClientRect(), r3=g3.getBoundingClientRect(), rw=em.getBoundingClientRect();
+  /* a full circle around a drifting page, entered from wherever the comet is coming from */
+  function orbit(el, from){
     var r=el.getBoundingClientRect();
     var cx=(r.left+r.right)/2, cy=(r.top+r.bottom)/2;
-    var w=el.offsetWidth/2, h=el.offsetHeight/2;
-    var m=new DOMMatrixReadOnly(getComputedStyle(el).transform);
-    function c(i,j){ return [cx+i*w*m.a+j*h*m.c, cy+i*w*m.b+j*h*m.d]; }
-    return {tl:c(-1,-1), tr:c(1,-1), br:c(1,1), bl:c(-1,1)};
+    var rx=r.width/2+16, ry=r.height/2+16;
+    var a0=Math.atan2(from[1]-cy, from[0]-cx);
+    var out=[];
+    for(var k=0;k<=8;k++){
+      var a=a0+k*(Math.PI*2/8);
+      out.push([cx+Math.cos(a)*rx, cy+Math.sin(a)*ry]);
+    }
+    return out;
   }
-  var c2=corners(g2), c1=corners(g1), c3=corners(g3);
-  /* one serpentine: leave the road, kiss each document once, dive into the word */
-  var pts=[
-    [er.right-er.width*0.035, er.top+er.height*0.5],
-    [(c2.tl[0]+c2.bl[0])/2, (c2.tl[1]+c2.bl[1])/2],
-    c1.bl,
-    c3.tr,
-    [(rw.right+r3.left)/2, rw.top-40],
-    [rw.right+16, rw.top+rw.height*0.55]
-  ];
+  /* fired from the road's end: one circle around each document, then the slow glide to the word */
+  var p0=[er.right-er.width*0.035, er.top+er.height*0.5];
+  var pts=[p0];
+  var o1=orbit(g2,p0);                pts=pts.concat(o1);
+  var o2=orbit(g1,o1[o1.length-1]);   pts=pts.concat(o2);
+  var o3=orbit(g3,o2[o2.length-1]);   pts=pts.concat(o3);
+  pts.push([(rw.right+r3.left)/2, rw.top-40]);
+  pts.push([rw.right+16, rw.top+rw.height*0.55]);
   /* catmull-rom to bezier */
   var d="M "+pts[0][0].toFixed(1)+" "+pts[0][1].toFixed(1);
   for(var i=0;i<pts.length-1;i++){
-    var p0=pts[Math.max(0,i-1)], p1=pts[i], p2=pts[i+1], p3=pts[Math.min(pts.length-1,i+2)];
-    var c1=[p1[0]+(p2[0]-p0[0])/6, p1[1]+(p2[1]-p0[1])/6];
-    var c2=[p2[0]-(p3[0]-p1[0])/6, p2[1]-(p3[1]-p1[1])/6];
-    d+=" C "+c1[0].toFixed(1)+" "+c1[1].toFixed(1)+", "+c2[0].toFixed(1)+" "+c2[1].toFixed(1)+", "+p2[0].toFixed(1)+" "+p2[1].toFixed(1);
+    var p0k=pts[Math.max(0,i-1)], p1=pts[i], p2=pts[i+1], p3=pts[Math.min(pts.length-1,i+2)];
+    var q1=[p1[0]+(p2[0]-p0k[0])/6, p1[1]+(p2[1]-p0k[1])/6];
+    var q2=[p2[0]-(p3[0]-p1[0])/6, p2[1]-(p3[1]-p1[1])/6];
+    d+=" C "+q1[0].toFixed(1)+" "+q1[1].toFixed(1)+", "+q2[0].toFixed(1)+" "+q2[1].toFixed(1)+", "+p2[0].toFixed(1)+" "+p2[1].toFixed(1);
   }
-  pth.setAttribute("d",d);
+  Array.prototype.forEach.call(cms,function(p){ p.setAttribute("d",d); });
+  if(head) head.style.offsetPath='path("'+d+'")';
 }
 buildThread();
 addEventListener("resize",buildThread,{passive:true});
