@@ -42,6 +42,13 @@ body.entered .xc.on{opacity:1}
 #xc1 .arm{fill:rgba(186,23,28,.020)} #xc2 .arm{fill:rgba(186,23,28,.012)}
 @media (prefers-reduced-motion:reduce){.xc{display:none}} @media (hover:none){.xc{display:none}}
 
+/* the opening: the room breathes in, once */
+#dawn{position:fixed;inset:0;z-index:70;pointer-events:none;
+  background:radial-gradient(120% 100% at 50% 30%,rgba(22,4,4,.94) 0%,#120303 100%);
+  animation:dawnlift 1.7s cubic-bezier(.55,.06,.45,.94) .25s both}
+@keyframes dawnlift{from{opacity:1}to{opacity:0}}
+@media (prefers-reduced-motion:reduce){#dawn{display:none}}
+
 /* ---------- shell ---------- */
 #shell{position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;pointer-events:none}
 #shell > *{pointer-events:auto}
@@ -61,6 +68,9 @@ body.entered #topbar{opacity:1;transform:none;visibility:visible;transition:opac
 .seg:hover{color:var(--ink)}
 .seg.on{color:var(--ink)}
 #views{position:absolute;inset:0}
+/* the stalled months, felt: the tab dims while the line crawls the gap, colour returns with the consultant */
+#sA .wrap{transition:filter 1.1s var(--e)}
+#sA.stall .wrap{filter:saturate(.45) brightness(.96);transition:filter .7s var(--e)}
 .view{position:absolute;inset:0;opacity:0;pointer-events:none;visibility:hidden;transition:opacity .55s var(--e),visibility 0s linear .55s;overflow:hidden}
 .view.on{opacity:1;pointer-events:auto;visibility:visible;transition:opacity .55s var(--e),visibility 0s}
 .wrap{max-width:1300px;margin:0 auto;padding:84px 44px 70px}
@@ -184,6 +194,17 @@ body.entered #s0 .in{opacity:0}
 .msw.seen .lstem{opacity:1}
 .rlb.u1{bottom:216px} .rlb.u2{bottom:280px} .rlb.u3{bottom:344px}
 .rlb.d1{top:248px} .rlb.d2{top:312px} .rlb.d3{top:368px}
+/* the meeting sees itself: the milestone that is this room, today */
+.ms.tdy::after{content:"";position:absolute;inset:-9px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(222,168,67,.6) 0%,rgba(222,168,67,0) 68%);opacity:0}
+.msw.seen .ms.tdy::after{animation:embr 3.2s ease-in-out infinite}
+@keyframes embr{0%,100%{opacity:.3}50%{opacity:.95}}
+.tdmk{position:absolute;left:0;top:160px;transform:translateX(-50%);font-family:var(--mono);
+  font-size:10px;font-weight:500;letter-spacing:.24em;color:#A8781E;white-space:nowrap;
+  opacity:0;transition:opacity .6s var(--e) .3s}
+.tdmk.dn{top:219px}
+.msw.seen .tdmk{opacity:1}
+@media (prefers-reduced-motion:reduce){.msw.seen .ms.tdy::after{animation:none;opacity:.6}}
 .gapmark{position:absolute;top:122px;height:22px;border-left:1px dashed #D9CBC3;border-right:1px dashed #D9CBC3;opacity:0;transition:opacity .8s var(--e)}
 .gapmark.seen{opacity:1}
 .gapmark span{position:absolute;top:-14px;left:50%;transform:translateX(-50%);
@@ -383,6 +404,7 @@ button,.mk,#roadzone,#fcover,.xr,.art,#dr.on,#d0.on{cursor:url("data:image/svg+x
 </style>
 </head>
 <body>
+<div id="dawn" aria-hidden="true"></div>
 <!--
 ANTI_SLOP_BRIEF
   bold move:  the site IS the document. It opens on the Draft 1 cover itself, and the
@@ -720,6 +742,7 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
     if(i<4) return px(MS[i].d);
     return 38 + (i-4)*(58.5/(MS.length-5));
   }
+  var TDM=null, TDI=-1;
   MS.forEach(function(m,i){
     var w=el("div","msw"); w.style.left=slot(i)+"%";
     var stem=el("div","lstem");
@@ -728,6 +751,7 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
     lb.appendChild(el("span","d",m.lab));
     lb.appendChild(el("b",null,m.t));
     w.appendChild(stem); w.appendChild(b); w.appendChild(lb);
+    if(m.st==="now"){ b.classList.add("tdy"); TDM=el("div","tdmk","TODAY"); w.appendChild(TDM); TDI=i; }
     rd.appendChild(w);
     ROWS.push({w:w,lb:lb,stem:stem,pc:slot(i)});
   });
@@ -757,6 +781,8 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
         o.stem.style.top=(AX+2)+"px"; o.stem.style.height=Math.max(0,L.top-AX-8)+"px";
       }
     });
+    /* the TODAY tag sits on the opposite side of the axis from its own label */
+    if(TDM && TDI>=0) TDM.classList.toggle("dn", /\bu\d/.test(ROWS[TDI].lb.className));
   }
   place();
   addEventListener("resize",place,{passive:true});
@@ -799,6 +825,13 @@ function setBeat(b){
   var dur = RM ? 0 : Math.min(2200, 300 + Math.abs(target-from)*36);
   doneBar.style.transitionDuration=dur+"ms";
   doneBar.style.width=target+"%";
+  /* the stalled months: the tab dims while the line crawls the gap, colour returns with the consultant */
+  if(!RM && b===4 && prev===3){
+    var sa=$("#sA");
+    sa.classList.add("stall");
+    clearTimeout(sa._stallT);
+    sa._stallT=setTimeout(function(){ sa.classList.remove("stall"); }, dur+120);
+  }
   gapEl.classList.toggle("seen", b>=4);
   rd2br(b);
   if(b===5 && prev<5) playDR();
