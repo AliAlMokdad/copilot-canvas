@@ -119,65 +119,7 @@ body.entered #s0 .in{opacity:0}
 @keyframes gfloat{from{margin-top:0}to{margin-top:26px}}
 @media (prefers-reduced-motion:reduce){.gpg{animation:none}}
 
-/* the thread: the line leaves the etching, gathers the shadows, and feeds the word */
-#threadw{position:absolute;inset:0;pointer-events:none;transition:transform 1.2s var(--e)}
-#threadsvg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-/* the comet: a bright head with a fading tail, fired from the road's end;
-   it circles each document once, glides to the word, and the word swallows the tail */
-.cm{fill:none;stroke-linecap:round}
-.cmA{stroke:rgba(255,243,208,.5);stroke-width:1.6;stroke-dasharray:26 1000;stroke-dashoffset:26;animation:cmA 11s cubic-bezier(.3,.4,.4,1) 1.6s infinite}
-.cmB{stroke:rgba(222,197,131,.28);stroke-width:1.2;stroke-dasharray:70 1000;stroke-dashoffset:70;animation:cmB 11s cubic-bezier(.3,.4,.4,1) 1.6s infinite}
-.cmC{stroke:rgba(222,197,131,.13);stroke-width:1.1;stroke-dasharray:130 1000;stroke-dashoffset:130;animation:cmC 11s cubic-bezier(.3,.4,.4,1) 1.6s infinite}
-@keyframes cmA{0%,20%{stroke-dashoffset:26}70%{stroke-dashoffset:-974}73%,100%{stroke-dashoffset:-1000}}
-@keyframes cmB{0%,20%{stroke-dashoffset:70}70%{stroke-dashoffset:-930}74.5%,100%{stroke-dashoffset:-1000}}
-@keyframes cmC{0%,20%{stroke-dashoffset:130}70%{stroke-dashoffset:-870}77%,100%{stroke-dashoffset:-1000}}
-#thrhead{position:absolute;left:0;top:0;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,243,208,.7) 0%,rgba(222,197,131,.5) 45%,rgba(222,197,131,0) 75%);
-  filter:drop-shadow(0 0 4px rgba(222,197,131,.45));
-  offset-rotate:0deg;opacity:0;
-  animation:thrhead 11s cubic-bezier(.3,.4,.4,1) 1.6s infinite}
-@keyframes thrhead{
-  0%,20%{offset-distance:0%;opacity:0}
-  22%{opacity:1}
-  69%{opacity:1}
-  70%{offset-distance:100%;opacity:0}
-  100%{offset-distance:100%;opacity:0}}
-.cv-title em{animation:up 1s var(--e) .42s both, wordfeed 11s var(--e) 1.6s infinite}
-@keyframes wordfeed{
-  0%,62%{text-shadow:none}
-  74%{text-shadow:0 0 30px rgba(222,197,131,.6),0 0 8px rgba(222,197,131,.35)}
-  86%{text-shadow:0 0 22px rgba(222,197,131,.45),0 0 6px rgba(222,197,131,.25)}
-  94%,100%{text-shadow:none}}
-@media (prefers-reduced-motion:reduce){
-  .cmA,.cmC,#thrhead{display:none}
-  .cmB{animation:none;stroke-dasharray:none;stroke-dashoffset:0;stroke:rgba(222,197,131,.3)}
-  .cv-title em{animation:up 1s var(--e) .42s both}}
-@media (max-width:1180px){#threadw{display:none}}
-
-/* the etching: the journey engraved in gold on the cover's field */
-.etch{position:absolute;right:clamp(40px,7vw,120px);top:50%;transform:translateY(-58%);
-  width:clamp(420px,40vw,700px);pointer-events:none;opacity:0;animation:up 1.4s var(--e) 1.1s both;
-  transition:transform 1.2s var(--e)}
-.etch svg{display:block;width:100%;height:auto;overflow:visible}
-.etch path,.etch circle{fill:none;stroke:rgba(222,197,131,.5);stroke-width:1.8}
-.et-nodes circle{fill:rgba(222,197,131,.6);stroke:none}
-.et-now{fill:#EFDFAE;stroke:none;animation:etnow 3s var(--e) infinite}
-@keyframes etnow{0%,100%{opacity:.55}50%{opacity:1}}
-.et-main{stroke-dasharray:592;stroke-dashoffset:592;animation:etdraw 11s var(--e) 1.6s infinite}
-.et-br1{stroke-dasharray:260;stroke-dashoffset:260;animation:etdraw2 11s var(--e) 1.6s infinite;stroke:rgba(222,197,131,.30)}
-.et-br2{stroke-dasharray:300;stroke-dashoffset:300;animation:etdraw3 11s var(--e) 1.6s infinite;stroke:rgba(222,197,131,.30)}
-.et-nodes{animation:etfade 11s var(--e) 1.6s infinite}
-.et-break{animation:etfade 11s var(--e) 1.6s infinite}
-@keyframes etdraw{0%{stroke-dashoffset:592}30%{stroke-dashoffset:0}86%{stroke-dashoffset:0;opacity:1}94%{opacity:0}96%,100%{stroke-dashoffset:592;opacity:0}}
-@keyframes etdraw2{0%,26%{stroke-dashoffset:260}48%{stroke-dashoffset:0}86%{stroke-dashoffset:0;opacity:1}94%{opacity:0}96%,100%{stroke-dashoffset:260;opacity:0}}
-@keyframes etdraw3{0%,30%{stroke-dashoffset:300}54%{stroke-dashoffset:0}86%{stroke-dashoffset:0;opacity:1}94%{opacity:0}96%,100%{stroke-dashoffset:300;opacity:0}}
-@keyframes etfade{0%,10%{opacity:0}34%{opacity:1}86%{opacity:1}94%,100%{opacity:0}}
-@media (prefers-reduced-motion:reduce){
-  .et-main,.et-br1,.et-br2{animation:none;stroke-dashoffset:0}
-  .et-nodes,.et-break{animation:none;opacity:1}
-  .et-now{animation:none}
-}
-@media (max-width:1180px){.etch{display:none}}
+.cv-title em{animation:up 1s var(--e) .42s both}
 
 /* ---------- shared heads ---------- */
 .aHead{padding:6px 0 0}
@@ -510,29 +452,8 @@ ANTI_SLOP_BRIEF
           <button class="pill" data-go="B"><span class="n">02</span> Draft 1 <span class="ar">&rarr;</span></button>
         </div>
       </div>
-      <div id="threadw" aria-hidden="true"><svg id="threadsvg"><path class="cm cmC" pathLength="1000"/><path class="cm cmB" pathLength="1000"/><path class="cm cmA" pathLength="1000"/></svg><div id="thrhead"></div></div>
       <div class="gpgs" id="gpgs" aria-hidden="true">
         <i class="gpg g1"></i><i class="gpg g2"></i><i class="gpg g3"></i><i class="gpg g4"></i><i class="gpg g5"></i><i class="gpg g6"></i>
-      </div>
-      <div class="etch" id="etch" aria-hidden="true">
-        <svg viewBox="0 0 640 260">
-          <path class="et-main" d="M 24 130 H 616"/>
-          <path class="et-br1" d="M 380 130 C 398 130, 392 176, 414 176 L 536 176 C 556 176, 552 130, 566 130"/>
-          <path class="et-br2" d="M 380 130 C 402 130, 396 210, 420 210 L 524 210 C 550 210, 548 130, 566 130"/>
-          <g class="et-break">
-            <path d="M 206 118 L 194 142"/>
-            <path d="M 216 118 L 204 142"/>
-          </g>
-          <g class="et-nodes">
-            <circle cx="44" cy="130" r="3.2"/><circle cx="72" cy="130" r="3.2"/>
-            <circle cx="104" cy="130" r="3.2"/><circle cx="136" cy="130" r="3.2"/>
-            <circle cx="246" cy="130" r="3.2"/><circle cx="282" cy="130" r="3.2"/>
-            <circle cx="318" cy="130" r="3.2"/><circle cx="354" cy="130" r="3.2"/>
-            <circle cx="380" cy="130" r="3.2"/><circle cx="452" cy="130" r="3.2"/>
-            <circle cx="524" cy="130" r="3.2"/><circle cx="616" cy="130" r="3.2"/>
-          </g>
-          <circle class="et-now" cx="318" cy="130" r="5"/>
-        </svg>
       </div>
       <div class="foot"><span>International Department Management And Finance Meeting</span><span>Update &middot; 27 August 2026</span></div>
     </section>
@@ -687,66 +608,17 @@ function px(d){
     b.style.transform="translate3d("+(bx-105)+"px,"+(by-105)+"px,0)";
     requestAnimationFrame(f);
   }
-  var etch=$("#etch"), gp=$("#gpgs"), thw=$("#threadw");
+  var gp=$("#gpgs");
   window.addEventListener("pointermove",function(e){
     if(e.pointerType==="touch") return;
     tx=e.clientX; ty=e.clientY;
-    if(etch && STATE==="0"){
+    if(gp && STATE==="0"){
       var dx=(tx/innerWidth-0.5)*-14, dy=(ty/innerHeight-0.5)*-10;
-      etch.style.transform="translateY(-58%) translate("+dx+"px,"+dy+"px)";
-      if(gp) gp.style.transform="translate("+(dx*0.45)+"px,"+(dy*0.45)+"px)";
-      if(thw) thw.style.transform="translate("+(dx*0.8)+"px,"+(dy*0.8)+"px)";
+      gp.style.transform="translate("+(dx*0.45)+"px,"+(dy*0.45)+"px)";
     }
     if(!seen){seen=true;ax=bx=tx;ay=by=ty;a.classList.add("on");b.classList.add("on");requestAnimationFrame(f);}
   },{passive:true});
 })();
-
-/* ---------- the thread path, rebuilt from the live layout ---------- */
-function buildThread(){
-  var svg=$("#threadsvg");
-  if(!svg) return;
-  var cms=svg.querySelectorAll(".cm"), head=$("#thrhead");
-  if(!cms.length) return;
-  var e=$("#etch"), g1=document.querySelector(".g1"), g2=document.querySelector(".g2"), g3=document.querySelector(".g3");
-  var em=document.querySelector(".cv-title em");
-  if(!e||!g1||!em) return;
-  var er=e.getBoundingClientRect(), r3=g3.getBoundingClientRect(), rw=em.getBoundingClientRect();
-  /* a full circle around a drifting page, entered from wherever the comet is coming from */
-  function orbit(el, from){
-    var r=el.getBoundingClientRect();
-    var cx=(r.left+r.right)/2, cy=(r.top+r.bottom)/2;
-    var rx=r.width/2+16, ry=r.height/2+16;
-    var a0=Math.atan2(from[1]-cy, from[0]-cx);
-    var out=[];
-    for(var k=0;k<=8;k++){
-      var a=a0+k*(Math.PI*2/8);
-      out.push([cx+Math.cos(a)*rx, cy+Math.sin(a)*ry]);
-    }
-    return out;
-  }
-  /* fired from the road's end: one circle around each document, then the slow glide to the word */
-  var p0=[er.right-er.width*0.035, er.top+er.height*0.5];
-  var pts=[p0];
-  var o1=orbit(g2,p0);                pts=pts.concat(o1);
-  var o2=orbit(g1,o1[o1.length-1]);   pts=pts.concat(o2);
-  var o3=orbit(g3,o2[o2.length-1]);   pts=pts.concat(o3);
-  pts.push([(rw.right+r3.left)/2, rw.top-40]);
-  pts.push([rw.right+16, rw.top+rw.height*0.55]);
-  /* catmull-rom to bezier */
-  var d="M "+pts[0][0].toFixed(1)+" "+pts[0][1].toFixed(1);
-  for(var i=0;i<pts.length-1;i++){
-    var p0k=pts[Math.max(0,i-1)], p1=pts[i], p2=pts[i+1], p3=pts[Math.min(pts.length-1,i+2)];
-    var q1=[p1[0]+(p2[0]-p0k[0])/6, p1[1]+(p2[1]-p0k[1])/6];
-    var q2=[p2[0]-(p3[0]-p1[0])/6, p2[1]-(p3[1]-p1[1])/6];
-    d+=" C "+q1[0].toFixed(1)+" "+q1[1].toFixed(1)+", "+q2[0].toFixed(1)+" "+q2[1].toFixed(1)+", "+p2[0].toFixed(1)+" "+p2[1].toFixed(1);
-  }
-  Array.prototype.forEach.call(cms,function(p){ p.setAttribute("d",d); });
-  if(head) head.style.offsetPath='path("'+d+'")';
-}
-buildThread();
-addEventListener("resize",buildThread,{passive:true});
-setTimeout(buildThread,1400);
-setInterval(buildThread,11000);
 
 /* ---------- the road: presenter-driven, beat by beat ---------- */
 var BEAT=-1, ROWS=[], doneBar, gapEl;
