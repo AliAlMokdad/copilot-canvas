@@ -89,6 +89,31 @@ body.entered #s0 .in{opacity:0}
 #s0 .foot{position:absolute;left:clamp(48px,9vw,140px);right:clamp(48px,9vw,140px);bottom:52px;border-top:1px solid rgba(222,197,131,.4);padding-top:16px;font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#EBD9A8;display:flex;justify-content:space-between;gap:20px;opacity:0;animation:up 1s var(--e) .9s both}
 @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
+/* the etching: the journey engraved in gold on the cover's field */
+.etch{position:absolute;right:clamp(40px,7vw,120px);top:50%;transform:translateY(-58%);
+  width:clamp(420px,40vw,700px);pointer-events:none;opacity:0;animation:up 1.4s var(--e) 1.1s both;
+  transition:transform 1.2s var(--e)}
+.etch svg{display:block;width:100%;height:auto;overflow:visible}
+.etch path,.etch circle{fill:none;stroke:rgba(222,197,131,.5);stroke-width:1.8}
+.et-nodes circle{fill:rgba(222,197,131,.6);stroke:none}
+.et-now{fill:#EFDFAE;stroke:none;animation:etnow 3s var(--e) infinite}
+@keyframes etnow{0%,100%{opacity:.55}50%{opacity:1}}
+.et-main{stroke-dasharray:592;stroke-dashoffset:592;animation:etdraw 11s var(--e) 1.6s infinite}
+.et-br1{stroke-dasharray:260;stroke-dashoffset:260;animation:etdraw2 11s var(--e) 1.6s infinite;stroke:rgba(222,197,131,.30)}
+.et-br2{stroke-dasharray:300;stroke-dashoffset:300;animation:etdraw3 11s var(--e) 1.6s infinite;stroke:rgba(222,197,131,.30)}
+.et-nodes{animation:etfade 11s var(--e) 1.6s infinite}
+.et-break{animation:etfade 11s var(--e) 1.6s infinite}
+@keyframes etdraw{0%{stroke-dashoffset:592}30%{stroke-dashoffset:0}86%{stroke-dashoffset:0;opacity:1}94%{opacity:0}96%,100%{stroke-dashoffset:592;opacity:0}}
+@keyframes etdraw2{0%,26%{stroke-dashoffset:260}48%{stroke-dashoffset:0}86%{stroke-dashoffset:0;opacity:1}94%{opacity:0}96%,100%{stroke-dashoffset:260;opacity:0}}
+@keyframes etdraw3{0%,30%{stroke-dashoffset:300}54%{stroke-dashoffset:0}86%{stroke-dashoffset:0;opacity:1}94%{opacity:0}96%,100%{stroke-dashoffset:300;opacity:0}}
+@keyframes etfade{0%,10%{opacity:0}34%{opacity:1}86%{opacity:1}94%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  .et-main,.et-br1,.et-br2{animation:none;stroke-dashoffset:0}
+  .et-nodes,.et-break{animation:none;opacity:1}
+  .et-now{animation:none}
+}
+@media (max-width:1180px){.etch{display:none}}
+
 /* ---------- shared heads ---------- */
 .aHead{padding:6px 0 0}
 .aHead h2{font-family:var(--serif);font-size:clamp(30px,3.6vw,46px);font-weight:600;letter-spacing:-.02em;margin:10px 0 0}
@@ -350,6 +375,26 @@ ANTI_SLOP_BRIEF
           <button class="pill" data-go="B"><span class="n">02</span> Draft 1 <span class="ar">&rarr;</span></button>
         </div>
       </div>
+      <div class="etch" id="etch" aria-hidden="true">
+        <svg viewBox="0 0 640 260">
+          <path class="et-main" d="M 24 130 H 616"/>
+          <path class="et-br1" d="M 380 130 C 398 130, 392 176, 414 176 L 536 176 C 556 176, 552 130, 566 130"/>
+          <path class="et-br2" d="M 380 130 C 402 130, 396 210, 420 210 L 524 210 C 550 210, 548 130, 566 130"/>
+          <g class="et-break">
+            <path d="M 206 118 L 194 142"/>
+            <path d="M 216 118 L 204 142"/>
+          </g>
+          <g class="et-nodes">
+            <circle cx="44" cy="130" r="3.2"/><circle cx="72" cy="130" r="3.2"/>
+            <circle cx="104" cy="130" r="3.2"/><circle cx="136" cy="130" r="3.2"/>
+            <circle cx="246" cy="130" r="3.2"/><circle cx="282" cy="130" r="3.2"/>
+            <circle cx="318" cy="130" r="3.2"/><circle cx="354" cy="130" r="3.2"/>
+            <circle cx="380" cy="130" r="3.2"/><circle cx="452" cy="130" r="3.2"/>
+            <circle cx="524" cy="130" r="3.2"/><circle cx="616" cy="130" r="3.2"/>
+          </g>
+          <circle class="et-now" cx="318" cy="130" r="5"/>
+        </svg>
+      </div>
       <div class="foot"><span>ID MGT / Finance meeting</span><span>Update &middot; 27 August 2026</span></div>
     </section>
 
@@ -487,9 +532,14 @@ function px(d){
     b.style.transform="translate3d("+(bx-105)+"px,"+(by-105)+"px,0)";
     requestAnimationFrame(f);
   }
+  var etch=$("#etch");
   window.addEventListener("pointermove",function(e){
     if(e.pointerType==="touch") return;
     tx=e.clientX; ty=e.clientY;
+    if(etch && STATE==="0"){
+      var dx=(tx/innerWidth-0.5)*-14, dy=(ty/innerHeight-0.5)*-10;
+      etch.style.transform="translateY(-58%) translate("+dx+"px,"+dy+"px)";
+    }
     if(!seen){seen=true;ax=bx=tx;ay=by=ty;a.classList.add("on");b.classList.add("on");requestAnimationFrame(f);}
   },{passive:true});
 })();
