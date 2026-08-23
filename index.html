@@ -145,19 +145,7 @@ body.entered.stA #ctl{display:flex}
 .nav{width:44px;height:44px;border-radius:50%;border:1px solid var(--hair);background:#fff;color:var(--ink2);font-size:18px;display:grid;place-items:center;transition:.25s var(--e);box-shadow:0 2px 8px rgba(60,20,20,.06)}
 .nav:hover{border-color:var(--red);color:var(--red)}
 /* ---------- state A lower sections ---------- */
-.eff{margin:130px 0 60px}
-.eff-h{display:flex;align-items:baseline;gap:16px;margin-bottom:20px}
-.eff-h i{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--gold-ink);font-style:normal}
-.eff-h h3{font-family:var(--serif);font-size:24px;font-weight:600;letter-spacing:-.015em;margin:0}
-.eff-g{display:grid;grid-template-columns:repeat(5,1fr);border-top:2px solid var(--ink)}
-.ef{position:relative;padding:20px 24px 24px 0}
-.ef+.ef{border-left:1px solid var(--hair2);padding-left:24px}
-.ef .n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--gold-ink);font-weight:500}
-.ef .t{font-family:var(--serif);font-size:18px;font-weight:600;margin:10px 0 8px;letter-spacing:-.01em}
-.ef .x{font-size:15px;color:var(--ink2);line-height:1.55}
-.ef.here .t::after{content:"now";margin-left:9px;font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--red);padding:2.5px 7px;border-radius:3px;vertical-align:3px}
-.eff-note{margin-top:24px;padding:15px 22px;border-left:2px solid var(--gold);background:rgba(222,197,131,.10);font-size:14.5px;color:var(--ink2);max-width:680px}
-
+.ef+
 /* ---------- state B : the real document ---------- */
 .bwrap{padding:84px 3vw 40px}
 .arts{display:flex;gap:3vw;justify-content:center;align-items:flex-start;margin:40px 0 0}
@@ -165,6 +153,11 @@ body.entered.stA #ctl{display:flex}
 .art-fr{height:min(72vh,780px);aspect-ratio:1/1.414}
 .art-fr img{width:100%;height:100%;object-fit:cover}
 /* the sample SOP: a real implementation page, headlines sharp, body withheld */
+.hl{position:absolute;left:4%;right:4%;top:var(--t);height:var(--h);pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,rgba(222,197,131,0),rgba(222,197,131,.45) 30%,rgba(222,197,131,.45) 70%,rgba(222,197,131,0));}
+.xr.on .hl{animation:hlflash 1.15s var(--e) var(--d) both}
+@keyframes hlflash{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.xr.on .hl{animation:none}}
 .xr{cursor:pointer}
 .xline{position:absolute;left:0;right:0;top:0;height:2px;z-index:3;opacity:0;
   background:linear-gradient(90deg,transparent,var(--gold) 30%,#fff 50%,var(--gold) 70%,transparent)}
@@ -198,14 +191,21 @@ body.entered.stA #ctl{display:flex}
 #rside::after{content:"";position:absolute;left:-56px;top:calc(50% - 4px);width:9px;height:9px;
   border-left:1.5px solid #B99F91;border-bottom:1.5px solid #B99F91;transform:rotate(45deg)}
 .rs-eye{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.24em;color:#8A6A2F;margin-bottom:18px}
-#reader.xray #rside .rs-i{opacity:0;transform:translateY(10px);transition:opacity .5s var(--e),transform .5s var(--e)}
+#reader.xray #rside .rs-i{opacity:0;transform:translateX(22px);transition:opacity .55s var(--e),transform .55s var(--e)}
 #reader.xray.on #rside .rs-i{opacity:1;transform:none}
-#reader.xray.on #rside .rs-i:nth-child(2){transition-delay:.55s}
-#reader.xray.on #rside .rs-i:nth-child(3){transition-delay:.7s}
-#reader.xray.on #rside .rs-i:nth-child(4){transition-delay:.85s}
-#reader.xray.on #rside .rs-i:nth-child(5){transition-delay:1s}
-#reader.xray.on #rside .rs-i:nth-child(6){transition-delay:1.15s}
-.rs-i{display:flex;gap:18px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--hair)}
+#reader.xray.on #rside .rs-i:nth-child(2){transition-delay:.5s}
+#reader.xray.on #rside .rs-i:nth-child(3){transition-delay:.72s}
+#reader.xray.on #rside .rs-i:nth-child(4){transition-delay:1.06s}
+#reader.xray.on #rside .rs-i:nth-child(5){transition-delay:1.34s}
+#reader.xray.on #rside .rs-i:nth-child(6){transition-delay:1.58s}
+.rs-i{position:relative;display:flex;gap:18px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--hair)}
+.rs-i::after{content:"";position:absolute;left:0;bottom:-1px;height:1.5px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:left}
+#reader.xray.on #rside .rs-i::after{transition:transform .7s var(--e)}
+#reader.xray.on #rside .rs-i:nth-child(2)::after{transform:scaleX(1);transition-delay:.62s}
+#reader.xray.on #rside .rs-i:nth-child(3)::after{transform:scaleX(1);transition-delay:.84s}
+#reader.xray.on #rside .rs-i:nth-child(4)::after{transform:scaleX(1);transition-delay:1.18s}
+#reader.xray.on #rside .rs-i:nth-child(5)::after{transform:scaleX(1);transition-delay:1.46s}
+#reader.xray.on #rside .rs-i:nth-child(6)::after{transform:scaleX(1);transition-delay:1.7s}
 .rs-i b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--red);font-weight:500}
 .rs-i span{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.012em}
 #rclose{position:absolute;top:28px;right:34px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);font-size:18px;color:#fff;display:grid;place-items:center;transition:.3s var(--e)}
@@ -214,9 +214,7 @@ body.entered.stA #ctl{display:flex}
 @media (max-height:840px){ #fcover{width:150px} }
 @media (max-width:1080px){
     .arts{flex-wrap:wrap}
-  .eff-g{grid-template-columns:1fr 1fr}
-  .ef+.ef{border-left:0;padding-left:0}
-  #focus{grid-template-columns:1fr}
+    .ef+  #focus{grid-template-columns:1fr}
   #fcover{display:none}
 }
 </style>
@@ -293,11 +291,6 @@ ANTI_SLOP_BRIEF
           </div>
         </div>
 
-        <div class="eff">
-          <div class="eff-h"><i>SINCE MAY 2026</i><h3>Consultant efforts</h3></div>
-          <div class="eff-g" id="effG"></div>
-          <div class="eff-note" id="effNote"></div>
-        </div>
 
         </section>
 
@@ -312,6 +305,9 @@ ANTI_SLOP_BRIEF
           <div class="art xr-art"><div class="art-fr xr" id="xr">
             <img src="assets/sopx.jpg" alt="A Draft 1 SOP page, section headlines visible">
             <div class="xline"></div>
+            <i class="hl" style="--t:9.6%;--h:5.4%;--d:.42s"></i>
+            <i class="hl" style="--t:17.4%;--h:3.2%;--d:.66s"></i>
+            <i class="hl" style="--t:40.2%;--h:3.2%;--d:1.12s"></i>
           </div></div>
         </div>
       </div>
@@ -370,14 +366,6 @@ var MS=[
 ];
 var CLOSING="Draft 1, comments addressed and ready for the next review cycle.";
 var DRAFT1_IDX=6;
-var EFF=[
- {n:"01",t:"Desk review",x:"International Finance, Grants and Project Cycle, and administrative documents. Atlas and Kompas."},
- {n:"02",t:"Consultations",x:"International Controllers and Advisors, selected Country Finance Focal Points, and ID colleagues."},
- {n:"03",t:"Draft 0",x:"Drafted while the consultations continued, including with Country Managers."},
- {n:"04",t:"Draft 0 review",x:"Comments addressed from fourteen reviewers, HQ and Country Finance."},
- {n:"05",t:"Draft 1",x:"A finance group reviewing alignment and tailoring to specific cases. Tools and rollout discussed at the Istanbul finance meeting, then a specialized review and engagement with International Department focal points.",here:true}
-];
-var EFF_NOTE="In parallel: exploring possible digital solutions, to be integrated with the online learning and onboarding platform.";
 /* real per-phase counts from the Draft 1 contents page */
 
 function $(s,r){return (r||document).querySelector(s)}
@@ -530,19 +518,6 @@ $("#roadzone").addEventListener("click",function(e){
   if(e.target.closest("#fcover")){ go("B"); return; }
   setBeat(BEAT+1);
 });
-
-/* ---------- consultant efforts ---------- */
-(function(){
-  var g=$("#effG");
-  EFF.forEach(function(e){
-    var d=el("div","ef"+(e.here?" here":""));
-    d.appendChild(el("div","n",e.n));
-    d.appendChild(el("div","t",e.t));
-    d.appendChild(el("div","x",e.x));
-    g.appendChild(d);
-  });
-  $("#effNote").textContent=EFF_NOTE;
-})();
 
 /* ---------- reader: FLIP open, wheel zoom, drag pan ---------- */
 (function(){
