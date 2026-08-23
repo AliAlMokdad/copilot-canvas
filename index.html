@@ -296,12 +296,9 @@ body.entered.stA #ctl{display:flex}
 #d0{position:fixed;inset:0;z-index:38;pointer-events:none;opacity:0;transition:opacity .45s var(--e);
   background:rgba(40,15,15,.44);backdrop-filter:blur(16px) saturate(1.05)}
 #d0.on{opacity:1;pointer-events:auto;cursor:pointer}
-.d0pg{position:fixed;left:0;top:0;width:58px;height:78px;background:#fff;border-radius:2.5px;
-  box-shadow:0 3px 12px rgba(30,8,8,.28);display:flex;align-items:flex-end;justify-content:center;
-  padding-bottom:6px;font-family:var(--mono);font-size:8px;letter-spacing:.04em;color:var(--ink2);
+.d0pg{position:fixed;left:0;top:0;width:88px;height:120px;background:#fff;border-radius:2.5px;
+  object-fit:cover;box-shadow:0 3px 12px rgba(30,8,8,.28);
   will-change:transform;transition:transform .55s var(--e),opacity .35s var(--e)}
-.d0pg::before{content:"";position:absolute;left:9px;right:9px;top:12px;height:2px;background:#E8E2DC}
-.d0pg::after{content:"";position:absolute;left:9px;right:20px;top:19px;height:2px;background:#F0EBE5}
 #d0card{position:fixed;left:50%;top:44%;width:330px;height:452px;transform:translate(-50%,-50%) scale(.6);
   opacity:0;transform-style:preserve-3d;
   transition:opacity .45s var(--e),transform .65s cubic-bezier(.22,1.4,.36,1)}
@@ -887,17 +884,18 @@ function playD0(){
   if(D0_DONE||RM) return; D0_DONE=true;
   var ov=$("#d0");
   Array.prototype.forEach.call(document.querySelectorAll(".d0pg"),function(x){ x.parentNode.removeChild(x); });
-  /* the Draft 0 set as submitted on 16 July: 31 SOPs */
-  var NUMS=["1.1","1.2","2.1","2.2","2.3","2.4","2.5","3.1","3.2","3.3","3.4","3.5","3.6","3.7","3.8","3.9","3.11","3.12","3.13","3.14","3.15","4.2","4.4","4.5","5","6.2","6.3","6.4","6.5","6.6","6.7"];
-  var pgs=[], stg=0;
-  NUMS.forEach(function(n){
-    var d=el("div","d0pg","SOP "+n);
+  /* the real Draft 0 covers, as they went out for comments */
+  var N=24, pgs=[], stg=0;
+  for(var i=0;i<N;i++){
+    var d=document.createElement("img");
+    d.className="d0pg"; d.alt="";
+    d.src="assets/d0/n"+(i<10?"0":"")+i+".jpg";
     d.style.transform="translate("+(innerWidth+120)+"px,"+(innerHeight*0.3)+"px) rotate(24deg)";
     ov.appendChild(d); pgs.push(d);
-  });
+  }
   ov.classList.add("on");
-  var COLS=8, CW=78, RH=100;
-  var gw=COLS*CW, gx=(innerWidth-gw)/2, gy=innerHeight*0.16;
+  var COLS=8, CW=104, RH=140;
+  var gw=COLS*CW, gx=(innerWidth-gw)/2, gy=innerHeight*0.13;
   setTimeout(function(){
     if(stg>0) return;
     pgs.forEach(function(d,i){
@@ -907,7 +905,7 @@ function playD0(){
       }, i*38);
     });
   },80);
-  var sx=innerWidth/2-29, sy=innerHeight*0.44-39;
+  var sx=innerWidth/2-44, sy=innerHeight*0.44-60;
   setTimeout(function(){
     if(stg>0) return;
     pgs.forEach(function(d,i){
