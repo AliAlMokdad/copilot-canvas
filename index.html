@@ -168,6 +168,30 @@ body.entered.stA #ctl{display:flex}
 .art-fr img{width:100%}
 
 
+/* ---------- the Draft 0 assembly ---------- */
+#d0{position:fixed;inset:0;z-index:38;pointer-events:none;opacity:0;transition:opacity .45s var(--e);
+  background:rgba(40,15,15,.44);backdrop-filter:blur(16px) saturate(1.05)}
+#d0.on{opacity:1;pointer-events:auto;cursor:pointer}
+.d0pg{position:fixed;left:0;top:0;width:58px;height:78px;background:#fff;border-radius:2.5px;
+  box-shadow:0 3px 12px rgba(30,8,8,.28);display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:6px;font-family:var(--mono);font-size:8px;letter-spacing:.04em;color:var(--ink2);
+  will-change:transform;transition:transform .55s var(--e),opacity .35s var(--e)}
+.d0pg::before{content:"";position:absolute;left:9px;right:9px;top:12px;height:2px;background:#E8E2DC}
+.d0pg::after{content:"";position:absolute;left:9px;right:20px;top:19px;height:2px;background:#F0EBE5}
+#d0card{position:fixed;left:50%;top:44%;width:250px;height:340px;transform:translate(-50%,-50%) scale(.65);
+  background:linear-gradient(160deg,#FFFDFB,#F7EFE9);border-radius:5px;opacity:0;overflow:hidden;
+  box-shadow:0 6px 22px rgba(30,8,8,.30),0 50px 130px rgba(30,8,8,.45);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  transition:opacity .45s var(--e),transform .6s cubic-bezier(.22,1.4,.36,1)}
+#d0.boom #d0card{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.d0c-eye{font-family:var(--mono);font-size:10px;letter-spacing:.26em;color:var(--gold-ink)}
+.d0c-t{font-family:var(--serif);font-size:46px;font-weight:700;letter-spacing:-.02em;color:var(--red)}
+.d0c-s{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3)}
+.d0c-shine{position:absolute;top:-20%;bottom:-20%;left:-70%;width:46%;transform:skewX(-18deg);
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,246,214,.95),rgba(255,255,255,0))}
+#d0.boom .d0c-shine{animation:d0shine 1.05s var(--e) .25s both}
+@keyframes d0shine{from{left:-70%}to{left:130%}}
+@media (prefers-reduced-motion:reduce){#d0{display:none}}
 /* ---------- reader ---------- */
 #reader{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:0;transition:opacity .45s var(--e);background:rgba(40,15,15,.46);backdrop-filter:blur(20px) saturate(1.05)}
 #reader.on{opacity:1;pointer-events:auto}
@@ -315,6 +339,14 @@ ANTI_SLOP_BRIEF
   <button class="nav" id="nvNext" aria-label="Forward">&rarr;</button>
 </div>
 
+<div id="d0" aria-hidden="true">
+  <div id="d0card">
+    <div class="d0c-eye">16 JULY 2026</div>
+    <div class="d0c-t">Draft 0</div>
+    <div class="d0c-s">submitted for review</div>
+    <i class="d0c-shine"></i>
+  </div>
+</div>
 <div id="reader"><div id="rmount"></div>
   <aside id="rside" aria-label="Every SOP contains">
     <div class="rs-eye">EVERY SOP CONTAINS</div>
@@ -500,6 +532,7 @@ function setBeat(b){
   doneBar.style.transitionDuration=dur+"ms";
   doneBar.style.width=target+"%";
   gapEl.classList.toggle("seen", b>=4);
+  if(b===5 && prev<5) playD0();
   fhint.style.opacity = b<0 ? "1" : "0";
   fcover.classList.toggle("in", b>=DRAFT1_IDX);
   renderFocus(b);
@@ -512,6 +545,59 @@ $("#roadzone").addEventListener("click",function(e){
   if(e.target.closest("#fcover")){ go("B"); return; }
   setBeat(BEAT+1);
 });
+
+
+/* ---------- the Draft 0 assembly: pages fly in, stack, become the draft ---------- */
+var D0_DONE=false;
+function playD0(){
+  if(D0_DONE||RM) return; D0_DONE=true;
+  var ov=$("#d0");
+  Array.prototype.forEach.call(document.querySelectorAll(".d0pg"),function(x){ x.parentNode.removeChild(x); });
+  var NUMS=["1.1","1.2","2.1","2.2","2.3","2.4","2.5","3.1","3.2","3.3","3.4","3.5","3.6","3.7","3.8","3.9","3.10","3.11","3.12","3.13","3.14","4.1","4.2"];
+  var pgs=[];
+  NUMS.forEach(function(n){
+    var d=el("div","d0pg","SOP "+n);
+    d.style.transform="translate("+(innerWidth+120)+"px,"+(innerHeight*0.3)+"px) rotate(24deg)";
+    ov.appendChild(d); pgs.push(d);
+  });
+  ov.classList.add("on");
+  /* 1: fly in to the library grid */
+  var COLS=8, CW=78, RH=100;
+  var gw=COLS*CW, gx=(innerWidth-gw)/2, gy=innerHeight*0.20;
+  setTimeout(function(){
+    pgs.forEach(function(d,i){
+      var c=i%COLS, r=Math.floor(i/COLS);
+      setTimeout(function(){
+        d.style.transform="translate("+(gx+c*CW)+"px,"+(gy+r*RH)+"px) rotate(0deg)";
+      }, i*42);
+    });
+  },80);
+  /* 2: rush to the stack */
+  var sx=innerWidth/2-29, sy=innerHeight*0.44-39;
+  setTimeout(function(){
+    pgs.forEach(function(d,i){
+      setTimeout(function(){
+        var rot=((i%7)-3)*2.2, ox=((i%5)-2)*1.6, oy=((i%3)-1)*1.6;
+        d.style.transform="translate("+(sx+ox)+"px,"+(sy+oy)+"px) rotate("+rot+"deg)";
+      }, i*22);
+    });
+  },1980);
+  /* 3: boom */
+  setTimeout(function(){
+    pgs.forEach(function(d){ d.style.opacity="0"; });
+    ov.classList.add("boom");
+  },3050);
+  function shut(e){
+    if(e){ e.stopPropagation(); e.preventDefault(); }
+    ov.classList.remove("on","boom");
+    setTimeout(function(){ pgs.forEach(function(d){ if(d.parentNode) d.parentNode.removeChild(d); }); },480);
+    ov.removeEventListener("click",shut);
+    document.removeEventListener("keydown",keyshut,true);
+  }
+  function keyshut(e){ shut(e); }
+  ov.addEventListener("click",shut);
+  document.addEventListener("keydown",keyshut,true);
+}
 
 /* ---------- reader: FLIP open, wheel zoom, drag pan ---------- */
 (function(){
