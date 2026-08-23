@@ -885,7 +885,7 @@ function playD0(){
   var ov=$("#d0");
   Array.prototype.forEach.call(document.querySelectorAll(".d0pg"),function(x){ x.parentNode.removeChild(x); });
   /* the real Draft 0 covers, as they went out for comments */
-  var N=32, pgs=[], stg=0, lock=0;
+  var N=31, pgs=[], stg=0, lock=0;
   for(var i=0;i<N;i++){
     var d=document.createElement("img");
     d.className="d0pg"; d.alt="";
@@ -896,12 +896,14 @@ function playD0(){
   ov.classList.add("on");
   var COLS=8, CW=124, RH=160;
   var gw=COLS*CW, gx=(innerWidth-gw)/2, gy=innerHeight*0.09;
+  var rem=N%COLS, lastRow=Math.ceil(N/COLS)-1;
   setTimeout(function(){
     if(stg>0) return;
     pgs.forEach(function(d,i){
       var c=i%COLS, r=Math.floor(i/COLS);
+      var off=(r===lastRow && rem>0) ? (COLS-rem)*CW/2 : 0;
       setTimeout(function(){ if(stg>0) return;
-        d.style.transform="translate("+(gx+c*CW)+"px,"+(gy+r*RH)+"px) rotate(0deg)";
+        d.style.transform="translate("+(gx+off+c*CW)+"px,"+(gy+r*RH)+"px) rotate(0deg)";
       }, i*38);
     });
   },80);
