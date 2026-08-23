@@ -46,27 +46,23 @@
   }
 
 
-  /* the cross that follows the pointer, a breath behind it */
-  #cross{
-    position:fixed;
-    top:0; left:0;
-    width:190px; height:190px;
-    z-index:1;
-    pointer-events:none;
+  /* two crosses, one just behind the pointer and one further back, both barely there */
+  .xc{
+    position:fixed; top:0; left:0;
+    width:150px; height:150px;
+    z-index:1; pointer-events:none;
     opacity:0;
-    transform:translate3d(-50%,-50%,0);
-    transition:opacity .9s ease;
+    transition:opacity 1.4s cubic-bezier(.22,1,.36,1);
     will-change:transform;
   }
-  #cross.on{opacity:1}
-  #cross svg{
-    display:block; width:100%; height:100%;
-    filter:blur(.4px);
-  }
-  #cross .arm{ fill:rgba(227,10,11,.038) }
-  #cross .halo{ fill:rgba(227,10,11,.014) }
-  @media (prefers-reduced-motion:reduce){ #cross{display:none} }
-  @media (hover:none){ #cross{display:none} }
+  .xc.on{opacity:1}
+  .xc svg{display:block;width:100%;height:100%}
+  #xc1{filter:blur(6px)}
+  #xc2{filter:blur(18px); width:210px; height:210px}
+  #xc1 .arm{fill:rgba(227,10,11,.016)}
+  #xc2 .arm{fill:rgba(227,10,11,.010)}
+  @media (prefers-reduced-motion:reduce){.xc{display:none}}
+  @media (hover:none){.xc{display:none}}
 
   main{position:relative;z-index:2;min-height:100%}
 </style>
@@ -74,41 +70,44 @@
 <body>
   <div class="wash" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
-  <div id="cross" aria-hidden="true">
-    <svg viewBox="0 0 100 100">
-      <circle class="halo" cx="50" cy="50" r="48"/>
-      <path class="arm" d="M38 6h24v32h32v24H62v32H38V62H6V38h32z"/>
-    </svg>
-  </div>
+  <div class="xc" id="xc2" aria-hidden="true"><svg viewBox="0 0 100 100"><path class="arm" d="M38 6h24v32h32v24H62v32H38V62H6V38h32z"/></svg></div>
+  <div class="xc" id="xc1" aria-hidden="true"><svg viewBox="0 0 100 100"><path class="arm" d="M38 6h24v32h32v24H62v32H38V62H6V38h32z"/></svg></div>
   <main></main>
 
 <script>
 (function(){
-  var el = document.getElementById('cross');
-  if(!el) return;
+  var a = document.getElementById('xc1'), b = document.getElementById('xc2');
+  if(!a || !b) return;
   if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
 
-  var tx=0, ty=0, x=0, y=0, seen=false, raf=null;
+  var tx=0, ty=0, ax=0, ay=0, bx=0, by=0, seen=false, last=0;
 
-  function frame(){
-    // lag behind the pointer, so it reads as a shadow rather than a cursor
-    x += (tx - x) * 0.055;
-    y += (ty - y) * 0.055;
-    var d = Math.hypot(tx-x, ty-y);
-    var s = 1 + Math.min(d/900, 0.16);            // stretches a little when chasing
-    var r = Math.min(d*0.05, 7);                  // and tilts
-    el.style.transform = 'translate3d('+(x-95)+'px,'+(y-95)+'px,0) scale('+s.toFixed(3)+') rotate('+r.toFixed(2)+'deg)';
-    raf = requestAnimationFrame(frame);
+  function frame(now){
+    var dt = last ? Math.min((now - last) / 16.667, 3) : 1;   // frame-rate independent
+    last = now;
+    // exponential smoothing: same curve every frame, no stretch, no tilt
+    var ea = 1 - Math.pow(1 - 0.14, dt);
+    var eb = 1 - Math.pow(1 - 0.055, dt);
+    ax += (tx - ax) * ea;  ay += (ty - ay) * ea;
+    bx += (tx - bx) * eb;  by += (ty - by) * eb;
+    a.style.transform = 'translate3d(' + (ax - 75)  + 'px,' + (ay - 75)  + 'px,0)';
+    b.style.transform = 'translate3d(' + (bx - 105) + 'px,' + (by - 105) + 'px,0)';
+    requestAnimationFrame(frame);
   }
 
   window.addEventListener('pointermove', function(e){
     if(e.pointerType === 'touch') return;
     tx = e.clientX; ty = e.clientY;
-    if(!seen){ seen = true; x = tx; y = ty; el.classList.add('on'); frame(); }
+    if(!seen){
+      seen = true;
+      ax = bx = tx; ay = by = ty;
+      a.classList.add('on'); b.classList.add('on');
+      requestAnimationFrame(frame);
+    }
   }, {passive:true});
 
-  document.addEventListener('pointerleave', function(){ el.classList.remove('on'); });
-  document.addEventListener('pointerenter', function(){ if(seen) el.classList.add('on'); });
+  document.addEventListener('pointerleave', function(){ a.classList.remove('on'); b.classList.remove('on'); });
+  document.addEventListener('pointerenter', function(){ if(seen){ a.classList.add('on'); b.classList.add('on'); } });
 })();
 </script>
 </body>
