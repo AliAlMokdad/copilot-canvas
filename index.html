@@ -342,20 +342,18 @@ body.entered.stA #ctl{display:flex}
 #reader.xray #rside .rs-i{opacity:0;transform:translateX(22px);transition:opacity .55s var(--e),transform .55s var(--e)}
 #reader.xray.on #rside .rs-i{opacity:1;transform:none}
 #reader.xray.on #rside .rs-i:nth-child(2){transition-delay:.5s}
-#reader.xray.on #rside .rs-i:nth-child(3){transition-delay:.72s}
-#reader.xray.on #rside .rs-i:nth-child(4){transition-delay:1.06s}
-#reader.xray.on #rside .rs-i:nth-child(5){transition-delay:1.34s}
-#reader.xray.on #rside .rs-i:nth-child(6){transition-delay:1.58s}
+#reader.xray.on #rside .rs-i:nth-child(3){transition-delay:.85s}
+#reader.xray.on #rside .rs-i:nth-child(4){transition-delay:1.2s}
+#reader.xray.on #rside .rs-i:nth-child(5){transition-delay:1.5s}
 .rs-i{position:relative;display:flex;align-items:baseline;padding:16px 0 16px 34px}
 .rs-i::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:16px;
   border-left:2px solid var(--gold);border-top:2px solid var(--gold);border-bottom:2px solid var(--gold)}
 .rs-i::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:rgba(222,197,131,.45);transform:scaleX(0);transform-origin:left}
 #reader.xray.on #rside .rs-i::after{transition:transform .7s var(--e)}
 #reader.xray.on #rside .rs-i:nth-child(2)::after{transform:scaleX(1);transition-delay:.62s}
-#reader.xray.on #rside .rs-i:nth-child(3)::after{transform:scaleX(1);transition-delay:.84s}
-#reader.xray.on #rside .rs-i:nth-child(4)::after{transform:scaleX(1);transition-delay:1.18s}
-#reader.xray.on #rside .rs-i:nth-child(5)::after{transform:scaleX(1);transition-delay:1.46s}
-#reader.xray.on #rside .rs-i:nth-child(6)::after{transform:scaleX(1);transition-delay:1.7s}
+#reader.xray.on #rside .rs-i:nth-child(3)::after{transform:scaleX(1);transition-delay:.97s}
+#reader.xray.on #rside .rs-i:nth-child(4)::after{transform:scaleX(1);transition-delay:1.32s}
+#reader.xray.on #rside .rs-i:nth-child(5)::after{transform:scaleX(1);transition-delay:1.62s}
 .rs-i span{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:-.012em;color:#FBF3F0;text-shadow:0 1px 14px rgba(30,8,8,.35)}
 #rclose{position:absolute;top:28px;right:34px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);font-size:18px;color:#fff;display:grid;place-items:center;transition:.3s var(--e)}
 #rclose:hover{background:#fff;color:var(--red);transform:rotate(90deg)}
@@ -521,8 +519,7 @@ ANTI_SLOP_BRIEF
   <aside id="rside" aria-label="Every SOP contains">
     <div class="rs-eye">EVERY SOP CONTAINS</div>
     <div class="rs-i"><span>Purpose and scope</span></div>
-    <div class="rs-i"><span>The procedure, in numbered sections</span></div>
-    <div class="rs-i"><span>Roles and responsibilities &middot; RACI</span></div>
+    <div class="rs-i"><span>Roles and responsibilities &middot; RASCI</span></div>
     <div class="rs-i"><span>Process flow</span></div>
     <div class="rs-i"><span>Tools</span></div>
   </aside>
