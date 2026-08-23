@@ -320,6 +320,9 @@ body.entered.stA #ctl{display:flex}
 /* ---------- state Q : questions, in the cover's own language ---------- */
 #sQ{background:radial-gradient(120% 90% at 50% 12%, var(--red-hi) 0%, var(--red) 42%, #8E1016 76%, var(--red-deep) 100%)}
 #sQ .qframe{position:absolute;inset:26px;border:1px solid rgba(255,255,255,.16);pointer-events:none}
+/* the document shadows read a touch stronger on the questions card */
+#sQ .gpg{background:rgba(255,255,255,.032);border-color:rgba(255,255,255,.052)}
+#sQ .gpg::before,#sQ .gpg::after{background:rgba(255,255,255,.055)}
 #sQ .qin{position:absolute;left:clamp(48px,9vw,140px);top:50%;transform:translateY(-54%);max-width:900px}
 .q-eye{font-family:var(--mono);font-size:clamp(15px,1.6vw,20px);font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);text-shadow:0 1px 0 rgba(0,0,0,.15);margin-bottom:22px;opacity:0}
 .q-title{font-size:clamp(52px,7.4vw,104px);line-height:.99;font-weight:700;letter-spacing:-.025em;color:#FBF3F0;margin:0;opacity:0}
@@ -556,7 +559,7 @@ ANTI_SLOP_BRIEF
         <i class="gpg g1"></i><i class="gpg g2"></i><i class="gpg g3"></i><i class="gpg g4"></i><i class="gpg g5"></i><i class="gpg g6"></i>
       </div>
       <div class="qin">
-        <div class="q-eye">International Finance</div>
+        <div class="q-eye">International Finance SOPs</div>
         <h2 class="q-title">Questions</h2>
         <div class="q-lines" aria-hidden="true"><i></i><i></i><i></i></div>
       </div>
@@ -881,8 +884,8 @@ function setBeat(b){
   fcover.classList.toggle("in", b>=DRAFT1_IDX);
   renderFocus(b);
 }
-/* past the closing beat, one more step opens the Questions card */
-function nextStep(){ if(BEAT>=MS.length) go("Q"); else setBeat(BEAT+1); }
+/* past the closing beat, one more step carries the presenter into Draft 1 */
+function nextStep(){ if(BEAT>=MS.length) go("B"); else setBeat(BEAT+1); }
 $("#nvNext").addEventListener("click",function(e){ e.stopPropagation(); nextStep(); });
 $("#nvPrev").addEventListener("click",function(e){ e.stopPropagation(); setBeat(BEAT-1); });
 $("#roadzone").addEventListener("click",function(e){
@@ -1219,7 +1222,9 @@ document.addEventListener("keydown",function(e){
   else if(e.key==="2") go("B");
   else if(STATE==="A" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); nextStep(); }
   else if(STATE==="A" && e.key==="ArrowLeft"){ e.preventDefault(); setBeat(BEAT-1); }
-  else if(STATE==="Q" && e.key==="ArrowLeft"){ e.preventDefault(); go("A"); }
+  else if(STATE==="B" && e.key==="ArrowRight"){ e.preventDefault(); go("Q"); }
+  else if(STATE==="B" && e.key==="ArrowLeft"){ e.preventDefault(); go("A"); }
+  else if(STATE==="Q" && e.key==="ArrowLeft"){ e.preventDefault(); go("B"); }
   else if(e.key==="Escape") go("0");
 });
 </script>
