@@ -105,7 +105,8 @@ body.entered #s0 .in{opacity:0}
 /* the thread: the line leaves the etching, gathers the shadows, and feeds the word */
 #threadw{position:absolute;inset:0;pointer-events:none;transition:transform 1.2s var(--e)}
 #threadsvg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-#thr{fill:none;stroke:rgba(222,197,131,.34);stroke-width:1.1;stroke-linecap:round;
+#thr{fill:none;stroke:rgba(222,197,131,.68);stroke-width:1.5;stroke-linecap:round;
+  filter:drop-shadow(0 0 6px rgba(222,197,131,.35));
   stroke-dasharray:1000;stroke-dashoffset:1000;
   animation:thrdraw 11s var(--e) 1.6s infinite}
 @keyframes thrdraw{
