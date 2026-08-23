@@ -40,12 +40,11 @@ body.entered .xc.on{opacity:1}
 #xc1 .arm{fill:rgba(186,23,28,.020)} #xc2 .arm{fill:rgba(186,23,28,.012)}
 @media (prefers-reduced-motion:reduce){.xc{display:none}} @media (hover:none){.xc{display:none}}
 
-body.entered 
 /* ---------- shell ---------- */
 #shell{position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;pointer-events:none}
 #shell > *{pointer-events:auto}
-#topbar{position:absolute;top:0;left:0;right:0;z-index:9;display:flex;align-items:center;justify-content:space-between;gap:26px;padding:20px 44px;opacity:0;transform:translateY(-10px);transition:.7s var(--e)}
-body.entered #topbar{opacity:1;transform:none}
+#topbar{position:absolute;top:0;left:0;right:0;z-index:9;display:flex;align-items:center;justify-content:space-between;gap:26px;padding:20px 44px;opacity:0;transform:translateY(-10px);visibility:hidden;transition:opacity .7s var(--e),transform .7s var(--e),visibility 0s linear .7s}
+body.entered #topbar{opacity:1;transform:none;visibility:visible;transition:opacity .7s var(--e),transform .7s var(--e),visibility 0s}
 .mk{display:flex;align-items:center;gap:12px;cursor:pointer}
 .mk .cr{width:34px;height:34px;border-radius:6px;background:#fff;display:grid;place-items:center;box-shadow:0 1px 4px rgba(42,20,20,.15)}
 .mk .cr svg{width:20px;height:20px;fill:var(--red)}
@@ -60,8 +59,8 @@ body.entered #topbar{opacity:1;transform:none}
 .seg:hover{color:var(--ink)}
 .seg.on{color:var(--ink)}
 #views{position:absolute;inset:0}
-.view{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .55s var(--e);overflow:hidden}
-.view.on{opacity:1;pointer-events:auto}
+.view{position:absolute;inset:0;opacity:0;pointer-events:none;visibility:hidden;transition:opacity .55s var(--e),visibility 0s linear .55s;overflow:hidden}
+.view.on{opacity:1;pointer-events:auto;visibility:visible;transition:opacity .55s var(--e),visibility 0s}
 .wrap{max-width:1300px;margin:0 auto;padding:84px 44px 70px}
 /* ---------- state 0 : the cover ---------- */
 #s0{background:radial-gradient(120% 90% at 50% 12%, var(--red-hi) 0%, var(--red) 42%, #8E1016 76%, var(--red-deep) 100%)}
@@ -874,6 +873,7 @@ function playDR(){
     shut();
   }
   function drkey(e){
+    if(e.key==="Shift"||e.key==="Control"||e.key==="Alt"||e.key==="Meta") return;
     e.stopPropagation(); e.preventDefault();
     if(zoomed){ unzoom(); } else { shut(); }
   }
@@ -938,7 +938,10 @@ function playD0(){
     else if(stg===1){ stg=2; ov.classList.add("flip"); }
     else shut();
   }
-  function keystep(e){ step(e); }
+  function keystep(e){
+    if(e.key==="Shift"||e.key==="Control"||e.key==="Alt"||e.key==="Meta") return;
+    step(e);
+  }
   ov.addEventListener("click",step);
   document.addEventListener("keydown",keystep,true);
 }
@@ -1018,6 +1021,7 @@ function playD0(){
     clampPan(); apply();
   });
   mt.addEventListener("pointerup",function(){ dragging=false; mt.classList.remove("drag"); });
+  mt.addEventListener("pointercancel",function(){ dragging=false; mt.classList.remove("drag"); });
   mt.addEventListener("dblclick",function(){ reset(); });
   $("#arts").addEventListener("click",function(e){
     var a=e.target.closest(".art"); if(!a) return;
@@ -1032,13 +1036,14 @@ function playD0(){
 })();
 
 /* ---------- state machine ---------- */
-var STATE="0";
+var STATE="0", NAV=0;
 function go(s){
   if(s===STATE) return;
+  var n=++NAV;
   if(s==="B" && !RM){
     var w=$("#wipe");
     w.classList.remove("run"); void w.offsetWidth; w.classList.add("run");
-    setTimeout(function(){ goNow(s); },570);
+    setTimeout(function(){ if(n===NAV) goNow(s); },570);
     return;
   }
   if(s==="A" && STATE==="0" && !RM){
@@ -1051,7 +1056,7 @@ function go(s){
     lwh.animate([{left:"-60px"},{left:(innerWidth+60)+"px"}],
       {duration:1050,easing:"cubic-bezier(.65,.05,.36,1)",fill:"both"});
     lw.classList.remove("run"); void lw.offsetWidth; lw.classList.add("run");
-    setTimeout(function(){ goNow("A"); },330);
+    setTimeout(function(){ if(n===NAV) goNow("A"); },330);
     setTimeout(function(){ lw.classList.remove("run"); },1250);
     return;
   }
@@ -1077,6 +1082,9 @@ document.addEventListener("click",function(e){
 });
 document.addEventListener("keydown",function(e){
   if($("#reader").classList.contains("on")) return;
+  /* a focused [data-go] control activates natively on Enter/Space, never hijacked */
+  var g=e.target && e.target.closest ? e.target.closest("[data-go]") : null;
+  if(g && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); go(g.getAttribute("data-go")); return; }
   if(e.key==="1") go("A");
   else if(e.key==="2") go("B");
   else if(STATE==="A" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); setBeat(BEAT+1); }
