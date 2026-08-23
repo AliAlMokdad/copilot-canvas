@@ -43,7 +43,7 @@ body.entered .xc.on{opacity:1}
 @media (prefers-reduced-motion:reduce){.xc{display:none}} @media (hover:none){.xc{display:none}}
 
 /* the opening: the room breathes in, once */
-#dawn{position:fixed;inset:0;z-index:70;pointer-events:none;
+#dawn{position:fixed;inset:0;z-index:57;pointer-events:none;
   background:radial-gradient(120% 100% at 50% 30%,rgba(22,4,4,.94) 0%,#120303 100%);
   animation:dawnlift 1.7s cubic-bezier(.55,.06,.45,.94) .25s both}
 @keyframes dawnlift{from{opacity:1}to{opacity:0}}
@@ -472,9 +472,8 @@ ANTI_SLOP_BRIEF
             </div>
           </div>
         </div>
-
-
-        </section>
+      </div>
+    </section>
 
     <section class="view" id="sB">
       <div class="bwrap">
@@ -768,11 +767,16 @@ function setBeat(b){
   doneBar.style.transitionDuration=dur+"ms";
   doneBar.style.width=target+"%";
   /* the stalled months: the tab dims while the line crawls the gap, colour returns with the consultant */
-  if(!RM && b===4 && prev===3){
+  if(!RM){
     var sa=$("#sA");
-    sa.classList.add("stall");
-    clearTimeout(sa._stallT);
-    sa._stallT=setTimeout(function(){ sa.classList.remove("stall"); }, dur+120);
+    if(b===4 && prev===3){
+      sa.classList.add("stall");
+      clearTimeout(sa._stallT);
+      sa._stallT=setTimeout(function(){ sa.classList.remove("stall"); }, dur+120);
+    } else if(sa.classList.contains("stall")){
+      clearTimeout(sa._stallT);
+      sa.classList.remove("stall");
+    }
   }
   gapEl.classList.toggle("seen", b>=4);
   rd2br(b);
@@ -942,7 +946,7 @@ function playD0(){
 /* ---------- reader: FLIP open, wheel zoom, drag pan ---------- */
 (function(){
   var rd=$("#reader"), mt=$("#rmount"), open=null, img=null;
-  var z=1, px=0, py=0;
+  var z=1, px=0, py=0, ZG=0;
   function apply(){ if(img) img.style.transform="translate("+px+"px,"+py+"px) scale("+z+")"; }
   function clampPan(){
     var w=mt.clientWidth, h=mt.clientHeight, iw=w*z, ih=(img?img.offsetHeight:h)*z;
@@ -953,6 +957,8 @@ function playD0(){
   }
   function reset(){ z=1; px=0; py=0; apply(); }
   function zoom(fr,xray){
+    if(PENDGO) return;   /* a tab transition is mid-flight; do not open under it */
+    var g=++ZG;
     var r=fr.getBoundingClientRect();
     while(mt.firstChild) mt.removeChild(mt.firstChild);
     mt.classList.toggle("xr",!!xray);
@@ -971,6 +977,7 @@ function playD0(){
     mt.style.transform="translate3d("+r.left+"px,"+r.top+"px,0)";
     rd.classList.add("on"); open=fr;
     requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      if(g!==ZG) return;   /* a newer swap or shut owns the mount now */
       mt.style.transition="";
       var H=innerHeight*0.9, W=H/1.414;
       var cx=xray ? Math.max(24,(innerWidth-W)/2-210) : (innerWidth-W)/2;
@@ -984,6 +991,7 @@ function playD0(){
     });});
   }
   function shut(){
+    ZG++;
     rd.classList.remove("xray"); mt.classList.remove("xr","on");
     if(!open){ rd.classList.remove("on"); return; }
     reset();
@@ -1024,6 +1032,7 @@ function playD0(){
   $("#rclose").addEventListener("click",shut);
   /* glide between the pages without leaving the reader */
   function swap(fr){
+    ZG++;
     var xray=fr.classList.contains("xr");
     while(mt.firstChild) mt.removeChild(mt.firstChild);
     mt.classList.toggle("xr",xray);
@@ -1067,6 +1076,17 @@ function playD0(){
   };
   $("#rprev").addEventListener("click",function(e){ e.stopPropagation(); nav(-1); });
   $("#rnext").addEventListener("click",function(e){ e.stopPropagation(); nav(1); });
+  /* the reader follows the window: recompute the mount on resize */
+  addEventListener("resize",function(){
+    if(!rd.classList.contains("on")||!open) return;
+    var xray=rd.classList.contains("xray");
+    var H=innerHeight*0.9, W=H/1.414;
+    var cx=xray ? Math.max(24,(innerWidth-W)/2-210) : (innerWidth-W)/2;
+    mt.style.width=W+"px"; mt.style.height=H+"px";
+    mt.style.transform="translate3d("+cx+"px,"+((innerHeight-H)/2)+"px,0)";
+    if(xray) $("#rside").style.left=(cx+W+56)+"px";
+    reset();
+  },{passive:true});
   rd.addEventListener("click",function(e){ if(e.target===rd) shut(); });
   document.addEventListener("keydown",function(e){
     if(!rd.classList.contains("on")) return;
@@ -1077,17 +1097,20 @@ function playD0(){
 })();
 
 /* ---------- state machine ---------- */
-var STATE="0", NAV=0;
+var STATE="0", NAV=0, PENDGO=null;
 function go(s){
   if(s===STATE) return;
   var n=++NAV;
+  PENDGO=null;
   if((s==="B"||s==="Q") && !RM){
+    PENDGO=s;
     var w=$("#wipe");
     w.classList.remove("run"); void w.offsetWidth; w.classList.add("run");
     setTimeout(function(){ if(n===NAV) goNow(s); },570);
     return;
   }
   if(s==="A" && STATE==="0" && !RM){
+    PENDGO=s;
     var lw=$("#lw"), lwl=$("#lwl"), lwh=$("#lwh");
     /* the comet travels at the exact height where the road is about to live */
     var road=$("#road");
@@ -1104,6 +1127,7 @@ function go(s){
   goNow(s);
 }
 function goNow(s){
+  PENDGO=null;
   if(s===STATE) return;
   STATE=s;
   document.body.classList.toggle("entered", s!=="0");
@@ -1131,6 +1155,8 @@ document.addEventListener("keydown",function(e){
   /* a focused [data-go] control activates natively on Enter/Space, never hijacked */
   var g=e.target && e.target.closest ? e.target.closest("[data-go]") : null;
   if(g && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); go(g.getAttribute("data-go")); return; }
+  /* a focused presenter arrow keeps its own Enter/Space activation */
+  if((e.key==="Enter"||e.key===" ") && e.target && e.target.closest && e.target.closest("#ctl")) return;
   if(e.key==="1") go("A");
   else if(e.key==="2") go("B");
   else if(STATE==="A" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); nextStep(); }
