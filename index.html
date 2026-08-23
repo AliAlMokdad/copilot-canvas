@@ -109,16 +109,16 @@ body.entered #s0 .in{opacity:0}
   stroke-dasharray:1000;stroke-dashoffset:1000;
   animation:thrdraw 11s var(--e) 1.6s infinite}
 @keyframes thrdraw{
-  0%,30%{stroke-dashoffset:1000;opacity:1}
-  64%{stroke-dashoffset:0;opacity:1}
+  0%,22%{stroke-dashoffset:1000;opacity:1}
+  70%{stroke-dashoffset:0;opacity:1}
   86%{stroke-dashoffset:0;opacity:1}
   94%{opacity:0}
   96%,100%{stroke-dashoffset:1000;opacity:0}}
 .cv-title em{animation:up 1s var(--e) .42s both, wordfeed 11s var(--e) 1.6s infinite}
 @keyframes wordfeed{
-  0%,56%{text-shadow:none}
-  68%{text-shadow:0 0 30px rgba(222,197,131,.6),0 0 8px rgba(222,197,131,.35)}
-  84%{text-shadow:0 0 22px rgba(222,197,131,.45),0 0 6px rgba(222,197,131,.25)}
+  0%,62%{text-shadow:none}
+  74%{text-shadow:0 0 30px rgba(222,197,131,.6),0 0 8px rgba(222,197,131,.35)}
+  86%{text-shadow:0 0 22px rgba(222,197,131,.45),0 0 6px rgba(222,197,131,.25)}
   94%,100%{text-shadow:none}}
 @media (prefers-reduced-motion:reduce){#thr{animation:none;stroke-dashoffset:0}.cv-title em{animation:up 1s var(--e) .42s both}}
 @media (max-width:1180px){#threadw{display:none}}
@@ -593,15 +593,23 @@ function buildThread(){
   if(!e||!g1||!em) return;
   var er=e.getBoundingClientRect(), r1=g1.getBoundingClientRect(), r2=g2.getBoundingClientRect(), r3=g3.getBoundingClientRect(), rw=em.getBoundingClientRect();
   /* waypoints: leave the line, circle the pages, arrive at the word */
+  /* the true rotated corners of a drifting page */
+  function corners(el){
+    var r=el.getBoundingClientRect();
+    var cx=(r.left+r.right)/2, cy=(r.top+r.bottom)/2;
+    var w=el.offsetWidth/2, h=el.offsetHeight/2;
+    var m=new DOMMatrixReadOnly(getComputedStyle(el).transform);
+    function c(i,j){ return [cx+i*w*m.a+j*h*m.c, cy+i*w*m.b+j*h*m.d]; }
+    return {tl:c(-1,-1), tr:c(1,-1), br:c(1,1), bl:c(-1,1)};
+  }
+  var c2=corners(g2), c1=corners(g1), c3=corners(g3);
+  /* out of the end of the road, trace each document, then carry the gold to the word */
   var pts=[
-    [er.left+er.width*0.04, er.top+er.height*0.5],
-    [r3.right+24, r3.bottom+16],
-    [r3.left-28, r3.top+r3.height*0.4],
-    [(r3.left+r1.left)/2+20, r1.bottom+44],
-    [r1.left+r1.width*0.5, r1.bottom+22],
-    [r1.right+30, r1.top+r1.height*0.72],
-    [r2.left+r2.width*0.45, r2.bottom+20],
-    [(rw.right+r1.left)/2, rw.top-44],
+    [er.right-er.width*0.035, er.top+er.height*0.5],
+    c2.br, c2.tr, c2.tl, c2.bl, c2.br,
+    c1.br, c1.tr, c1.tl, c1.bl, c1.br,
+    c3.tr, c3.tl, c3.bl, c3.br, c3.tr,
+    [(rw.right+r3.left)/2, rw.top-40],
     [rw.right+16, rw.top+rw.height*0.55]
   ];
   /* catmull-rom to bezier */
@@ -617,6 +625,7 @@ function buildThread(){
 buildThread();
 addEventListener("resize",buildThread,{passive:true});
 setTimeout(buildThread,1400);
+setInterval(buildThread,11000);
 
 /* ---------- the road: presenter-driven, beat by beat ---------- */
 var BEAT=-1, ROWS=[], doneBar, gapEl;
