@@ -161,16 +161,17 @@ body.entered #s0 .in{opacity:0}
 .tdmk.dn{top:219px}
 .msw.seen .tdmk{opacity:1}
 @media (prefers-reduced-motion:reduce){.msw.seen .ms.tdy::after{animation:none;opacity:.6}}
-/* the stalled stretch: dashed brackets frame the period through the line,
-   the story told beneath it at a size the room can read */
-.gapmark{position:absolute;top:122px;height:160px;border-left:1px dashed #D9CBC3;border-right:1px dashed #D9CBC3;opacity:0;transition:opacity .8s var(--e)}
+/* the stalled stretch: a bracketed annotation in the house voice, set beneath the period */
+.gapmark{position:absolute;top:122px;height:22px;border-left:1px dashed #D9CBC3;border-right:1px dashed #D9CBC3;opacity:0;transition:opacity .8s var(--e)}
 .gapmark.seen{opacity:1}
-.gapmark span{position:absolute;top:100px;left:50%;transform:translateX(-50%);
-  font-family:var(--serif);font-style:italic;font-size:clamp(17px,1.5vw,21px);font-weight:600;letter-spacing:.16em;
-  color:#6E5240;white-space:nowrap;padding:0 10px}
-.gapnote{position:absolute;top:138px;left:50%;transform:translateX(-50%);width:max-content;max-width:min(360px,25vw);
-  text-align:center;font-size:13.5px;line-height:1.5;color:#84685A}
-@media (max-width:1280px){.gapnote{max-width:200px;font-size:12.5px}}
+.gapblock{position:absolute;top:96px;left:50%;transform:translateX(-50%);
+  width:max-content;max-width:min(300px,21vw);padding:4px 0 4px 24px;text-align:left}
+.gapblock::before{content:"";position:absolute;left:0;top:2px;bottom:2px;width:13px;
+  border-left:2px solid var(--red);border-top:2px solid var(--red);border-bottom:2px solid var(--red);opacity:.8}
+.gaph{font-family:var(--serif);font-style:italic;font-size:clamp(18px,1.55vw,22px);font-weight:600;
+  letter-spacing:.04em;line-height:1.1;color:#4A3A30}
+.gapp{margin-top:7px;font-size:13px;line-height:1.5;color:#84685A}
+@media (max-width:1280px){.gapblock{max-width:200px}.gapp{font-size:12.5px}}
 
 /* the parallel workstreams */
 .brsvg{position:absolute;inset:0;pointer-events:none;overflow:visible}
@@ -643,8 +644,10 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
   gapEl=el("div","gapmark");
   gapEl.style.left=px("2025-07-01")+"%";
   gapEl.style.width=(37.2-px("2025-07-01"))+"%";
-  gapEl.appendChild(el("span",null,"progress slowed"));
-  gapEl.appendChild(el("div","gapnote","Workload and staff turnover had limited the pace of internal drafting."));
+  var gb=el("div","gapblock");
+  gb.appendChild(el("div","gaph","progress slowed"));
+  gb.appendChild(el("div","gapp","Workload and staff turnover had limited the pace of internal drafting."));
+  gapEl.appendChild(gb);
   rd.appendChild(gapEl);
   /* after Round 2, two parallel workstreams branch off and merge back for publication */
   var brsvg=document.createElementNS("http://www.w3.org/2000/svg","svg");
