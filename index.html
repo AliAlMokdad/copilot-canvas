@@ -163,6 +163,8 @@ body.entered #s0 .in{opacity:0}
 @media (prefers-reduced-motion:reduce){.msw.seen .ms.tdy::after{animation:none;opacity:.6}}
 .gapmark{position:absolute;top:122px;height:22px;border-left:1px dashed #D9CBC3;border-right:1px dashed #D9CBC3;opacity:0;transition:opacity .8s var(--e)}
 .gapmark.seen{opacity:1}
+.gapnote{position:absolute;top:88px;left:50%;transform:translateX(-50%);width:max-content;max-width:min(300px,22vw);
+  text-align:center;font-size:12px;line-height:1.42;color:#8F7059}
 .gapmark span{position:absolute;top:-14px;left:50%;transform:translateX(-50%);
   font-family:var(--serif);font-style:italic;font-size:16px;letter-spacing:.34em;
   color:#8A6F60;white-space:nowrap;padding:0 10px}
@@ -190,6 +192,10 @@ body.entered #s0 .in{opacity:0}
 .f-date b{color:var(--red);font-weight:500}
 .f-title{font-family:var(--serif);font-size:clamp(28px,3.4vw,44px);font-weight:600;letter-spacing:-.018em;line-height:1.06;margin:0 0 14px}
 .f-body{font-size:clamp(16px,1.35vw,19px);line-height:1.6;color:var(--ink2);max-width:66ch;margin:0}
+.f-pts{margin:2px 0 0;padding:0;list-style:none;max-width:66ch}
+.f-pts li{position:relative;padding-left:26px;margin-top:8px;font-size:clamp(16px,1.35vw,19px);line-height:1.5;color:var(--ink2)}
+.f-pts li::before{content:"";position:absolute;left:2px;top:.62em;width:13px;height:2px;border-radius:1px;background:var(--red)}
+.f-pts + .f-body{margin-top:14px}
 #fcover{position:relative;align-self:start;margin-top:6px;width:200px;opacity:0;transform:translateY(18px) rotate(1.2deg);transition:opacity .8s var(--e),transform .8s var(--e);cursor:pointer}
 #fcover.in{opacity:1;transform:none}
 #fcover img{width:100%;border-radius:4px;box-shadow:0 3px 10px rgba(60,20,20,.14),0 26px 60px rgba(60,20,20,.22)}
@@ -555,25 +561,30 @@ var MS=[
  {d:"2024-08-01",lab:"Aug 2024",t:"Need formally raised",st:"done",
   txt:"International Department observations highlighted the need for finance SOPs."},
  {d:"2024-11-01",lab:"Nov 2024",t:"ICC section introduced",st:"done",
-  txt:"Internal Control and Compliance began supporting INFIN on SOPs development."},
+  txt:"Internal Control and Compliance began supporting the International Finance section on SOPs development."},
  {d:"2025-03-01",lab:"Q1 2025",t:"Priority SOPs identified",st:"done",
   txt:"Workshops concluded and clarified which processes required SOP coverage. The shared objective: define the required SOPs, map them to finance processes, and align them with International Department SOPs."},
  {d:"2025-06-01",lab:"From Q2 2025",t:"Internal drafting ownership",st:"done",
   txt:"The ICAs and ICC agreed to divide the SOPs between them and mobilize internal expertise."},
  {d:"2026-05-15",lab:"Mid-May 2026",t:"Consultant onboarded",st:"done",
-  txt:"Workload and staff turnover had limited the pace of internal drafting. The response: targeted external drafting support. Information and documents from the ICAs and selected Country Finance teams were consolidated into draft SOPs."},
+  pts:["One-to-one meetings with ICAs",
+       "Group exercise with ICAs",
+       "Conversations with country finance focal points, country managers, and other colleagues in other departments"],
+  txt:"Information and documents from the ICAs and selected Country Finance teams were consolidated into draft SOPs."},
  {d:"2026-06-05",lab:"May to July 2026",t:"Desk review",st:"done",
   txt:"International Finance, Grants and Project Cycle, and administrative documents. Atlas and Kompas."},
  {d:"2026-07-16",lab:"16 July 2026",t:"Draft 0 submitted",st:"done",
   txt:"ICA team members and selected Country Finance officers received the package for comments and quality assurance."},
  {d:"2026-08-10",lab:"10 August 2026",t:"Draft 1 completed",st:"done",
   txt:"Feedback from fourteen reviewers across HQ and Country Finance was addressed and incorporated. The working package advanced to Draft 1."},
- {d:"2026-08-27",lab:"27 August 2026",t:"Round 1 review closes",st:"now",
-  txt:"The Draft 1 round one review is currently underway and expected to be completed by 27 August 2026."},
+ {d:"2026-08-27",lab:"27 August 2026",t:"Round 1 review ongoing",st:"now",
+  txt:"The Draft 1 round one review is currently underway."},
  {d:"2026-09-01",lab:"1 September 2026",t:"GFS 2026, Istanbul",st:"fut",
-  txt:"Global finance community consultation, including country finance teams on the preferred rollout approach."},
+  txt:"Global finance community consultation, including country finance teams on the preferred rollout approach. A new round of review starts."},
+ {d:"2026-10-01",lab:"1 October 2026",t:"ID review and check",st:"fut",
+  txt:"International Department review and check."},
  {d:"2026-11-01",lab:"1 November 2026",t:"Change request submissions and log",st:"fut",
-  txt:"Subject to approval and feasibility. Users apply the SOPs in practice and submit change requests. Super-users appointed. Awareness and training with country finance teams, Country Managers, Finance and International Department units."},
+  txt:"Subject to approval and feasibility. Users apply the SOPs in practice and submit change requests. Super-users appointed. Awareness and training with country finance teams, Country Managers, Finance and International Department units. Publish and communicate."},
  {d:"2027-01-31",lab:"31 January 2027",t:"Alignment with the new ID structure",st:"fut",
   txt:"End of the testing phase. The period also allows the International Department to finalise and announce its restructuring."},
  {d:"2027-03-31",lab:"End Q1 2027",t:"Fully functional",st:"fut",
@@ -626,13 +637,14 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
   var axis=el("div","axis");
   doneBar=el("div","done"); axis.appendChild(doneBar);
   rd.appendChild(axis);
-  [["2025",px("2025-01-01")],["2026",px("2026-01-01")]].forEach(function(y){
+  [["2024",2.1],["2025",px("2025-01-01")],["2026",px("2026-01-01")]].forEach(function(y){
     var v=el("div","yr",y[0]); v.style.left=y[1]+"%"; rd.appendChild(v);
   });
   gapEl=el("div","gapmark");
   gapEl.style.left=px("2025-07-01")+"%";
   gapEl.style.width=(37.2-px("2025-07-01"))+"%";
   gapEl.appendChild(el("span",null,"progress slowed"));
+  gapEl.appendChild(el("div","gapnote","Workload and staff turnover had limited the pace of internal drafting. The response: targeted external drafting support."));
   rd.appendChild(gapEl);
   /* after Round 2, two parallel workstreams branch off and merge back for publication */
   var brsvg=document.createElementNS("http://www.w3.org/2000/svg","svg");
@@ -646,7 +658,7 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
     function slotFor(i){ if(i<4) return px(MS[i].d); return 38+(i-4)*(58.5/(MS.length-5)); }
     var x0=(slotFor(9)+slotFor(10))/2*W/100+14, AXY=196;
     /* merge back through the free gap just before the Publication label */
-    var xm=(slotFor(11)+slotFor(12))/2*W/100+26;
+    var xm=(slotFor(12)+slotFor(13))/2*W/100+26;
     var L1=340, L2=374;
     brsvg.setAttribute("viewBox","0 0 "+W+" 392");
     brsvg.setAttribute("width",W); brsvg.setAttribute("height",392);
@@ -675,7 +687,7 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
     function slotFor(i){ if(i<4) return px(MS[i].d); return 38+(i-4)*(58.5/(MS.length-5)); }
     var f=(T("2027-01-01")-T("2026-11-01"))/(T("2027-01-31")-T("2026-11-01"));
     var v=el("div","yr","2027");
-    v.style.left=(slotFor(10)+f*(slotFor(11)-slotFor(10)))+"%";
+    v.style.left=(slotFor(11)+f*(slotFor(12)-slotFor(11)))+"%";
     rd.appendChild(v);
   })();
 
@@ -741,8 +753,13 @@ function renderFocus(i){
     dt.appendChild(document.createTextNode(m.lab+"  "));
     dt.appendChild(el("b",null,m.st==="fut"?"planned":(m.st==="now"?"in progress":"complete")));
     ti=el("h3","f-title",m.t);
-    bd=el("p","f-body",m.txt);
-    fmain.appendChild(dt); fmain.appendChild(ti); fmain.appendChild(bd);
+    fmain.appendChild(dt); fmain.appendChild(ti);
+    if(m.pts){
+      var ul=el("ul","f-pts");
+      m.pts.forEach(function(p){ ul.appendChild(el("li",null,p)); });
+      fmain.appendChild(ul);
+    }
+    if(m.txt){ bd=el("p","f-body",m.txt); fmain.appendChild(bd); }
   } else if(i>=MS.length){
     dt=el("div","f-date");
     dt.appendChild(document.createTextNode("Today  "));
