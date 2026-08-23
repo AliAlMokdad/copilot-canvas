@@ -168,6 +168,18 @@ body.entered.stA #ctl{display:flex}
 .art-fr img{width:100%}
 
 
+/* ---------- the desk review: the documents read, dealt onto the table ---------- */
+#dr{position:fixed;inset:0;z-index:38;pointer-events:none;opacity:0;transition:opacity .45s var(--e);
+  background:rgba(40,15,15,.44);backdrop-filter:blur(16px) saturate(1.05)}
+#dr.on{opacity:1;pointer-events:auto;cursor:pointer}
+.drpg{position:fixed;left:0;top:0;border-radius:2.5px;background:#fff;
+  box-shadow:0 4px 16px rgba(20,6,6,.35);will-change:transform;
+  transition:transform .62s var(--e)}
+#drlab{position:fixed;left:50%;bottom:7%;transform:translateX(-50%);z-index:2;
+  font-family:var(--mono);font-size:13px;letter-spacing:.4em;color:var(--gold);
+  opacity:0;transition:opacity .8s var(--e) 1.6s}
+#dr.on #drlab{opacity:1}
+@media (prefers-reduced-motion:reduce){#dr{display:none}}
 /* ---------- the Draft 0 assembly ---------- */
 #d0{position:fixed;inset:0;z-index:38;pointer-events:none;opacity:0;transition:opacity .45s var(--e);
   background:rgba(40,15,15,.44);backdrop-filter:blur(16px) saturate(1.05)}
@@ -348,6 +360,7 @@ ANTI_SLOP_BRIEF
   <button class="nav" id="nvNext" aria-label="Forward">&rarr;</button>
 </div>
 
+<div id="dr" aria-hidden="true"><div id="drlab">DESK REVIEW</div></div>
 <div id="d0" aria-hidden="true">
   <div id="d0card">
     <div class="d0face d0f-a">
@@ -387,6 +400,8 @@ var MS=[
   txt:"The ICAs and ICC agreed to divide the SOPs between them and mobilize internal expertise."},
  {d:"2026-05-15",lab:"Mid-May 2026",t:"Consultant onboarded",st:"done",
   txt:"Workload and staff turnover had limited the pace of internal drafting. The response: targeted external drafting support. Information and documents from the ICAs and selected Country Finance teams were consolidated into draft SOPs."},
+ {d:"2026-06-05",lab:"May to July 2026",t:"Desk review",st:"done",
+  txt:"International Finance, Grants and Project Cycle, and administrative documents. Atlas and Kompas."},
  {d:"2026-07-16",lab:"16 July 2026",t:"Draft 0 submitted",st:"done",
   txt:"ICA team members and selected Country Finance officers received the package for comments and quality assurance."},
  {d:"2026-08-10",lab:"10 August 2026",t:"Draft 1 completed",st:"done",
@@ -407,7 +422,7 @@ var MS=[
   txt:"Final revision on pilot feedback, publication of the final versions, and wide communication to all stakeholders. Then continuous maintenance, led by the appointed super-users."}
 ];
 var CLOSING="Draft 1, comments addressed and ready for the next review cycle.";
-var DRAFT1_IDX=6;
+var DRAFT1_IDX=7;
 /* real per-phase counts from the Draft 1 contents page */
 
 function $(s,r){return (r||document).querySelector(s)}
@@ -461,7 +476,7 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
     function slotFor(i){ if(i<4) return px(MS[i].d); return 38+(i-4)*(58.5/(MS.length-5)); }
     var f=(T("2027-01-01")-T("2026-11-01"))/(T("2027-01-31")-T("2026-11-01"));
     var v=el("div","yr","2027");
-    v.style.left=(slotFor(11)+f*(slotFor(12)-slotFor(11)))+"%";
+    v.style.left=(slotFor(12)+f*(slotFor(13)-slotFor(12)))+"%";
     rd.appendChild(v);
   })();
 
@@ -548,7 +563,8 @@ function setBeat(b){
   doneBar.style.transitionDuration=dur+"ms";
   doneBar.style.width=target+"%";
   gapEl.classList.toggle("seen", b>=4);
-  if(b===5 && prev<5) playD0();
+  if(b===5 && prev<5) playDR();
+  if(b===6 && prev<6) playD0();
   fhint.style.opacity = b<0 ? "1" : "0";
   fcover.classList.toggle("in", b>=DRAFT1_IDX);
   renderFocus(b);
@@ -562,6 +578,46 @@ $("#roadzone").addEventListener("click",function(e){
   setBeat(BEAT+1);
 });
 
+
+/* ---------- the desk review: 39 real covers dealt onto the wall ---------- */
+var DR_DONE=false;
+function playDR(){
+  if(DR_DONE||RM) return; DR_DONE=true;
+  var ov=$("#dr"), N=39, pgs=[];
+  var COLS=10, ROWS=4;
+  var cw=Math.min(150,innerWidth*0.082), ch=cw*1.33;
+  var stepx=cw*1.02, stepy=ch*1.06;
+  var gw=(COLS-1)*stepx+cw, gx=(innerWidth-gw)/2, gy=innerHeight*0.5-((ROWS-1)*stepy+ch)/2-14;
+  for(var i=0;i<N;i++){
+    var d=document.createElement("img");
+    d.className="drpg"; d.alt="";
+    d.src="assets/desk/c"+(i<10?"0":"")+i+".jpg";
+    d.style.width=cw+"px"; d.style.height=ch+"px";
+    d.style.zIndex=String(2+i);
+    d.style.transform="translate("+(innerWidth*0.55)+"px,"+(innerHeight+320)+"px) rotate(16deg)";
+    ov.appendChild(d); pgs.push(d);
+  }
+  ov.classList.add("on");
+  setTimeout(function(){
+    pgs.forEach(function(d,i){
+      var c=i%COLS, r=Math.floor(i/COLS);
+      var rot=(((i*7)%9)-4)*1.1;
+      setTimeout(function(){
+        d.style.transform="translate("+(gx+c*stepx)+"px,"+(gy+r*stepy)+"px) rotate("+rot+"deg)";
+      }, i*36);
+    });
+  },90);
+  function shut(e){
+    if(e){ e.stopPropagation(); e.preventDefault(); }
+    ov.classList.remove("on");
+    setTimeout(function(){ pgs.forEach(function(d){ if(d.parentNode) d.parentNode.removeChild(d); }); },480);
+    ov.removeEventListener("click",shut);
+    document.removeEventListener("keydown",drkey,true);
+  }
+  function drkey(e){ shut(e); }
+  ov.addEventListener("click",shut);
+  document.addEventListener("keydown",drkey,true);
+}
 
 /* ---------- the Draft 0 assembly: 31 documents fly in, stack, become the draft, then Draft 1 ---------- */
 var D0_DONE=false;
