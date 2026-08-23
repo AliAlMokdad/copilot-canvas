@@ -213,9 +213,16 @@ body.entered #s0 .in{opacity:0}
 .f-date b{color:var(--red);font-weight:500}
 .f-title{font-family:var(--serif);font-size:clamp(28px,3.4vw,44px);font-weight:600;letter-spacing:-.018em;line-height:1.06;margin:0 0 14px}
 .f-body{font-size:clamp(16px,1.35vw,19px);line-height:1.6;color:var(--ink2);max-width:66ch;margin:0}
-#fcover{align-self:start;margin-top:6px;width:200px;opacity:0;transform:translateY(18px) rotate(1.2deg);transition:opacity .8s var(--e),transform .8s var(--e);cursor:pointer}
+#fcover{position:relative;align-self:start;margin-top:6px;width:200px;opacity:0;transform:translateY(18px) rotate(1.2deg);transition:opacity .8s var(--e),transform .8s var(--e);cursor:pointer}
 #fcover.in{opacity:1;transform:none}
 #fcover img{width:100%;border-radius:4px;box-shadow:0 3px 10px rgba(60,20,20,.14),0 26px 60px rgba(60,20,20,.22)}
+/* every few seconds, a light passes over the Draft 1 cover */
+#fcover::after{content:"";position:absolute;inset:0;border-radius:4px;pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(105deg,transparent 42%,rgba(255,246,214,.05) 47%,rgba(255,248,225,.7) 50%,rgba(255,246,214,.05) 53%,transparent 58%);
+  background-size:240% 100%;background-position:130% 0;
+  animation:fsheen 6.5s cubic-bezier(.45,.05,.55,.95) 2.4s infinite}
+@keyframes fsheen{0%{background-position:130% 0}18%{background-position:-30% 0}100%{background-position:-30% 0}}
+@media (prefers-reduced-motion:reduce){#fcover::after{animation:none;opacity:0}}
 #fhint{position:absolute;top:34px;font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#7A5F52;transition:opacity .4s var(--e)}
 
 /* presenter controls */
