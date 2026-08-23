@@ -40,12 +40,7 @@ body.entered .xc.on{opacity:1}
 #xc1 .arm{fill:rgba(186,23,28,.020)} #xc2 .arm{fill:rgba(186,23,28,.012)}
 @media (prefers-reduced-motion:reduce){.xc{display:none}} @media (hover:none){.xc{display:none}}
 
-/* the field of 23, phase-coloured, interior states only */
-#field{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity 1s var(--e)}
-body.entered #field{opacity:1}
-.nd{position:absolute;top:0;left:0;border-radius:50%;background:var(--c);
-  transition:transform 1.15s var(--e),opacity .9s var(--e);will-change:transform}
-
+body.entered 
 /* ---------- shell ---------- */
 #shell{position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;pointer-events:none}
 #shell > *{pointer-events:auto}
@@ -121,11 +116,13 @@ body.entered #s0 .in{opacity:0}
 .msw.act .rlb b{color:var(--red)}
 .lstem{position:absolute;left:0;width:1px;background:var(--hair);transform:translateX(-.5px);opacity:0;transition:opacity .5s var(--e) .15s}
 .msw.seen .lstem{opacity:1}
-.rlb.u1{bottom:202px} .rlb.u2{bottom:260px} .rlb.u3{bottom:318px}
-.rlb.d1{top:234px} .rlb.d2{top:292px} .rlb.d3{top:350px}
+.rlb.u1{bottom:216px} .rlb.u2{bottom:272px} .rlb.u3{bottom:328px}
+.rlb.d1{top:248px} .rlb.d2{top:304px} .rlb.d3{top:352px}
 .gapmark{position:absolute;top:122px;height:22px;border-left:1px dashed #D9CBC3;border-right:1px dashed #D9CBC3;opacity:0;transition:opacity .8s var(--e)}
 .gapmark.seen{opacity:1}
-.gapmark span{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7A5F52;font-weight:500;white-space:nowrap;background:var(--paper);padding:0 8px}
+.gapmark span{position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  font-family:var(--serif);font-style:italic;font-size:16px;letter-spacing:.34em;
+  color:#8A6F60;white-space:nowrap;padding:0 10px}
 
 /* ---------- the focus panel ---------- */
 #focus{position:relative;border-top:1px solid var(--hair);margin-top:2px;padding:30px 0 26px;min-height:230px;display:grid;grid-template-columns:1fr 210px;gap:44px;align-items:start}
@@ -146,7 +143,6 @@ body.entered #s0 .in{opacity:0}
 /* presenter controls */
 #ctl{position:fixed;right:44px;bottom:34px;z-index:8;display:none;align-items:center;gap:14px}
 body.entered.stA #ctl{display:flex}
-#ctl .cnt{font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--ink3);min-width:64px;text-align:center}
 .nav{width:44px;height:44px;border-radius:50%;border:1px solid var(--hair);background:#fff;color:var(--ink2);font-size:18px;display:grid;place-items:center;transition:.25s var(--e);box-shadow:0 2px 8px rgba(60,20,20,.06)}
 .nav:hover{border-color:var(--red);color:var(--red)}
 /* ---------- state A lower sections ---------- */
@@ -212,6 +208,19 @@ body.entered.stA #ctl{display:flex}
 #rmount.drag{cursor:grabbing}
 #rhint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:41;font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:rgba(42,18,18,.55);padding:8px 16px;border-radius:100px;pointer-events:none;opacity:0;transition:opacity .5s var(--e)}
 #reader.on #rhint{opacity:1}
+#reader.xray #rhint{display:none}
+#reader.xray #rmount{cursor:default}
+#rmount.xr img{filter:blur(26px) saturate(.8)}
+#rside{position:absolute;top:50%;transform:translateY(-50%) translateX(24px);width:360px;z-index:41;background:var(--paper);border:1px solid var(--hair);border-radius:6px;padding:26px 28px;box-shadow:0 20px 70px rgba(60,20,20,.16);
+  opacity:0;transition:opacity .6s var(--e) .35s,transform .6s var(--e) .35s;pointer-events:none}
+#reader.xray.on #rside{opacity:1;transform:translateY(-50%)}
+#rside::before{content:"";position:absolute;left:-56px;top:50%;width:44px;height:1.5px;background:#B99F91}
+#rside::after{content:"";position:absolute;left:-56px;top:calc(50% - 4px);width:9px;height:9px;
+  border-left:1.5px solid #B99F91;border-bottom:1.5px solid #B99F91;transform:rotate(45deg)}
+.rs-eye{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.24em;color:#8A6A2F;margin-bottom:18px}
+.rs-i{display:flex;gap:18px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--hair)}
+.rs-i b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--red);font-weight:500}
+.rs-i span{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.012em}
 #rclose{position:absolute;top:28px;right:34px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);font-size:18px;color:#fff;display:grid;place-items:center;transition:.3s var(--e)}
 #rclose:hover{background:#fff;color:var(--red);transform:rotate(90deg)}
 
@@ -248,7 +257,6 @@ ANTI_SLOP_BRIEF
 <div class="grain" aria-hidden="true"></div>
 <div class="xc" id="xc2" aria-hidden="true"><svg viewBox="0 0 90 90"><path class="arm" d="M30 0h30v30h30v30H60v30H30V60H0V30h30z"/></svg></div>
 <div class="xc" id="xc1" aria-hidden="true"><svg viewBox="0 0 90 90"><path class="arm" d="M30 0h30v30h30v30H60v30H30V60H0V30h30z"/></svg></div>
-<div id="field" aria-hidden="true"></div>
 
 <div id="shell">
   <div id="topbar">
@@ -349,11 +357,20 @@ ANTI_SLOP_BRIEF
 
 <div id="ctl">
   <button class="nav" id="nvPrev" aria-label="Back">&larr;</button>
-  <div class="cnt" id="cnt"></div>
   <button class="nav" id="nvNext" aria-label="Forward">&rarr;</button>
 </div>
 
-<div id="reader"><div id="rmount"></div><div id="rhint">Scroll to zoom &middot; drag to move</div><button id="rclose" aria-label="Close">&times;</button></div>
+<div id="reader"><div id="rmount"></div>
+  <aside id="rside" aria-label="Every SOP contains">
+    <div class="rs-eye">EVERY SOP CONTAINS</div>
+    <div class="rs-i"><b>01</b><span>Purpose and scope</span></div>
+    <div class="rs-i"><b>02</b><span>The procedure, in numbered sections</span></div>
+    <div class="rs-i"><b>03</b><span>Roles and responsibilities &middot; RACI</span></div>
+    <div class="rs-i"><b>04</b><span>Process flow</span></div>
+    <div class="rs-i"><b>05</b><span>Tools</span></div>
+  </aside>
+  <div id="rhint">Scroll to zoom &middot; drag to move</div>
+  <button id="rclose" aria-label="Close">&times;</button></div>
 <script>
 /* ===== all content from the 12 August 2026 update deck and the Draft 1 document ===== */
 var MS=[
@@ -411,14 +428,18 @@ var EFF=[
 ];
 var EFF_NOTE="In parallel: exploring possible digital solutions, to be integrated with the online learning and onboarding platform.";
 /* real per-phase counts from the Draft 1 contents page */
-var PHASES=[{k:"I",c:"var(--p1)",n:2},{k:"II",c:"var(--p2)",n:5},{k:"III",c:"var(--p3)",n:14},{k:"IV",c:"var(--p4)",n:2}];
 
 function $(s,r){return (r||document).querySelector(s)}
 function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
 var RM=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
 function T(d){return new Date(d+"T00:00:00").getTime()}
-var T0=T("2024-06-01"), T1=T("2027-06-15");
-function px(d){return 3.5+(T(d)-T0)/(T1-T0)*93}
+/* two scales: the quiet period compressed, the working period from May 2026 expanded */
+var T0=T("2024-06-01"), TB=T("2026-05-01"), T1=T("2027-06-01");
+function px(d){
+  var t=T(d);
+  if(t<=TB) return 3.5+(t-T0)/(TB-T0)*27.5;
+  return 38+(t-TB)/(T1-TB)*58.5;
+}
 
 /* ---------- pointer crosses ---------- */
 (function(){
@@ -439,36 +460,6 @@ function px(d){return 3.5+(T(d)-T0)/(T1-T0)*93}
   },{passive:true});
 })();
 
-/* ---------- the field of 23, phase colours ---------- */
-var NODES=[];
-(function(){
-  var f=$("#field");
-  PHASES.forEach(function(p,gi){
-    for(var i=0;i<p.n;i++){
-      var d=el("div","nd"); d.style.setProperty("--c",p.c);
-      f.appendChild(d); NODES.push({el:d,g:gi,k:i,i:NODES.length});
-    }
-  });
-})();
-function layout(state){
-  var W=innerWidth,H=innerHeight;
-  NODES.forEach(function(n){
-    var t=PHASES[n.g].n, idx=n.k, x,y,sz,op;
-    if(state==="A"){
-      x=W*0.07+(n.g/3)*(W*0.86)+(idx-t/2)*11;
-      y=H*0.945+Math.sin(idx*1.7)*5;
-      sz=5; op=.30;
-    } else {
-      x=W*0.5+(idx-t/2)*4+(n.g-1.5)*5.5;
-      y=H*0.955-n.g*7;
-      sz=4; op=.24;
-    }
-    n.el.style.width=sz+"px"; n.el.style.height=sz+"px"; n.el.style.opacity=op;
-    n.el.style.transitionDelay=(n.i*12)+"ms";
-    n.el.style.transform="translate3d("+(x-sz/2)+"px,"+(y-sz/2)+"px,0)";
-  });
-}
-
 /* ---------- the road: presenter-driven, beat by beat ---------- */
 var BEAT=-1, ROWS=[], doneBar, gapEl;
 (function(){
@@ -480,8 +471,8 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
     var v=el("div","yr",y); v.style.left=px(y+"-01-01")+"%"; rd.appendChild(v);
   });
   gapEl=el("div","gapmark");
-  gapEl.style.left=px("2025-06-01")+"%";
-  gapEl.style.width=(px("2026-05-15")-px("2025-06-01"))+"%";
+  gapEl.style.left=px("2025-07-01")+"%";
+  gapEl.style.width=(37.2-px("2025-07-01"))+"%";
   gapEl.appendChild(el("span",null,"progress slowed"));
   rd.appendChild(gapEl);
 
@@ -499,9 +490,9 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
 
   /* collision-free lanes */
   var LANE=[
-    {c:"u1",b:202,dir:-1},{c:"d1",top:234,dir:1},
-    {c:"u2",b:260,dir:-1},{c:"d2",top:292,dir:1},
-    {c:"u3",b:318,dir:-1},{c:"d3",top:350,dir:1}
+    {c:"u1",b:216,dir:-1},{c:"d1",top:248,dir:1},
+    {c:"u2",b:272,dir:-1},{c:"d2",top:304,dir:1},
+    {c:"u3",b:328,dir:-1},{c:"d3",top:352,dir:1}
   ];
   var H=392, AX=196;
   function place(){
@@ -527,7 +518,7 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
   addEventListener("resize",place,{passive:true});
 })();
 
-var fmain=$("#fmain"), fhint=$("#fhint"), fcover=$("#fcover"), cnt=$("#cnt");
+var fmain=$("#fmain"), fhint=$("#fhint"), fcover=$("#fcover");
 function renderFocus(i){
   fmain.classList.remove("in");
   while(fmain.firstChild) fmain.removeChild(fmain.firstChild);
@@ -571,7 +562,6 @@ function setBeat(b){
   fhint.style.opacity = b<0 ? "1" : "0";
   fcover.classList.toggle("in", b>=DRAFT1_IDX);
   renderFocus(b);
-  cnt.textContent = (b<0||b>=MS.length) ? "" : ((b+1<10?"0":"")+(b+1)+" / "+MS.length);
 }
 $("#nvNext").addEventListener("click",function(e){ e.stopPropagation(); setBeat(BEAT+1); });
 $("#nvPrev").addEventListener("click",function(e){ e.stopPropagation(); setBeat(BEAT-1); });
@@ -625,12 +615,21 @@ $("#roadzone").addEventListener("click",function(e){
     if(ih<=h) py=0;
   }
   function reset(){ z=1; px=0; py=0; apply(); }
-  function zoom(fr){
+  function zoom(fr,xray){
     var r=fr.getBoundingClientRect();
     while(mt.firstChild) mt.removeChild(mt.firstChild);
-    img=fr.querySelector("img").cloneNode(true);
-    img.style.filter="none";
-    mt.appendChild(img); reset();
+    mt.classList.toggle("xr",!!xray);
+    mt.classList.remove("on");
+    rd.classList.toggle("xray",!!xray);
+    if(xray){
+      img=null;
+      Array.prototype.forEach.call(fr.children,function(c){ mt.appendChild(c.cloneNode(true)); });
+    } else {
+      img=fr.querySelector("img").cloneNode(true);
+      img.style.filter="none";
+      mt.appendChild(img);
+    }
+    reset();
     mt.style.transition="none";
     mt.style.width=r.width+"px"; mt.style.height=r.height+"px";
     mt.style.transform="translate3d("+r.left+"px,"+r.top+"px,0)";
@@ -638,11 +637,18 @@ $("#roadzone").addEventListener("click",function(e){
     requestAnimationFrame(function(){ requestAnimationFrame(function(){
       mt.style.transition="";
       var H=innerHeight*0.9, W=H/1.414;
+      var cx=xray ? Math.max(24,(innerWidth-W)/2-210) : (innerWidth-W)/2;
       mt.style.width=W+"px"; mt.style.height=H+"px";
-      mt.style.transform="translate3d("+((innerWidth-W)/2)+"px,"+((innerHeight-H)/2)+"px,0)";
+      mt.style.transform="translate3d("+cx+"px,"+((innerHeight-H)/2)+"px,0)";
+      if(xray){
+        var side=$("#rside");
+        side.style.left=(cx+W+56)+"px";
+        setTimeout(function(){ mt.classList.add("on"); },420);
+      }
     });});
   }
   function shut(){
+    rd.classList.remove("xray"); mt.classList.remove("xr","on");
     if(!open){ rd.classList.remove("on"); return; }
     reset();
     var r=open.getBoundingClientRect();
@@ -651,6 +657,7 @@ $("#roadzone").addEventListener("click",function(e){
     rd.classList.remove("on"); open=null;
   }
   mt.addEventListener("wheel",function(e){
+    if(rd.classList.contains("xray")) return;
     e.preventDefault();
     var box=mt.getBoundingClientRect();
     var mx=e.clientX-box.left, my=e.clientY-box.top;
@@ -661,6 +668,7 @@ $("#roadzone").addEventListener("click",function(e){
   },{passive:false});
   var dragging=false,lx=0,ly=0;
   mt.addEventListener("pointerdown",function(e){
+    if(rd.classList.contains("xray")) return;
     dragging=true; lx=e.clientX; ly=e.clientY;
     mt.classList.add("drag"); mt.setPointerCapture(e.pointerId);
   });
@@ -672,9 +680,9 @@ $("#roadzone").addEventListener("click",function(e){
   mt.addEventListener("pointerup",function(){ dragging=false; mt.classList.remove("drag"); });
   mt.addEventListener("dblclick",function(){ reset(); });
   $("#arts").addEventListener("click",function(e){
-    var xr=e.target.closest(".xr");
-    if(xr){ xr.classList.remove("on"); void xr.offsetWidth; xr.classList.add("on"); return; }
-    var a=e.target.closest(".art"); if(a) zoom(a.querySelector(".art-fr"));
+    var a=e.target.closest(".art"); if(!a) return;
+    var fr=a.querySelector(".art-fr");
+    zoom(fr, fr.classList.contains("xr"));
   });
   $("#rclose").addEventListener("click",shut);
   rd.addEventListener("click",function(e){ if(e.target===rd) shut(); });
@@ -694,7 +702,6 @@ function go(s){
   Array.prototype.forEach.call(document.querySelectorAll(".seg"),function(b){
     b.classList.toggle("on", b.getAttribute("data-go")===s);
   });
-  if(s!=="0") layout(s);
   if(s==="B"){ var x=$("#xr"); if(x){ x.classList.remove("on"); void x.offsetWidth; setTimeout(function(){x.classList.add("on");},350); } }
 }
 document.addEventListener("click",function(e){
@@ -708,7 +715,6 @@ document.addEventListener("keydown",function(e){
   else if(STATE==="A" && e.key==="ArrowLeft"){ e.preventDefault(); setBeat(BEAT-1); }
   else if(e.key==="Escape") go("0");
 });
-addEventListener("resize",function(){ if(STATE!=="0") layout(STATE); },{passive:true});
 </script>
 </body>
 </html>
