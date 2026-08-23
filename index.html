@@ -126,14 +126,17 @@ body.entered #s0 .in{opacity:0}
 
 /* the parallel workstreams */
 .brsvg{position:absolute;inset:0;pointer-events:none;overflow:visible}
-.brp{fill:none;stroke-width:2;transition:stroke-dashoffset 1.6s var(--e) .2s}
+.brp{fill:none;stroke-width:2.5;stroke-linecap:round;transition:stroke-dashoffset 1.6s var(--e) .2s}
 .bp1{stroke:#4E6E86}
 .bp2{stroke:#6E8B6A}
-.brlab{position:absolute;transform:translate(-50%,-50%);font-family:var(--mono);font-size:11.5px;font-weight:500;
-  letter-spacing:.14em;text-transform:uppercase;background:var(--paper);padding:2px 12px;
+.brlab{position:absolute;transform:translate(-50%,-50%);font-family:var(--mono);font-size:12.5px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;background:var(--paper);padding:3px 14px;
   opacity:0;transition:opacity .7s var(--e) 1s;pointer-events:none}
-.brlab.b1{color:#3F5B70}
-.brlab.b2{color:#57744F}
+.brlab::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:9px;vertical-align:1px}
+.brlab.b1::before{background:#4E6E86}
+.brlab.b2::before{background:#6E8B6A}
+.brlab.b1{color:#33556E}
+.brlab.b2{color:#49663F}
 .road.branched .brp{stroke-dashoffset:0!important}
 .road.branched .brlab{opacity:1}
 /* ---------- the focus panel ---------- */
@@ -179,6 +182,26 @@ body.entered.stA #ctl{display:flex}
 .art:hover .art-fr{transform:translateY(-7px);box-shadow:0 5px 16px rgba(60,20,20,.12),0 40px 90px rgba(60,20,20,.22)}
 .art-fr img{width:100%}
 
+
+/* ---------- the red wash between the two parts ---------- */
+#wipe{position:fixed;inset:0;z-index:60;pointer-events:none;transform:translateX(-103%);
+  background:radial-gradient(120% 90% at 50% 12%, var(--red-hi) 0%, var(--red) 42%, #8E1016 76%, var(--red-deep) 100%);
+  overflow:hidden}
+#wipe.run{animation:wipeRun 1.3s cubic-bezier(.72,.04,.28,.98) both}
+@keyframes wipeRun{0%{transform:translateX(-103%)}44%{transform:translateX(0)}56%{transform:translateX(0)}100%{transform:translateX(103%)}}
+.wghost{position:absolute;right:-4%;bottom:-12%;width:52vmin;height:52vmin;opacity:.06}
+.wghost path{fill:#fff}
+@media (prefers-reduced-motion:reduce){#wipe{display:none}}
+
+/* the Draft 1 slide stages itself in */
+#sB .aHead h2, #sB .art{opacity:0}
+#sB.reveal .aHead h2{animation:up .8s var(--e) .12s both}
+#sB.reveal .art{animation:cardin .85s var(--e) both}
+#sB.reveal .art:nth-child(1){animation-delay:.22s}
+#sB.reveal .art:nth-child(2){animation-delay:.4s}
+#sB.reveal .art:nth-child(3){animation-delay:.58s}
+@keyframes cardin{from{opacity:0;transform:translateY(52px) scale(.955)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#sB .aHead h2,#sB .art{opacity:1;animation:none}}
 
 /* ---------- the desk review: the documents read, dealt onto the table ---------- */
 #dr{position:fixed;inset:0;z-index:38;pointer-events:none;opacity:0;transition:opacity .45s var(--e);
@@ -252,7 +275,9 @@ body.entered.stA #ctl{display:flex}
 #reader.xray.on #rside .rs-i:nth-child(4){transition-delay:1.06s}
 #reader.xray.on #rside .rs-i:nth-child(5){transition-delay:1.34s}
 #reader.xray.on #rside .rs-i:nth-child(6){transition-delay:1.58s}
-.rs-i{position:relative;display:flex;gap:20px;align-items:baseline;padding:16px 0}
+.rs-i{position:relative;display:flex;align-items:baseline;padding:16px 0 16px 34px}
+.rs-i::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:16px;
+  border-left:2px solid var(--gold);border-top:2px solid var(--gold);border-bottom:2px solid var(--gold)}
 .rs-i::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:rgba(222,197,131,.45);transform:scaleX(0);transform-origin:left}
 #reader.xray.on #rside .rs-i::after{transition:transform .7s var(--e)}
 #reader.xray.on #rside .rs-i:nth-child(2)::after{transform:scaleX(1);transition-delay:.62s}
@@ -260,7 +285,6 @@ body.entered.stA #ctl{display:flex}
 #reader.xray.on #rside .rs-i:nth-child(4)::after{transform:scaleX(1);transition-delay:1.18s}
 #reader.xray.on #rside .rs-i:nth-child(5)::after{transform:scaleX(1);transition-delay:1.46s}
 #reader.xray.on #rside .rs-i:nth-child(6)::after{transform:scaleX(1);transition-delay:1.7s}
-.rs-i b{font-size:15px;color:#EFDFAE;text-shadow:0 1px 8px rgba(30,8,8,.5)}
 .rs-i span{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:-.012em;color:#FBF3F0;text-shadow:0 1px 14px rgba(30,8,8,.35)}
 #rclose{position:absolute;top:28px;right:34px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);font-size:18px;color:#fff;display:grid;place-items:center;transition:.3s var(--e)}
 #rclose:hover{background:#fff;color:var(--red);transform:rotate(90deg)}
@@ -375,6 +399,9 @@ ANTI_SLOP_BRIEF
   <button class="nav" id="nvNext" aria-label="Forward">&rarr;</button>
 </div>
 
+<div id="wipe" aria-hidden="true">
+  <svg class="wghost" viewBox="0 0 90 90"><path d="M30 0h30v30h30v30H60v30H30V60H0V30h30z"/></svg>
+</div>
 <div id="dr" aria-hidden="true"><div id="drlab">DESK REVIEW</div></div>
 <div id="d0" aria-hidden="true">
   <div id="d0card">
@@ -394,11 +421,11 @@ ANTI_SLOP_BRIEF
 <div id="reader"><div id="rmount"></div>
   <aside id="rside" aria-label="Every SOP contains">
     <div class="rs-eye">EVERY SOP CONTAINS</div>
-    <div class="rs-i"><b>&#10022;</b><span>Purpose and scope</span></div>
-    <div class="rs-i"><b>&#10022;</b><span>The procedure, in numbered sections</span></div>
-    <div class="rs-i"><b>&#10022;</b><span>Roles and responsibilities &middot; RACI</span></div>
-    <div class="rs-i"><b>&#10022;</b><span>Process flow</span></div>
-    <div class="rs-i"><b>&#10022;</b><span>Tools</span></div>
+    <div class="rs-i"><span>Purpose and scope</span></div>
+    <div class="rs-i"><span>The procedure, in numbered sections</span></div>
+    <div class="rs-i"><span>Roles and responsibilities &middot; RACI</span></div>
+    <div class="rs-i"><span>Process flow</span></div>
+    <div class="rs-i"><span>Tools</span></div>
   </aside>
   <div id="rhint">Scroll to zoom &middot; drag to move</div>
   <button id="rclose" aria-label="Close">&times;</button></div>
@@ -425,15 +452,11 @@ var MS=[
   txt:"The Draft 1 round one review is currently underway and expected to be completed by 27 August 2026."},
  {d:"2026-09-01",lab:"1 September 2026",t:"GFS 2026, Istanbul",st:"fut",
   txt:"Global finance community consultation, including country finance teams on the preferred rollout approach."},
- {d:"2026-09-15",lab:"Mid-September 2026",t:"Round 2 and ID review",st:"fut",
-  txt:"An overall quality review of the SOP documents, and the International Department review, alongside or after round two depending on draft quality and the feedback from round one and GFS 2026."},
- {d:"2026-10-15",lab:"After the reviews",t:"Final revision, then approval",st:"fut",
-  txt:"Address all comments and update the SOPs for submission to management, including agreement on SOP ownership and governance. Then management approval, timing, and the announcement that the SOPs will be published for pilot use."},
- {d:"2026-11-01",lab:"1 November 2026",t:"Pilot testing begins",st:"fut",
+ {d:"2026-11-01",lab:"1 November 2026",t:"Change request submissions and log",st:"fut",
   txt:"Subject to approval and feasibility. Users apply the SOPs in practice and submit change requests. Super-users appointed. Awareness and training with country finance teams, Country Managers, Finance and International Department units."},
- {d:"2027-01-31",lab:"31 January 2027",t:"Testing closes",st:"fut",
+ {d:"2027-01-31",lab:"31 January 2027",t:"Alignment with the new ID structure",st:"fut",
   txt:"End of the testing phase. The period also allows the International Department to finalise and announce its restructuring."},
- {d:"2027-03-31",lab:"End Q1 2027",t:"Publication",st:"fut",
+ {d:"2027-03-31",lab:"End Q1 2027",t:"Fully functional",st:"fut",
   txt:"Final revision on pilot feedback, publication of the final versions, and wide communication to all stakeholders. Then continuous maintenance, led by the appointed super-users."}
 ];
 var CLOSING="Draft 1, comments addressed and ready for the next review cycle.";
@@ -496,9 +519,9 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
   function drawBranches(){
     var W=rd.clientWidth||1000;
     function slotFor(i){ if(i<4) return px(MS[i].d); return 38+(i-4)*(58.5/(MS.length-5)); }
-    var x0=slotFor(10)/100*W, AXY=196;
+    var x0=(slotFor(9)+slotFor(10))/2*W/100+14, AXY=196;
     /* merge back through the free gap just before the Publication label */
-    var xm=(slotFor(13)+slotFor(14))/2*W/100+12;
+    var xm=(slotFor(11)+slotFor(12))/2*W/100+26;
     var L1=340, L2=374;
     brsvg.setAttribute("viewBox","0 0 "+W+" 392");
     brsvg.setAttribute("width",W); brsvg.setAttribute("height",392);
@@ -527,7 +550,7 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
     function slotFor(i){ if(i<4) return px(MS[i].d); return 38+(i-4)*(58.5/(MS.length-5)); }
     var f=(T("2027-01-01")-T("2026-11-01"))/(T("2027-01-31")-T("2026-11-01"));
     var v=el("div","yr","2027");
-    v.style.left=(slotFor(12)+f*(slotFor(13)-slotFor(12)))+"%";
+    v.style.left=(slotFor(10)+f*(slotFor(11)-slotFor(10)))+"%";
     rd.appendChild(v);
   })();
 
@@ -577,7 +600,7 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
   addEventListener("resize",place,{passive:true});
 })();
 
-function rd2br(b){ $("#road").classList.toggle("branched", b>=10); }
+function rd2br(b){ $("#road").classList.toggle("branched", b>=9); }
 var fmain=$("#fmain"), fhint=$("#fhint"), fcover=$("#fcover");
 function renderFocus(i){
   fmain.classList.remove("in");
@@ -857,6 +880,16 @@ function playD0(){
 var STATE="0";
 function go(s){
   if(s===STATE) return;
+  if(s==="B" && !RM){
+    var w=$("#wipe");
+    w.classList.remove("run"); void w.offsetWidth; w.classList.add("run");
+    setTimeout(function(){ goNow(s); },570);
+    return;
+  }
+  goNow(s);
+}
+function goNow(s){
+  if(s===STATE) return;
   STATE=s;
   document.body.classList.toggle("entered", s!=="0");
   document.body.classList.toggle("stA", s==="A");
@@ -864,7 +897,11 @@ function go(s){
   Array.prototype.forEach.call(document.querySelectorAll(".seg"),function(b){
     b.classList.toggle("on", b.getAttribute("data-go")===s);
   });
-  if(s==="B"){ var x=$("#xr"); if(x){ x.classList.remove("on"); void x.offsetWidth; setTimeout(function(){x.classList.add("on");},350); } }
+  var sB=$("#sB");
+  if(s==="B"){
+    sB.classList.remove("reveal"); void sB.offsetWidth; sB.classList.add("reveal");
+    var x=$("#xr"); if(x){ x.classList.remove("on"); void x.offsetWidth; setTimeout(function(){x.classList.add("on");},1100); }
+   }
 }
 document.addEventListener("click",function(e){
   var g=e.target.closest("[data-go]"); if(g) go(g.getAttribute("data-go"));
