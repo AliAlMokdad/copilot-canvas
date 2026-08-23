@@ -320,12 +320,19 @@ body.entered.stA #ctl{display:flex}
 /* ---------- state Q : questions, in the cover's own language ---------- */
 #sQ{background:radial-gradient(120% 90% at 50% 12%, var(--red-hi) 0%, var(--red) 42%, #8E1016 76%, var(--red-deep) 100%)}
 #sQ .qframe{position:absolute;inset:26px;border:1px solid rgba(255,255,255,.16);pointer-events:none}
+/* on the questions card the topbar speaks cream on red */
+body.stQ .seg{color:rgba(251,243,240,.62)}
+body.stQ .seg:hover{color:#FBF3F0}
+body.stQ .seg i{color:rgba(222,197,131,.75)}
+body.stQ .seg::after{background:var(--gold)}
+body.stQ .mk .wt{color:#fff}
+body.stQ .mk .wt span{color:rgba(255,255,255,.72)}
 /* the document shadows read a touch stronger on the questions card */
 #sQ .gpg{background:rgba(255,255,255,.032);border-color:rgba(255,255,255,.052)}
 #sQ .gpg::before,#sQ .gpg::after{background:rgba(255,255,255,.055)}
 #sQ .qin{position:absolute;left:clamp(48px,9vw,140px);top:50%;transform:translateY(-54%);max-width:900px}
 .q-eye{font-family:var(--mono);font-size:clamp(15px,1.6vw,20px);font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);text-shadow:0 1px 0 rgba(0,0,0,.15);margin-bottom:22px;opacity:0}
-.q-title{font-size:clamp(52px,7.4vw,104px);line-height:.99;font-weight:400;letter-spacing:-.025em;color:var(--gold);margin:0;opacity:0}
+.q-title{font-family:var(--serif);font-size:clamp(56px,7.6vw,110px);line-height:1.02;font-weight:600;letter-spacing:-.02em;color:#FBF3F0;margin:0;opacity:0}
 .q-lines{margin-top:38px;display:flex;flex-direction:column;gap:17px}
 .q-lines i{display:block;height:2px;border-radius:1px;transform:scaleX(0);transform-origin:left}
 .q-lines i:nth-child(1){width:min(360px,30vw);background:rgba(222,197,131,.8)}
@@ -894,6 +901,12 @@ $("#roadzone").addEventListener("click",function(e){
   if(e.target.closest("#fcover")){ go("B"); return; }
   nextStep();
 });
+/* on Draft 1, a click anywhere that is not a page opens the cover in the reader */
+$("#sB").addEventListener("click",function(e){
+  if(e.target.closest(".art")) return;
+  if($("#reader").classList.contains("on")) return;
+  readerFirst();
+});
 
 
 /* ---------- the desk review: 37 distinct covers dealt onto the wall, zoomable ---------- */
@@ -1151,8 +1164,17 @@ function playD0(){
     var frs=Array.prototype.map.call(document.querySelectorAll("#arts .art"),function(a){ return a.querySelector(".art-fr"); });
     var i=frs.indexOf(open);
     if(i<0) return;
-    swap(frs[(i+dir+frs.length)%frs.length]);
+    var j=i+dir;
+    if(j>=frs.length){ shut(); go("Q"); return; }   /* past the last page, the walk ends on Questions */
+    if(j<0){ shut(); return; }                       /* before the first page, back to the shelf */
+    swap(frs[j]);
   }
+  /* the presenter's step into Draft 1: open the cover, then next, next, next */
+  window.readerFirst=function(){
+    if(rd.classList.contains("on")) return;
+    var fr=document.querySelector("#arts .art .art-fr");
+    if(fr) zoom(fr, fr.classList.contains("xr"));
+  };
   $("#rprev").addEventListener("click",function(e){ e.stopPropagation(); nav(-1); });
   $("#rnext").addEventListener("click",function(e){ e.stopPropagation(); nav(1); });
   rd.addEventListener("click",function(e){ if(e.target===rd) shut(); });
@@ -1196,6 +1218,7 @@ function goNow(s){
   STATE=s;
   document.body.classList.toggle("entered", s!=="0");
   document.body.classList.toggle("stA", s==="A");
+  document.body.classList.toggle("stQ", s==="Q");
   ["0","A","B","Q"].forEach(function(k){ $("#s"+k).classList.toggle("on", k===s); });
   Array.prototype.forEach.call(document.querySelectorAll(".seg"),function(b){
     b.classList.toggle("on", b.getAttribute("data-go")===s);
@@ -1222,7 +1245,7 @@ document.addEventListener("keydown",function(e){
   else if(e.key==="2") go("B");
   else if(STATE==="A" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); nextStep(); }
   else if(STATE==="A" && e.key==="ArrowLeft"){ e.preventDefault(); setBeat(BEAT-1); }
-  else if(STATE==="B" && e.key==="ArrowRight"){ e.preventDefault(); go("Q"); }
+  else if(STATE==="B" && e.key==="ArrowRight"){ e.preventDefault(); readerFirst(); }
   else if(STATE==="B" && e.key==="ArrowLeft"){ e.preventDefault(); go("A"); }
   else if(STATE==="Q" && e.key==="ArrowLeft"){ e.preventDefault(); go("B"); }
   else if(e.key==="Escape") go("0");
