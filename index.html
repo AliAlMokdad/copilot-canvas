@@ -132,9 +132,6 @@ body.entered #s0 .in{opacity:0}
 .f-date b{color:var(--red);font-weight:500}
 .f-title{font-family:var(--serif);font-size:clamp(28px,3.4vw,44px);font-weight:600;letter-spacing:-.018em;line-height:1.06;margin:0 0 14px}
 .f-body{font-size:clamp(16px,1.35vw,19px);line-height:1.6;color:var(--ink2);max-width:66ch;margin:0}
-.f-meta{display:flex;gap:44px;margin-top:18px}
-.f-meta div{font-size:15px;color:var(--ink2);max-width:340px}
-.f-meta b{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:3px}
 #fcover{align-self:start;margin-top:6px;width:200px;opacity:0;transform:translateY(18px) rotate(1.2deg);transition:opacity .8s var(--e),transform .8s var(--e);cursor:pointer}
 #fcover.in{opacity:1;transform:none}
 #fcover img{width:100%;border-radius:4px;box-shadow:0 3px 10px rgba(60,20,20,.14),0 26px 60px rgba(60,20,20,.22)}
@@ -146,7 +143,7 @@ body.entered.stA #ctl{display:flex}
 .nav{width:44px;height:44px;border-radius:50%;border:1px solid var(--hair);background:#fff;color:var(--ink2);font-size:18px;display:grid;place-items:center;transition:.25s var(--e);box-shadow:0 2px 8px rgba(60,20,20,.06)}
 .nav:hover{border-color:var(--red);color:var(--red)}
 /* ---------- state A lower sections ---------- */
-.eff{margin:74px 0 0}
+.eff{margin:130px 0 60px}
 .eff-h{display:flex;align-items:baseline;gap:16px;margin-bottom:20px}
 .eff-h i{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--gold-ink);font-style:normal}
 .eff-h h3{font-family:var(--serif);font-size:24px;font-weight:600;letter-spacing:-.015em;margin:0}
@@ -158,15 +155,6 @@ body.entered.stA #ctl{display:flex}
 .ef .x{font-size:15px;color:var(--ink2);line-height:1.55}
 .ef.here .t::after{content:"now";margin-left:9px;font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--red);padding:2.5px 7px;border-radius:3px;vertical-align:3px}
 .eff-note{margin-top:24px;padding:15px 22px;border-left:2px solid var(--gold);background:rgba(222,197,131,.10);font-size:14.5px;color:var(--ink2);max-width:680px}
-.before{padding:70px 0 30px;display:grid;grid-template-columns:360px 1fr;gap:64px;align-items:center}
-.bf-stage{position:relative;height:200px;cursor:pointer}
-.pg{position:absolute;width:96px;height:126px;background:#fff;border:1px solid var(--hair);border-radius:3px;box-shadow:0 3px 14px rgba(60,20,20,.08);transition:transform 1s var(--e)}
-.pg::before{content:"";position:absolute;left:10px;right:10px;top:14px;height:2px;background:var(--hair2)}
-.pg::after{content:"";position:absolute;left:10px;right:28px;top:22px;height:2px;background:var(--hair2)}
-.bf-txt h4{font-family:var(--serif);font-size:22px;font-weight:600;margin:0 0 14px;letter-spacing:-.015em}
-.bf-txt ul{margin:0;padding:0;list-style:none;columns:2;column-gap:38px}
-.bf-txt li{font-size:15px;color:var(--ink2);padding:6px 0 6px 16px;position:relative;break-inside:avoid}
-.bf-txt li::before{content:"";position:absolute;left:0;top:14px;width:6px;height:1px;background:var(--red)}
 
 /* ---------- state B : the real document ---------- */
 .bwrap{padding:84px 3vw 40px}
@@ -174,21 +162,12 @@ body.entered.stA #ctl{display:flex}
 .art{flex:0 1 auto}
 .art-fr{height:min(72vh,780px);aspect-ratio:1/1.414}
 .art-fr img{width:100%;height:100%;object-fit:cover}
-/* the x-ray: a page blurred past reading, scanned into its four structural zones */
+/* the sample SOP: a real implementation page, headlines sharp, body withheld */
 .xr{cursor:pointer}
-.xr img{filter:blur(9px) saturate(.8);transform:scale(1.05)}
-.xr::after{content:"";position:absolute;inset:0;background:rgba(251,243,240,.30)}
 .xline{position:absolute;left:0;right:0;top:0;height:2px;z-index:3;opacity:0;
   background:linear-gradient(90deg,transparent,var(--gold) 30%,#fff 50%,var(--gold) 70%,transparent)}
 .xr.on .xline{animation:xsweep 1.9s var(--e) both}
 @keyframes xsweep{0%{top:0;opacity:0}8%{opacity:1}92%{opacity:1}100%{top:99%;opacity:0}}
-.xz{position:absolute;left:5%;right:5%;top:var(--zt);height:var(--zh);z-index:2;
-  border:1.5px solid rgba(186,23,28,.5);border-radius:4px;background:rgba(255,255,255,.06);
-  opacity:0;transform:translateY(8px);transition:opacity .5s var(--e) var(--zd),transform .5s var(--e) var(--zd)}
-.xr.on .xz{opacity:1;transform:none}
-.xchip{position:absolute;left:10px;top:9px;font-family:var(--mono);font-size:11.5px;font-weight:500;
-  letter-spacing:.06em;color:var(--red);background:#fff;padding:4px 10px;border-radius:3px;
-  box-shadow:0 2px 8px rgba(60,20,20,.14);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){.xr.on .xline{animation:none;opacity:0}.xz{transition:none}}
 .art{cursor:pointer}
 .art-fr{position:relative;border-radius:4px;overflow:hidden;background:#fff;
@@ -210,7 +189,6 @@ body.entered.stA #ctl{display:flex}
 #reader.on #rhint{opacity:1}
 #reader.xray #rhint{display:none}
 #reader.xray #rmount{cursor:default}
-#rmount.xr img{filter:blur(26px) saturate(.8)}
 #rside{position:absolute;top:50%;transform:translateY(-50%) translateX(24px);width:360px;z-index:41;background:var(--paper);border:1px solid var(--hair);border-radius:6px;padding:26px 28px;box-shadow:0 20px 70px rgba(60,20,20,.16);
   opacity:0;transition:opacity .6s var(--e) .35s,transform .6s var(--e) .35s;pointer-events:none}
 #reader.xray.on #rside{opacity:1;transform:translateY(-50%)}
@@ -218,6 +196,13 @@ body.entered.stA #ctl{display:flex}
 #rside::after{content:"";position:absolute;left:-56px;top:calc(50% - 4px);width:9px;height:9px;
   border-left:1.5px solid #B99F91;border-bottom:1.5px solid #B99F91;transform:rotate(45deg)}
 .rs-eye{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.24em;color:#8A6A2F;margin-bottom:18px}
+#reader.xray #rside .rs-i{opacity:0;transform:translateY(10px);transition:opacity .5s var(--e),transform .5s var(--e)}
+#reader.xray.on #rside .rs-i{opacity:1;transform:none}
+#reader.xray.on #rside .rs-i:nth-child(2){transition-delay:.55s}
+#reader.xray.on #rside .rs-i:nth-child(3){transition-delay:.7s}
+#reader.xray.on #rside .rs-i:nth-child(4){transition-delay:.85s}
+#reader.xray.on #rside .rs-i:nth-child(5){transition-delay:1s}
+#reader.xray.on #rside .rs-i:nth-child(6){transition-delay:1.15s}
 .rs-i{display:flex;gap:18px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--hair)}
 .rs-i b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--red);font-weight:500}
 .rs-i span{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.012em}
@@ -226,8 +211,7 @@ body.entered.stA #ctl{display:flex}
 
 @media (max-height:840px){ #fcover{width:150px} }
 @media (max-width:1080px){
-  .before{grid-template-columns:1fr;gap:30px}
-  .arts{flex-wrap:wrap}
+    .arts{flex-wrap:wrap}
   .eff-g{grid-template-columns:1fr 1fr}
   .ef+.ef{border-left:0;padding-left:0}
   #focus{grid-template-columns:1fr}
@@ -315,21 +299,7 @@ ANTI_SLOP_BRIEF
           <div class="eff-note" id="effNote"></div>
         </div>
 
-        <div class="before">
-          <div class="bf-stage" id="bfStage" title="Click to align"></div>
-          <div class="bf-txt">
-            <h4>What the SOPs are replacing</h4>
-            <ul>
-              <li>Non-harmonized, and many documents</li>
-              <li>Several country or regional offices with their own SOPs and templates</li>
-              <li>Multiple attempts over the last twelve years</li>
-              <li>Outdated SOPs</li>
-              <li>No clear ownership</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
     <section class="view" id="sB">
       <div class="bwrap">
@@ -341,12 +311,8 @@ ANTI_SLOP_BRIEF
           <div class="art"><div class="art-fr"><img src="assets/cover.jpg" alt="Draft 1 cover page"></div></div>
           <div class="art"><div class="art-fr"><img src="assets/contents.jpg" alt="Draft 1 contents page"></div></div>
           <div class="art xr-art"><div class="art-fr xr" id="xr">
-            <img src="assets/sop.jpg" alt="" aria-hidden="true">
+            <img src="assets/sopx.jpg" alt="A Draft 1 SOP page, section headlines visible">
             <div class="xline"></div>
-            <div class="xz" style="--zt:7%;--zh:13%;--zd:.15s"><span class="xchip">Purpose and scope</span></div>
-            <div class="xz" style="--zt:24%;--zh:30%;--zd:.55s"><span class="xchip">The procedure, in numbered sections</span></div>
-            <div class="xz" style="--zt:58%;--zh:16%;--zd:.95s"><span class="xchip">Roles and responsibilities</span></div>
-            <div class="xz" style="--zt:78%;--zh:15%;--zd:1.35s"><span class="xchip">Process flow</span></div>
           </div></div>
         </div>
       </div>
@@ -375,47 +341,33 @@ ANTI_SLOP_BRIEF
 /* ===== all content from the 12 August 2026 update deck and the Draft 1 document ===== */
 var MS=[
  {d:"2024-08-01",lab:"Aug 2024",t:"Need formally raised",st:"done",
-  txt:"International Department observations highlighted the need for finance SOPs.",
-  who:"International Department",out:"A mandate to develop finance SOPs"},
+  txt:"International Department observations highlighted the need for finance SOPs."},
  {d:"2024-11-01",lab:"Nov 2024",t:"ICC section introduced",st:"done",
-  txt:"Internal Control and Compliance began supporting INFIN on SOPs development.",
-  who:"ICC section and INFIN",out:"Development support in place"},
+  txt:"Internal Control and Compliance began supporting INFIN on SOPs development."},
  {d:"2025-03-01",lab:"Q1 2025",t:"Priority SOPs identified",st:"done",
-  txt:"Workshops concluded and clarified which processes required SOP coverage. The shared objective: define the required SOPs, map them to finance processes, and align them with International Department SOPs.",
-  who:"ID units, ICAs, Country Finance, ICC section",out:"An agreed list of required SOPs"},
+  txt:"Workshops concluded and clarified which processes required SOP coverage. The shared objective: define the required SOPs, map them to finance processes, and align them with International Department SOPs."},
  {d:"2025-06-01",lab:"From Q2 2025",t:"Internal drafting ownership",st:"done",
-  txt:"The ICAs and ICC agreed to divide the SOPs between them and mobilize internal expertise.",
-  who:"ICAs and ICC",out:"Drafting split internally"},
+  txt:"The ICAs and ICC agreed to divide the SOPs between them and mobilize internal expertise."},
  {d:"2026-05-15",lab:"Mid-May 2026",t:"Consultant onboarded",st:"done",
-  txt:"Workload and staff turnover had limited the pace of internal drafting. The response: targeted external drafting support. Information and documents from the ICAs and selected Country Finance teams were consolidated into draft SOPs.",
-  who:"External drafting support",out:"A recovery path"},
+  txt:"Workload and staff turnover had limited the pace of internal drafting. The response: targeted external drafting support. Information and documents from the ICAs and selected Country Finance teams were consolidated into draft SOPs."},
  {d:"2026-07-16",lab:"16 July 2026",t:"Draft 0 submitted",st:"done",
-  txt:"ICA team members and selected Country Finance officers received the package for comments and quality assurance.",
-  who:"ICA team, Country Finance officers",out:"The full set out for review"},
+  txt:"ICA team members and selected Country Finance officers received the package for comments and quality assurance."},
  {d:"2026-08-10",lab:"10 August 2026",t:"Draft 1 completed",st:"done",
-  txt:"Feedback from fourteen reviewers across HQ and Country Finance was addressed and incorporated. The working package advanced to Draft 1.",
-  who:"Fourteen reviewers, HQ and Country Finance",out:"Draft 1, ready for the next review cycle"},
+  txt:"Feedback from fourteen reviewers across HQ and Country Finance was addressed and incorporated. The working package advanced to Draft 1."},
  {d:"2026-08-27",lab:"27 August 2026",t:"Round 1 review closes",st:"now",
-  txt:"The Draft 1 round one review is currently underway and expected to be completed by 27 August 2026.",
-  who:"A finance group reviewing alignment and tailoring to specific cases",out:"A reviewed Draft 1"},
+  txt:"The Draft 1 round one review is currently underway and expected to be completed by 27 August 2026."},
  {d:"2026-09-01",lab:"1 September 2026",t:"GFS 2026, Istanbul",st:"fut",
-  txt:"Global finance community consultation, including country finance teams on the preferred rollout approach.",
-  who:"The global finance community",out:"Feedback, and a rollout approach"},
+  txt:"Global finance community consultation, including country finance teams on the preferred rollout approach."},
  {d:"2026-09-15",lab:"Mid-September 2026",t:"Round 2 and ID review",st:"fut",
-  txt:"An overall quality review of the SOP documents, and the International Department review, alongside or after round two depending on draft quality and the feedback from round one and GFS 2026.",
-  who:"Finance, and the International Department",out:"Consolidated comments"},
+  txt:"An overall quality review of the SOP documents, and the International Department review, alongside or after round two depending on draft quality and the feedback from round one and GFS 2026."},
  {d:"2026-10-15",lab:"After the reviews",t:"Final revision, then approval",st:"fut",
-  txt:"Address all comments and update the SOPs for submission to management, including agreement on SOP ownership and governance. Then management approval, timing, and the announcement that the SOPs will be published for pilot use.",
-  who:"Management",out:"Approval, with ownership and governance agreed"},
+  txt:"Address all comments and update the SOPs for submission to management, including agreement on SOP ownership and governance. Then management approval, timing, and the announcement that the SOPs will be published for pilot use."},
  {d:"2026-11-01",lab:"1 November 2026",t:"Pilot testing begins",st:"fut",
-  txt:"Subject to approval and feasibility. Users apply the SOPs in practice and submit change requests. Super-users appointed. Awareness and training with country finance teams, Country Managers, Finance and International Department units.",
-  who:"Country finance teams, Country Managers, ID units",out:"Live testing, and super-users"},
+  txt:"Subject to approval and feasibility. Users apply the SOPs in practice and submit change requests. Super-users appointed. Awareness and training with country finance teams, Country Managers, Finance and International Department units."},
  {d:"2027-01-31",lab:"31 January 2027",t:"Testing closes",st:"fut",
-  txt:"End of the testing phase. The period also allows the International Department to finalise and announce its restructuring.",
-  who:"Super-users",out:"Pilot feedback"},
+  txt:"End of the testing phase. The period also allows the International Department to finalise and announce its restructuring."},
  {d:"2027-03-31",lab:"End Q1 2027",t:"Publication",st:"fut",
-  txt:"Final revision on pilot feedback, publication of the final versions, and wide communication to all stakeholders. Then continuous maintenance, led by the appointed super-users.",
-  who:"All stakeholders",out:"Published SOPs, and ongoing maintenance"}
+  txt:"Final revision on pilot feedback, publication of the final versions, and wide communication to all stakeholders. Then continuous maintenance, led by the appointed super-users."}
 ];
 var CLOSING="Draft 1, comments addressed and ready for the next review cycle.";
 var DRAFT1_IDX=6;
@@ -467,17 +419,29 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
   var axis=el("div","axis");
   doneBar=el("div","done"); axis.appendChild(doneBar);
   rd.appendChild(axis);
-  ["2025","2026","2027"].forEach(function(y){
-    var v=el("div","yr",y); v.style.left=px(y+"-01-01")+"%"; rd.appendChild(v);
+  [["2025",px("2025-01-01")],["2026",px("2026-01-01")]].forEach(function(y){
+    var v=el("div","yr",y[0]); v.style.left=y[1]+"%"; rd.appendChild(v);
   });
   gapEl=el("div","gapmark");
   gapEl.style.left=px("2025-07-01")+"%";
   gapEl.style.width=(37.2-px("2025-07-01"))+"%";
   gapEl.appendChild(el("span",null,"progress slowed"));
   rd.appendChild(gapEl);
+  /* 2027 sits between 1 November 2026 and 31 January 2027, by date */
+  (function(){
+    function slotFor(i){ if(i<4) return px(MS[i].d); return 38+(i-4)*(58.5/(MS.length-5)); }
+    var f=(T("2027-01-01")-T("2026-11-01"))/(T("2027-01-31")-T("2026-11-01"));
+    var v=el("div","yr","2027");
+    v.style.left=(slotFor(11)+f*(slotFor(12)-slotFor(11)))+"%";
+    rd.appendChild(v);
+  })();
 
+  function slot(i){
+    if(i<4) return px(MS[i].d);
+    return 38 + (i-4)*(58.5/(MS.length-5));
+  }
   MS.forEach(function(m,i){
-    var w=el("div","msw"); w.style.left=px(m.d)+"%";
+    var w=el("div","msw"); w.style.left=slot(i)+"%";
     var stem=el("div","lstem");
     var b=el("button","ms"); b.setAttribute("data-i",i); b.setAttribute("aria-label",m.t);
     var lb=el("div","rlb");
@@ -485,7 +449,7 @@ var BEAT=-1, ROWS=[], doneBar, gapEl;
     lb.appendChild(el("b",null,m.t));
     w.appendChild(stem); w.appendChild(b); w.appendChild(lb);
     rd.appendChild(w);
-    ROWS.push({w:w,lb:lb,stem:stem,pc:px(m.d)});
+    ROWS.push({w:w,lb:lb,stem:stem,pc:slot(i)});
   });
 
   /* collision-free lanes */
@@ -530,11 +494,7 @@ function renderFocus(i){
     dt.appendChild(el("b",null,m.st==="fut"?"planned":(m.st==="now"?"in progress":"complete")));
     ti=el("h3","f-title",m.t);
     bd=el("p","f-body",m.txt);
-    meta=el("div","f-meta");
-    [["Who",m.who],["Result",m.out]].forEach(function(r){
-      var d=el("div"); d.appendChild(el("b",null,r[0])); d.appendChild(document.createTextNode(r[1])); meta.appendChild(d);
-    });
-    fmain.appendChild(dt); fmain.appendChild(ti); fmain.appendChild(bd); fmain.appendChild(meta);
+    fmain.appendChild(dt); fmain.appendChild(ti); fmain.appendChild(bd);
   } else if(i>=MS.length){
     dt=el("div","f-date");
     dt.appendChild(document.createTextNode("Today  "));
@@ -585,23 +545,6 @@ $("#roadzone").addEventListener("click",function(e){
   $("#effNote").textContent=EFF_NOTE;
 })();
 
-/* ---------- the before-state stack ---------- */
-(function(){
-  var st=$("#bfStage");
-  var mess=[[6,20,-15],[62,4,10],[126,32,-8],[184,10,17],[34,58,8],[152,60,-13],[94,38,3]];
-  for(var i=0;i<7;i++) st.appendChild(el("div","pg"));
-  var pgs=st.querySelectorAll(".pg"), tidy=false;
-  function set(on){
-    Array.prototype.forEach.call(pgs,function(p,i){
-      p.style.transitionDelay=(i*45)+"ms";
-      if(on) p.style.transform="translate3d("+(120+i*2)+"px,"+(34+i*1.6)+"px,0) rotate(0deg)";
-      else { var m=mess[i]; p.style.transform="translate3d("+m[0]+"px,"+m[1]+"px,0) rotate("+m[2]+"deg)"; }
-    });
-  }
-  set(false);
-  st.addEventListener("click",function(e){ e.stopPropagation(); tidy=!tidy; set(tidy); });
-})();
-
 /* ---------- reader: FLIP open, wheel zoom, drag pan ---------- */
 (function(){
   var rd=$("#reader"), mt=$("#rmount"), open=null, img=null;
@@ -626,7 +569,6 @@ $("#roadzone").addEventListener("click",function(e){
       Array.prototype.forEach.call(fr.children,function(c){ mt.appendChild(c.cloneNode(true)); });
     } else {
       img=fr.querySelector("img").cloneNode(true);
-      img.style.filter="none";
       mt.appendChild(img);
     }
     reset();
