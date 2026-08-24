@@ -292,16 +292,16 @@ body.entered.stA #ctl{display:flex}
 .rl-mo{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:.22em;fill:#9B7C66;text-anchor:middle;transition:fill .5s var(--e),font-size .5s var(--e)}
 .rl-stage{font-family:var(--mono);font-size:14px;letter-spacing:.2em;fill:#9A7E6C;text-anchor:middle}
 .rl-name{font-family:var(--serif);font-size:21px;font-weight:600;fill:#3A2C24;text-anchor:end}
-.rl-name2{font-family:var(--serif);font-size:15.5px;font-weight:600;fill:#3A2C24;text-anchor:end}
+.rl-name2{font-family:var(--serif);font-size:17px;font-weight:600;fill:#3A2C24;text-anchor:end}
 .rl-base{opacity:.32;stroke-width:1.8}
 .rl-n,.rl-nf{font-size:17px;font-weight:500;fill:#3A2C24;text-anchor:middle}
-.rl-ns{font-size:14.5px;fill:#6B584A;text-anchor:middle}
-.rl-nsf{font-size:14.5px;font-weight:500;fill:#5C4A3E;text-anchor:start}
+.rl-ns{font-size:15px;fill:#63503F;text-anchor:middle}
+.rl-nsf{font-size:15px;font-weight:500;fill:#55433A;text-anchor:start}
 .rl-cap{opacity:.16}
-.rl-stageg{font-family:var(--mono);font-size:14px;letter-spacing:.2em;fill:#8A6A1F;text-anchor:middle}
+.rl-stageg{font-family:var(--mono);font-size:15px;letter-spacing:.2em;fill:#8A6A1F;text-anchor:middle}
 .rl-lk{stroke-width:1.4;opacity:.5}
 .rl-cv{fill:none;stroke-width:1.8;opacity:.55}
-.rl-lens{font-family:var(--mono);font-size:14px;font-weight:500;letter-spacing:.16em;fill:#8A6A1F;text-anchor:middle}
+.rl-lens{font-family:var(--mono);font-size:15.5px;font-weight:500;letter-spacing:.16em;fill:#8A6A1F;text-anchor:middle}
 .rl-lensb{font-family:var(--serif);font-style:italic;font-size:20px;fill:#6E5240;text-anchor:middle}
 .rl-endd{font-family:var(--mono);font-size:13px;letter-spacing:.2em;fill:#7A5F52;text-anchor:middle}
 .rl-end{font-family:var(--serif);font-size:21px;font-weight:600;fill:#3A2C24;text-anchor:middle}
@@ -313,11 +313,16 @@ body.entered.stA #ctl{display:flex}
 #sR.reveal .aHead h2{animation:up .8s var(--e) .1s both}
 #sR.reveal .rr-months{animation:up .9s var(--e) .3s both}
 #sR.reveal .rr-names{animation:up .9s var(--e) .45s both}
-/* months become visible once walked; the one under discussion leans in, the past recedes */
-#sR .mm{transform:translateY(16px);transform-box:fill-box;transform-origin:center;
-  transition:transform .65s var(--e),opacity .65s var(--e)}
+/* months become visible once walked; the one under discussion leans in, the past recedes.
+   the pop happens per element, in place, so nothing ever leaves its lane */
+#sR .mm{transform:translateY(16px);transition:transform .65s var(--e),opacity .65s var(--e)}
+#sR .mm text,#sR .mm circle{transform-box:fill-box;transform-origin:center;transition:transform .55s var(--e)}
+#sR .mm rect{transition:opacity .55s var(--e)}
 #sR.rb1 .m1,#sR.rb2 .m2,#sR.rb3 .m3,#sR.rb4 .m4,#sR.rb5 .m5{opacity:.38;transform:none}
-#sR[data-rb="1"] .m1,#sR[data-rb="2"] .m2,#sR[data-rb="3"] .m3,#sR[data-rb="4"] .m4,#sR[data-rb="5"] .m5{opacity:1;transform:scale(1.09)}
+#sR[data-rb="1"] .m1,#sR[data-rb="2"] .m2,#sR[data-rb="3"] .m3,#sR[data-rb="4"] .m4,#sR[data-rb="5"] .m5{opacity:1}
+#sR[data-rb="1"] .m1 text,#sR[data-rb="2"] .m2 text,#sR[data-rb="3"] .m3 text,#sR[data-rb="4"] .m4 text,#sR[data-rb="5"] .m5 text{transform:scale(1.08)}
+#sR[data-rb="1"] .m1 circle,#sR[data-rb="2"] .m2 circle,#sR[data-rb="3"] .m3 circle,#sR[data-rb="4"] .m4 circle,#sR[data-rb="5"] .m5 circle{transform:scale(1.45)}
+#sR[data-rb="1"] .m1 .rl-cap,#sR[data-rb="2"] .m2 .rl-cap,#sR[data-rb="3"] .m3 .rl-cap,#sR[data-rb="4"] .m4 .rl-cap,#sR[data-rb="5"] .m5 .rl-cap{opacity:.3}
 #sR[data-rb="6"] .mm,#sR[data-rb="7"] .mm{opacity:1;transform:none}
 #sR.rb3 .rr-band{animation:up .8s var(--e) both}
 #sR.rb5 .rr-band5{animation:up .8s var(--e) both}
@@ -665,8 +670,8 @@ ANTI_SLOP_BRIEF
             <g class="mm m5">
               <line class="rl-lk" x1="1230" y1="131" x2="1230" y2="121" stroke="#B8232A"/>
               <circle cx="1230" cy="140" r="7" fill="#B8232A"/><text class="rl-n" x="1230" y="114">Final versions published</text>
-              <line class="rl-lk" x1="1230" y1="425" x2="1230" y2="441" stroke="#A05A28"/>
-              <circle cx="1230" cy="416" r="7" fill="#A05A28"/><text class="rl-n" x="1230" y="460">The ordered home of the SOPs</text>
+              <line class="rl-lk" x1="1230" y1="425" x2="1230" y2="437" stroke="#A05A28"/>
+              <circle cx="1230" cy="416" r="7" fill="#A05A28"/><text class="rl-n" x="1230" y="455">The ordered home of the SOPs</text>
             </g>
             <!-- convergence -->
             <g class="rr-conv">
