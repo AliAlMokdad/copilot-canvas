@@ -291,11 +291,12 @@ body.entered.stA #ctl{display:flex}
   radial-gradient(45% 55% at 22% 92%, rgba(114,201,178,.11), transparent 72%),
   linear-gradient(160deg,#FDFAF6,#FAF3EE)}
 #sR .wrap{max-width:2280px;padding-top:44px}
-.rlo{margin-top:4px}
-.rlo svg{display:block;width:100%;height:auto;max-height:calc(100vh - 150px);margin:0 auto;overflow:visible}
+.rlo{margin-top:0;height:calc(100vh - 185px);display:flex;align-items:center;justify-content:center}
+.rlo svg{display:block;width:100%;height:auto;max-height:100%;margin:0 auto;overflow:visible}
 .rl-gd{stroke:#E6D6CB;stroke-width:1}
 /* every label wears a paper halo so no text ever sits on a line */
 #sR svg text{paint-order:stroke;stroke:#FBF4ED;stroke-width:6;stroke-linejoin:round}
+#sR svg text.lgt{stroke:none;fill:#FFF;font-size:15px;font-weight:600;text-anchor:middle;letter-spacing:0}
 .rl-mo{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:.22em;fill:#96775F;text-anchor:middle;transition:fill .5s var(--e),font-size .5s var(--e),opacity .5s var(--e)}
 .rl-stage{font-family:var(--mono);font-size:15.5px;letter-spacing:.2em;fill:#8D6F5C;text-anchor:middle}
 .rl-name{font-family:var(--serif);font-size:23px;font-weight:600;fill:#33261F;text-anchor:end}
@@ -328,8 +329,8 @@ body.entered.stA #ctl{display:flex}
 #sR .mm rect{transition:opacity .55s var(--e)}
 #sR.rb1 .m1,#sR.rb2 .m2,#sR.rb3 .m3,#sR.rb4 .m4,#sR.rb5 .m5{opacity:.22;transform:none}
 #sR[data-rb="1"] .m1,#sR[data-rb="2"] .m2,#sR[data-rb="3"] .m3,#sR[data-rb="4"] .m4,#sR[data-rb="5"] .m5{opacity:1}
-#sR[data-rb="1"] .m1 text,#sR[data-rb="2"] .m2 text,#sR[data-rb="3"] .m3 text,#sR[data-rb="4"] .m4 text,#sR[data-rb="5"] .m5 text{transform:scale(1.16)}
-#sR[data-rb="1"] .m1 circle,#sR[data-rb="2"] .m2 circle,#sR[data-rb="3"] .m3 circle,#sR[data-rb="4"] .m4 circle,#sR[data-rb="5"] .m5 circle{transform:scale(1.6)}
+#sR[data-rb="1"] .m1 text,#sR[data-rb="2"] .m2 text,#sR[data-rb="3"] .m3 text,#sR[data-rb="4"] .m4 text,#sR[data-rb="5"] .m5 text{transform:scale(1.24)}
+#sR[data-rb="1"] .m1 circle,#sR[data-rb="2"] .m2 circle,#sR[data-rb="3"] .m3 circle,#sR[data-rb="4"] .m4 circle,#sR[data-rb="5"] .m5 circle{transform:scale(1.75)}
 #sR[data-rb="1"] .m1 .rl-cap,#sR[data-rb="2"] .m2 .rl-cap,#sR[data-rb="3"] .m3 .rl-cap,#sR[data-rb="4"] .m4 .rl-cap,#sR[data-rb="5"] .m5 .rl-cap{opacity:.3}
 #sR[data-rb="6"] .mm,#sR[data-rb="7"] .mm{opacity:1;transform:none}
 #sR.rb3 .rr-band{animation:up .8s var(--e) both}
@@ -337,7 +338,7 @@ body.entered.stA #ctl{display:flex}
 #sR.rb6 .rl-cv{transition:stroke-dashoffset .9s var(--e);stroke-dashoffset:0}
 #sR.rb6 .rr-lens{animation:up .9s var(--e) .45s both}
 #sR.rb7 .rr-end{animation:up .7s var(--e) both}
-#sR[data-rb="1"] .mo1,#sR[data-rb="2"] .mo2,#sR[data-rb="3"] .mo3,#sR[data-rb="4"] .mo4,#sR[data-rb="5"] .mo5{fill:var(--red);font-size:26px}
+#sR[data-rb="1"] .mo1,#sR[data-rb="2"] .mo2,#sR[data-rb="3"] .mo3,#sR[data-rb="4"] .mo4,#sR[data-rb="5"] .mo5{fill:var(--red);font-size:30px}
 /* past month headers step back with their month; all return at the finale */
 #sR[data-rb="2"] .mo1,#sR[data-rb="3"] .mo1,#sR[data-rb="3"] .mo2,#sR[data-rb="4"] .mo1,#sR[data-rb="4"] .mo2,#sR[data-rb="4"] .mo3,#sR[data-rb="5"] .mo1,#sR[data-rb="5"] .mo2,#sR[data-rb="5"] .mo3,#sR[data-rb="5"] .mo4{opacity:.45}
 @media (prefers-reduced-motion:reduce){
@@ -574,14 +575,19 @@ ANTI_SLOP_BRIEF
           <h2>Rollout plan</h2>
         </div>
         <div class="rlo">
-          <svg viewBox="0 0 1780 820" xmlns="http://www.w3.org/2000/svg" aria-label="The rollout plan: six lanes converging on Fully functional">
+          <svg viewBox="0 0 1780 880" xmlns="http://www.w3.org/2000/svg" aria-label="The rollout plan: six lanes converging on Fully functional">
+            <defs>
+              <linearGradient id="ggrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#4285F4"/><stop offset=".55" stop-color="#9B72CB"/><stop offset="1" stop-color="#D96570"/>
+              </linearGradient>
+            </defs>
             <!-- month guides + header -->
             <g class="rr rr-months">
-              <line class="rl-gd" x1="400" y1="76" x2="400" y2="765"/>
-              <line class="rl-gd" x1="660" y1="76" x2="660" y2="765"/>
-              <line class="rl-gd" x1="920" y1="76" x2="920" y2="765"/>
-              <line class="rl-gd" x1="1170" y1="76" x2="1170" y2="765"/>
-              <line class="rl-gd" x1="1350" y1="76" x2="1350" y2="765"/>
+              <line class="rl-gd" x1="400" y1="76" x2="400" y2="825"/>
+              <line class="rl-gd" x1="660" y1="76" x2="660" y2="825"/>
+              <line class="rl-gd" x1="920" y1="76" x2="920" y2="825"/>
+              <line class="rl-gd" x1="1170" y1="76" x2="1170" y2="825"/>
+              <line class="rl-gd" x1="1350" y1="76" x2="1350" y2="825"/>
               <text class="rl-mo mo1" x="400" y="52">NOV</text>
               <text class="rl-mo mo2" x="660" y="52">DEC</text>
               <text class="rl-mo mo3" x="920" y="52">JAN</text>
@@ -591,126 +597,149 @@ ANTI_SLOP_BRIEF
             <!-- lane names -->
             <g class="rr rr-names">
               <text class="rl-name" x="230" y="147">The SOPs</text>
-              <text class="rl-name" x="230" y="259">Digital solution</text>
-              <text class="rl-name" x="230" y="371">E-learning</text>
-              <text class="rl-name" x="230" y="483">Atlas</text>
-              <text class="rl-name" x="230" y="595">Communication</text>
-              <text class="rl-name2" x="230" y="695">International Department</text>
-              <text class="rl-name2" x="230" y="716">Engagement</text>
+              <text class="rl-name" x="230" y="271">Digital solution</text>
+              <text class="rl-name" x="230" y="395">E-learning</text>
+              <text class="rl-name" x="230" y="519">Atlas</text>
+              <text class="rl-name" x="230" y="643">Communication</text>
+              <text class="rl-name2" x="230" y="755">International Department</text>
+              <text class="rl-name2" x="230" y="776">Engagement</text>
             </g>
             <!-- baselines -->
             <line class="rl-base" pathLength="100" x1="250" y1="140" x2="1410" y2="140" stroke="#B8232A"/>
-            <line class="rl-base" pathLength="100" x1="250" y1="252" x2="1410" y2="252" stroke="#46658A"/>
-            <line class="rl-base" pathLength="100" x1="250" y1="364" x2="1410" y2="364" stroke="#46734A"/>
-            <line class="rl-base" pathLength="100" x1="250" y1="476" x2="1410" y2="476" stroke="#A05A28"/>
-            <line class="rl-base" pathLength="100" x1="250" y1="588" x2="1410" y2="588" stroke="#9A6E1B"/>
-            <line class="rl-base" pathLength="100" x1="250" y1="700" x2="1410" y2="700" stroke="#6E5B8E"/>
+            <line class="rl-base" pathLength="100" x1="250" y1="264" x2="1410" y2="264" stroke="#46658A"/>
+            <line class="rl-base" pathLength="100" x1="250" y1="388" x2="1410" y2="388" stroke="#46734A"/>
+            <line class="rl-base" pathLength="100" x1="250" y1="512" x2="1410" y2="512" stroke="#A05A28"/>
+            <line class="rl-base" pathLength="100" x1="250" y1="636" x2="1410" y2="636" stroke="#9A6E1B"/>
+            <line class="rl-base" pathLength="100" x1="250" y1="760" x2="1410" y2="760" stroke="#6E5B8E"/>
             <!-- january: the ID alignment stage -->
             <g class="rr-band">
-              <rect x="870" y="76" width="100" height="689" fill="rgba(184,35,42,.035)"/>
-              <line x1="870" y1="76" x2="870" y2="765" stroke="#E0CFC7" stroke-dasharray="3 5"/>
-              <line x1="970" y1="76" x2="970" y2="765" stroke="#E0CFC7" stroke-dasharray="3 5"/>
-              <text class="rl-stage" x="920" y="803">ALIGNMENT &middot; NEW ID STRUCTURE</text>
+              <rect x="870" y="76" width="100" height="749" fill="rgba(184,35,42,.035)"/>
+              <line x1="870" y1="76" x2="870" y2="825" stroke="#E0CFC7" stroke-dasharray="3 5"/>
+              <line x1="970" y1="76" x2="970" y2="825" stroke="#E0CFC7" stroke-dasharray="3 5"/>
+              <text class="rl-stage" x="920" y="863">ALIGNMENT &middot; NEW ID STRUCTURE</text>
             </g>
             <!-- march: everything meets -->
             <g class="rr-band5">
-              <rect x="1300" y="76" width="100" height="689" fill="rgba(168,120,30,.05)"/>
-              <line x1="1300" y1="76" x2="1300" y2="765" stroke="#E2D3BC" stroke-dasharray="3 5"/>
-              <line x1="1400" y1="76" x2="1400" y2="765" stroke="#E2D3BC" stroke-dasharray="3 5"/>
-              <text class="rl-stageg" x="1350" y="782">PAUSE AND REFLECT &middot; ALL</text>
-              <text class="rl-stageg" x="1350" y="804">SOPS DEVELOPMENT WORKSHOP</text>
+              <rect x="1300" y="76" width="100" height="749" fill="rgba(168,120,30,.05)"/>
+              <line x1="1300" y1="76" x2="1300" y2="825" stroke="#E2D3BC" stroke-dasharray="3 5"/>
+              <line x1="1400" y1="76" x2="1400" y2="825" stroke="#E2D3BC" stroke-dasharray="3 5"/>
+              <text class="rl-stageg" x="1350" y="842">PAUSE AND REFLECT &middot; ALL</text>
+              <text class="rl-stageg" x="1350" y="866">SOPS DEVELOPMENT WORKSHOP</text>
             </g>
             <!-- november -->
             <g class="mm m1">
               <rect class="rl-cap" x="400" y="134" width="520" height="12" rx="6" fill="#B8232A"/>
               <line class="rl-lk" x1="660" y1="128" x2="660" y2="102" stroke="#B8232A"/>
               <text class="rl-nf" x="660" y="94">Change requests and log &middot; ongoing</text>
-              <rect class="rl-cap" x="400" y="246" width="520" height="12" rx="6" fill="#46658A"/>
-              <text class="rl-nsf" x="404" y="202">Mapping, design and prototype testing</text>
-              <line class="rl-lk" x1="380" y1="243" x2="380" y2="235" stroke="#46658A"/>
-              <circle cx="380" cy="252" r="7" fill="#46658A"/><text class="rl-n" x="380" y="226">Coordination with IT</text>
-              <line class="rl-lk" x1="380" y1="355" x2="380" y2="347" stroke="#46734A"/>
-              <circle cx="380" cy="364" r="7" fill="#46734A"/><text class="rl-n" x="380" y="338">Coordination with IT</text>
-              <rect class="rl-cap" x="400" y="470" width="260" height="12" rx="6" fill="#A05A28"/>
-              <line class="rl-lk" x1="530" y1="464" x2="530" y2="434" stroke="#A05A28"/>
-              <text class="rl-nf" x="530" y="426">Clean-up and organizing</text>
-              <line class="rl-lk" x1="390" y1="579" x2="390" y2="571" stroke="#9A6E1B"/>
-              <circle cx="390" cy="588" r="7" fill="#9A6E1B"/><text class="rl-n" x="390" y="562">Launch webinar</text>
-              <line class="rl-lk" x1="390" y1="709" x2="390" y2="717" stroke="#6E5B8E"/>
-              <circle cx="390" cy="700" r="7" fill="#6E5B8E"/><text class="rl-n" x="390" y="737">Session on the SOPs</text>
-              <line class="rl-lk" x1="510" y1="709" x2="510" y2="745" stroke="#6E5B8E"/>
-              <circle cx="510" cy="700" r="7" fill="#6E5B8E"/><text class="rl-nf" x="510" y="768">Address feedback and comments</text>
+              <rect class="rl-cap" x="400" y="258" width="520" height="12" rx="6" fill="#46658A"/>
+              <text class="rl-nsf" x="404" y="205">Mapping, design and prototype testing</text>
+              <line class="rl-lk" x1="380" y1="255" x2="380" y2="247" stroke="#46658A"/>
+              <circle cx="380" cy="264" r="7" fill="#46658A"/><text class="rl-n" x="380" y="238">Coordination with IT</text>
+              <line class="rl-lk" x1="380" y1="379" x2="380" y2="371" stroke="#46734A"/>
+              <circle cx="380" cy="388" r="7" fill="#46734A"/><text class="rl-n" x="380" y="362">Coordination with IT</text>
+              <rect class="rl-cap" x="400" y="506" width="260" height="12" rx="6" fill="#A05A28"/>
+              <line class="rl-lk" x1="530" y1="500" x2="530" y2="470" stroke="#A05A28"/>
+              <text class="rl-nf" x="530" y="462">Clean-up and organizing</text>
+              <line class="rl-lk" x1="390" y1="627" x2="390" y2="619" stroke="#9A6E1B"/>
+              <circle cx="390" cy="636" r="7" fill="#9A6E1B"/><text class="rl-n" x="390" y="610">Launch webinar</text>
+              <line class="rl-lk" x1="390" y1="769" x2="390" y2="777" stroke="#6E5B8E"/>
+              <circle cx="390" cy="760" r="7" fill="#6E5B8E"/><text class="rl-n" x="390" y="797">Session on the SOPs</text>
+              <line class="rl-lk" x1="510" y1="769" x2="510" y2="805" stroke="#6E5B8E"/>
+              <circle cx="510" cy="760" r="7" fill="#6E5B8E"/><text class="rl-nf" x="510" y="828">Address feedback and comments</text>
             </g>
             <!-- december -->
             <g class="mm m2">
-              <line class="rl-lk" x1="720" y1="243" x2="720" y2="235" stroke="#46658A"/>
-              <circle cx="720" cy="252" r="7" fill="#46658A"/><text class="rl-n" x="760" y="226">Integration with Teams, Outlook and Atlas</text>
-              <line class="rl-lk" x1="660" y1="355" x2="660" y2="325" stroke="#46734A"/>
-              <circle cx="660" cy="364" r="7" fill="#46734A"/><text class="rl-nf" x="660" y="317">Super-user sessions with the ICAs</text>
-              <line class="rl-lk" x1="660" y1="579" x2="660" y2="549" stroke="#9A6E1B"/>
-              <circle cx="660" cy="588" r="7" fill="#9A6E1B"/><text class="rl-nf" x="720" y="537">Super users' feedback: solution and e-learning</text>
+              <line class="rl-lk" x1="720" y1="255" x2="720" y2="247" stroke="#46658A"/>
+              <circle cx="720" cy="264" r="7" fill="#46658A"/><text class="rl-n" x="760" y="238">Integration with Teams, Outlook and Atlas</text>
+              <g class="lgrow">
+                <rect x="711" y="282" width="26" height="26" rx="7" fill="#6264A7"/><text class="lgt" x="724" y="301">T</text>
+                <rect x="747" y="282" width="26" height="26" rx="7" fill="#0F6CBD"/><text class="lgt" x="760" y="301">O</text>
+                <rect x="783" y="282" width="26" height="26" rx="7" fill="#036C70"/><text class="lgt" x="796" y="301">S</text>
+              </g>
+              <line class="rl-lk" x1="660" y1="379" x2="660" y2="349" stroke="#46734A"/>
+              <circle cx="660" cy="388" r="7" fill="#46734A"/><text class="rl-nf" x="660" y="341">Super-user sessions with the ICAs</text>
+              <line class="rl-lk" x1="660" y1="627" x2="660" y2="597" stroke="#9A6E1B"/>
+              <circle cx="660" cy="636" r="7" fill="#9A6E1B"/><text class="rl-nf" x="720" y="585">Super users' feedback: solution and e-learning</text>
             </g>
             <!-- january -->
             <g class="mm m3">
               <line class="rl-lk" x1="920" y1="131" x2="920" y2="123" stroke="#B8232A"/>
               <circle cx="920" cy="140" r="7" fill="#B8232A"/><text class="rl-n" x="920" y="114">Changes applied</text>
-              <line class="rl-lk" x1="935" y1="243" x2="935" y2="213" stroke="#46658A"/>
-              <circle cx="935" cy="252" r="7" fill="#46658A"/><text class="rl-nsf" x="947" y="202">Assessed in January</text>
-              <line class="rl-lk" x1="920" y1="467" x2="920" y2="459" stroke="#A05A28"/>
-              <circle cx="920" cy="476" r="7" fill="#A05A28"/><text class="rl-n" x="920" y="450">Information architecture</text>
-              <line class="rl-lk" x1="920" y1="579" x2="920" y2="571" stroke="#9A6E1B"/>
-              <circle cx="920" cy="588" r="7" fill="#9A6E1B"/><text class="rl-n" x="920" y="562">ICA super-user sessions</text>
-              <line class="rl-lk" x1="920" y1="709" x2="920" y2="717" stroke="#6E5B8E"/>
-              <circle cx="920" cy="700" r="7" fill="#6E5B8E"/><text class="rl-n" x="920" y="737">New ID structure engagement</text>
-              <text class="rl-ns" x="945" y="761">lessons from the change requests</text>
+              <line class="rl-lk" x1="935" y1="255" x2="935" y2="225" stroke="#46658A"/>
+              <circle cx="935" cy="264" r="7" fill="#46658A"/><text class="rl-nsf" x="947" y="214">Assessed in January</text>
+              <line class="rl-lk" x1="920" y1="503" x2="920" y2="495" stroke="#A05A28"/>
+              <circle cx="920" cy="512" r="7" fill="#A05A28"/><text class="rl-n" x="920" y="486">Information architecture</text>
+              <line class="rl-lk" x1="920" y1="627" x2="920" y2="619" stroke="#9A6E1B"/>
+              <circle cx="920" cy="636" r="7" fill="#9A6E1B"/><text class="rl-n" x="920" y="610">ICA super-user sessions</text>
+              <line class="rl-lk" x1="920" y1="769" x2="920" y2="777" stroke="#6E5B8E"/>
+              <circle cx="920" cy="760" r="7" fill="#6E5B8E"/><text class="rl-n" x="920" y="797">New ID structure engagement</text>
+              <text class="rl-ns" x="945" y="828">lessons from the change requests</text>
             </g>
             <!-- february -->
             <g class="mm m4">
-              <line class="rl-lk" x1="1210" y1="243" x2="1210" y2="235" stroke="#46658A"/>
-              <circle cx="1210" cy="252" r="7" fill="#46658A"/><text class="rl-n" x="1210" y="226">Super-user sessions</text>
-              <line class="rl-lk" x1="1170" y1="355" x2="1170" y2="347" stroke="#46734A"/>
-              <circle cx="1170" cy="364" r="7" fill="#46734A"/><text class="rl-n" x="1170" y="338">ICAs host the country focal points</text>
-              <line class="rl-lk" x1="1170" y1="467" x2="1170" y2="437" stroke="#A05A28"/>
-              <circle cx="1170" cy="476" r="7" fill="#A05A28"/><text class="rl-nf" x="1170" y="425">Metadata, naming and permissions</text>
-              <line class="rl-lk" x1="1220" y1="579" x2="1220" y2="571" stroke="#9A6E1B"/>
-              <circle cx="1220" cy="588" r="7" fill="#9A6E1B"/><text class="rl-n" x="1230" y="562">Country finance focal points</text>
-              <line class="rl-lk" x1="1190" y1="709" x2="1190" y2="717" stroke="#6E5B8E"/>
-              <circle cx="1190" cy="700" r="7" fill="#6E5B8E"/><text class="rl-n" x="1220" y="737">Pause and reflect session</text>
+              <line class="rl-lk" x1="1210" y1="255" x2="1210" y2="247" stroke="#46658A"/>
+              <circle cx="1210" cy="264" r="7" fill="#46658A"/><text class="rl-n" x="1210" y="238">Super-user sessions</text>
+              <line class="rl-lk" x1="1170" y1="379" x2="1170" y2="371" stroke="#46734A"/>
+              <circle cx="1170" cy="388" r="7" fill="#46734A"/><text class="rl-n" x="1170" y="362">ICAs host the country focal points</text>
+              <line class="rl-lk" x1="1170" y1="503" x2="1170" y2="473" stroke="#A05A28"/>
+              <circle cx="1170" cy="512" r="7" fill="#A05A28"/><text class="rl-nf" x="1170" y="461">Metadata, naming and permissions</text>
+              <line class="rl-lk" x1="1220" y1="627" x2="1220" y2="619" stroke="#9A6E1B"/>
+              <circle cx="1220" cy="636" r="7" fill="#9A6E1B"/><text class="rl-n" x="1230" y="610">Country finance focal points</text>
+              <line class="rl-lk" x1="1190" y1="769" x2="1190" y2="777" stroke="#6E5B8E"/>
+              <circle cx="1190" cy="760" r="7" fill="#6E5B8E"/><text class="rl-n" x="1220" y="797">Pause and reflect session</text>
             </g>
             <!-- march -->
             <g class="mm m5">
               <line class="rl-lk" x1="1350" y1="131" x2="1350" y2="121" stroke="#B8232A"/>
               <circle cx="1350" cy="140" r="7" fill="#B8232A"/><text class="rl-n" x="1350" y="114">Final versions published</text>
               <line class="rl-lk" x1="1350" y1="149" x2="1350" y2="158" stroke="#B8232A"/>
-              <g transform="rotate(2 1350 202)">
-                <rect x="1319" y="159" width="62" height="86" fill="#FDF7F0" stroke="#D8C4B4" stroke-width="1"/>
-                <image href="assets/cover.jpg" x="1322" y="162" width="56" height="80" preserveAspectRatio="xMidYMid slice"/>
+              <g transform="rotate(2 1350 201)">
+                <rect x="1319" y="158" width="62" height="86" fill="#FDF7F0" stroke="#D8C4B4" stroke-width="1"/>
+                <image href="assets/cover.jpg" x="1322" y="161" width="56" height="80" preserveAspectRatio="xMidYMid slice"/>
               </g>
-              <line class="rl-lk" x1="1350" y1="485" x2="1350" y2="497" stroke="#A05A28"/>
-              <circle cx="1350" cy="476" r="7" fill="#A05A28"/><text class="rl-n" x="1350" y="516">The ordered home of the SOPs</text>
+              <g transform="translate(1350,264)">
+                <rect x="-14" y="-14" width="28" height="28" rx="14" fill="#FDF7F0" stroke="#E4D4C6" stroke-width="1"/>
+                <path d="M0 -10.5 C 2.2 -3 3 -2.2 10.5 0 C 3 2.2 2.2 3 0 10.5 C -2.2 3 -3 2.2 -10.5 0 C -3 -2.2 -2.2 -3 0 -10.5 Z" fill="url(#ggrad)"/>
+              </g>
+              <g transform="translate(1350,388)">
+                <rect x="-14" y="-14" width="28" height="28" rx="14" fill="#FDF7F0" stroke="#E4D4C6" stroke-width="1"/>
+                <path d="M-10 -1.5 L0 -6.5 L10 -1.5 L0 3.5 Z" fill="#46734A"/>
+                <path d="M-5.5 0.8 L-5.5 5 Q0 8.2 5.5 5 L5.5 0.8 L0 3.5 Z" fill="#46734A"/>
+                <line x1="10" y1="-1.5" x2="10" y2="5.5" stroke="#46734A" stroke-width="1.6" stroke-linecap="round"/>
+              </g>
+              <g transform="translate(1350,486)">
+                <rect x="-13" y="-13" width="26" height="26" rx="7" fill="#036C70"/><text class="lgt" x="0" y="6">S</text>
+              </g>
+              <line class="rl-lk" x1="1350" y1="521" x2="1350" y2="533" stroke="#A05A28"/>
+              <circle cx="1350" cy="512" r="7" fill="#A05A28"/><text class="rl-n" x="1350" y="552">The ordered home of the SOPs</text>
             </g>
             <!-- convergence -->
             <g class="rr-conv">
-              <path class="rl-cv" pathLength="100" d="M1410 140 C 1456 140, 1430 420, 1472 420" stroke="#B8232A"/>
-              <path class="rl-cv" pathLength="100" d="M1410 252 C 1452 252, 1434 420, 1472 420" stroke="#46658A"/>
-              <path class="rl-cv" pathLength="100" d="M1410 364 C 1448 364, 1438 420, 1472 420" stroke="#46734A"/>
-              <path class="rl-cv" pathLength="100" d="M1410 476 C 1448 476, 1438 420, 1472 420" stroke="#A05A28"/>
-              <path class="rl-cv" pathLength="100" d="M1410 588 C 1452 588, 1434 420, 1472 420" stroke="#9A6E1B"/>
-              <path class="rl-cv" pathLength="100" d="M1410 700 C 1456 700, 1430 420, 1472 420" stroke="#6E5B8E"/>
+              <path class="rl-cv" pathLength="100" d="M1410 140 C 1456 140, 1430 450, 1472 450" stroke="#B8232A"/>
+              <path class="rl-cv" pathLength="100" d="M1410 264 C 1452 264, 1434 450, 1472 450" stroke="#46658A"/>
+              <path class="rl-cv" pathLength="100" d="M1410 388 C 1448 388, 1438 450, 1472 450" stroke="#46734A"/>
+              <path class="rl-cv" pathLength="100" d="M1410 512 C 1448 512, 1438 450, 1472 450" stroke="#A05A28"/>
+              <path class="rl-cv" pathLength="100" d="M1410 636 C 1452 636, 1434 450, 1472 450" stroke="#9A6E1B"/>
+              <path class="rl-cv" pathLength="100" d="M1410 760 C 1456 760, 1430 450, 1472 450" stroke="#6E5B8E"/>
             </g>
             <!-- the strategy lens -->
             <g class="rr-lens">
-              <line x1="1472" y1="420" x2="1672" y2="420" stroke="#B8232A" stroke-width="2.4" opacity=".55"/>
-              <circle cx="1562" cy="420" r="66" fill="none" stroke="#A8781E" stroke-width="2" opacity=".9"/>
-              <circle cx="1562" cy="420" r="53" fill="none" stroke="#A8781E" stroke-width="1" opacity=".3"/>
-              <text class="rl-lens" x="1562" y="328">STRATEGY 2030 &middot; MUST-WINS</text>
-              <text class="rl-lensb" x="1562" y="580">the SOPs as an enabler</text>
+              <line x1="1472" y1="450" x2="1672" y2="450" stroke="#B8232A" stroke-width="2.4" opacity=".55"/>
+              <circle cx="1562" cy="450" r="66" fill="none" stroke="#A8781E" stroke-width="2" opacity=".9"/>
+              <circle cx="1562" cy="450" r="53" fill="none" stroke="#A8781E" stroke-width="1" opacity=".3"/>
+              <g transform="rotate(-2 1544 450)">
+                <rect x="1524" y="422" width="40" height="56" fill="#FDF7F0" stroke="#D8C4B4" stroke-width="1"/>
+                <image href="assets/cover.jpg" x="1527" y="425" width="34" height="50" preserveAspectRatio="xMidYMid slice"/>
+              </g>
+              <path transform="translate(1588,450)" d="M0 -11 C 2.3 -3.2 3.2 -2.3 11 0 C 3.2 2.3 2.3 3.2 0 11 C -2.3 3.2 -3.2 2.3 -11 0 C -3.2 -2.3 -2.3 -3.2 0 -11 Z" fill="url(#ggrad)"/>
+              <text class="rl-lens" x="1562" y="358">STRATEGY 2030 &middot; MUST-WINS</text>
+              <text class="rl-lensb" x="1562" y="604">the SOPs as an enabler</text>
             </g>
             <!-- arrival -->
             <g class="rr-end">
-              <circle cx="1672" cy="420" r="8" fill="#B8232A"/>
-              <text class="rl-endd" x="1688" y="514">END Q1 2027</text>
-              <text class="rl-end" x="1688" y="542">Fully functional</text>
+              <circle cx="1672" cy="450" r="8" fill="#B8232A"/>
+              <text class="rl-endd" x="1688" y="546">END Q1 2027</text>
+              <text class="rl-end" x="1688" y="574">Fully functional</text>
             </g>
           </svg>
         </div>
