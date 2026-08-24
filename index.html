@@ -284,11 +284,16 @@ body.entered.stA #ctl{display:flex}
 @media (prefers-reduced-motion:reduce){#sB .aHead h2,#sB .art{opacity:1;animation:none}}
 
 /* ---------- state R : the rollout plan, presenter-paced, full landscape ---------- */
-#sR{cursor:pointer}
+#sR{cursor:pointer;background:
+  radial-gradient(50% 60% at 12% 18%, rgba(102,178,230,.16), transparent 70%),
+  radial-gradient(45% 55% at 88% 22%, rgba(155,114,203,.13), transparent 70%),
+  radial-gradient(55% 60% at 80% 88%, rgba(217,101,112,.11), transparent 70%),
+  radial-gradient(45% 55% at 22% 92%, rgba(114,201,178,.11), transparent 72%),
+  linear-gradient(160deg,#FDFAF6,#FAF3EE)}
 #sR .wrap{max-width:1880px;padding-top:64px}
 .rlo{margin-top:10px}
 .rlo svg{display:block;width:100%;height:auto;max-height:calc(100vh - 190px);margin:0 auto;overflow:visible}
-.rl-gd{stroke:#EDDFD6;stroke-width:1}
+.rl-gd{stroke:#E6D6CB;stroke-width:1}
 .rl-mo{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:.22em;fill:#9B7C66;text-anchor:middle;transition:fill .5s var(--e),font-size .5s var(--e)}
 .rl-stage{font-family:var(--mono);font-size:14px;letter-spacing:.2em;fill:#9A7E6C;text-anchor:middle}
 .rl-name{font-family:var(--serif);font-size:21px;font-weight:600;fill:#3A2C24;text-anchor:end}
@@ -297,7 +302,8 @@ body.entered.stA #ctl{display:flex}
 .rl-n,.rl-nf{font-size:17px;font-weight:500;fill:#3A2C24;text-anchor:middle}
 .rl-ns{font-size:15px;fill:#63503F;text-anchor:middle}
 .rl-nsf{font-size:15px;font-weight:500;fill:#55433A;text-anchor:start}
-.rl-cap{opacity:.16}
+.rl-cap{opacity:.18}
+#sR .mm circle{stroke:#FDF7F0;stroke-width:2}
 .rl-stageg{font-family:var(--mono);font-size:15px;letter-spacing:.2em;fill:#8A6A1F;text-anchor:middle}
 .rl-lk{stroke-width:1.4;opacity:.5}
 .rl-cv{fill:none;stroke-width:1.8;opacity:.55}
