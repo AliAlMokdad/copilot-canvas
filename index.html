@@ -287,32 +287,39 @@ body.entered.stA #ctl{display:flex}
 #sR{background:linear-gradient(160deg,#FDF8F3 0%,#FBF1EC 55%,#F8ECE6 100%)}
 .rlo{margin-top:26px}
 .rlo svg{display:block;width:100%;height:auto;overflow:visible}
-.rl-mo{font-family:var(--mono);font-size:12.5px;letter-spacing:.22em;fill:#8F7059;text-anchor:middle}
+.rl-mo{font-family:var(--mono);font-size:14px;font-weight:500;letter-spacing:.24em;fill:#8F7059;text-anchor:middle}
 .rl-tick{stroke:#D9CBC3}
-.rl-stage{font-family:var(--mono);font-size:11px;letter-spacing:.18em;fill:#A08876;text-anchor:middle}
-.rl-name{font-family:var(--serif);font-size:16px;font-weight:600;fill:#4A3A30;text-anchor:end}
-.rl-base{opacity:.28;stroke-width:1.5}
-.rl-n{font-size:12.5px;fill:#5C4A3E;text-anchor:middle}
-.rl-cv{fill:none;stroke-width:1.5;opacity:.5}
-.rl-lens{font-family:var(--mono);font-size:11px;letter-spacing:.16em;fill:#8A6A1F;text-anchor:middle}
-.rl-lensb{font-family:var(--serif);font-style:italic;font-size:15px;fill:#6E5240;text-anchor:middle}
-.rl-endd{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;fill:#7A5F52;text-anchor:middle}
-.rl-end{font-family:var(--serif);font-size:16px;font-weight:600;fill:#3A2C24;text-anchor:middle}
-#sR .aHead h2,#sR .aHead .hint,#sR .rr{opacity:0}
+.rl-stage{font-family:var(--mono);font-size:12.5px;letter-spacing:.2em;fill:#A08876;text-anchor:middle}
+.rl-name{font-family:var(--serif);font-size:19px;font-weight:600;fill:#3A2C24;text-anchor:end}
+.rl-base{opacity:.3;stroke-width:1.6}
+.rl-n{font-size:15px;font-weight:500;fill:#4A3A30;text-anchor:middle}
+.rl-cv{fill:none;stroke-width:1.6;opacity:.55}
+.rl-lens{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.16em;fill:#8A6A1F;text-anchor:middle}
+.rl-lensb{font-family:var(--serif);font-style:italic;font-size:18px;fill:#6E5240;text-anchor:middle}
+.rl-endd{font-family:var(--mono);font-size:12px;letter-spacing:.2em;fill:#7A5F52;text-anchor:middle}
+.rl-end{font-family:var(--serif);font-size:19px;font-weight:600;fill:#3A2C24;text-anchor:middle}
+/* the reveal: the frame lands, the lanes draw themselves, and the months arrive one by one */
+#sR .aHead h2,#sR .aHead .hint,#sR .rr,#sR .mm{opacity:0}
+#sR .rl-base{stroke-dasharray:100;stroke-dashoffset:100}
+#sR .rl-cv{stroke-dasharray:100;stroke-dashoffset:100}
 #sR.reveal .aHead h2{animation:up .8s var(--e) .1s both}
 #sR.reveal .aHead .hint{animation:up .8s var(--e) .22s both}
-#sR.reveal .rr{animation:up .8s var(--e) both}
-#sR.reveal .rr:nth-of-type(1){animation-delay:.3s}
-#sR.reveal .rr:nth-of-type(2){animation-delay:.42s}
-#sR.reveal .rr:nth-of-type(3){animation-delay:.54s}
-#sR.reveal .rr:nth-of-type(4){animation-delay:.66s}
-#sR.reveal .rr:nth-of-type(5){animation-delay:.78s}
-#sR.reveal .rr:nth-of-type(6){animation-delay:.9s}
-#sR.reveal .rr:nth-of-type(7){animation-delay:1.02s}
-#sR.reveal .rr:nth-of-type(8){animation-delay:1.18s}
-#sR.reveal .rr:nth-of-type(9){animation-delay:1.36s}
-#sR.reveal .rr:nth-of-type(10){animation-delay:1.54s}
-@media (prefers-reduced-motion:reduce){#sR .aHead h2,#sR .aHead .hint,#sR .rr{opacity:1;animation:none}}
+#sR.reveal .rr-months{animation:up .8s var(--e) .35s both}
+#sR.reveal .rr-names{animation:up .8s var(--e) .5s both}
+#sR.reveal .rl-base{transition:stroke-dashoffset 2.6s linear .7s;stroke-dashoffset:0}
+#sR.reveal .m1{animation:up .7s var(--e) .8s both}
+#sR.reveal .m2{animation:up .7s var(--e) 1.3s both}
+#sR.reveal .rr-band{animation:up .9s var(--e) 1.7s both}
+#sR.reveal .m3{animation:up .7s var(--e) 1.9s both}
+#sR.reveal .m4{animation:up .7s var(--e) 2.5s both}
+#sR.reveal .m5{animation:up .7s var(--e) 3.0s both}
+#sR.reveal .rl-cv{transition:stroke-dashoffset .9s var(--e) 3.5s;stroke-dashoffset:0}
+#sR.reveal .rr-lens{animation:up .9s var(--e) 3.9s both}
+#sR.reveal .rr-end{animation:up .8s var(--e) 4.3s both}
+@media (prefers-reduced-motion:reduce){
+  #sR .aHead h2,#sR .aHead .hint,#sR .rr,#sR .mm{opacity:1;animation:none}
+  #sR .rl-base,#sR .rl-cv{stroke-dasharray:none;stroke-dashoffset:0;transition:none}
+}
 
 /* ---------- state Q : questions, in the cover's own language ---------- */
 #sQ{background:radial-gradient(120% 90% at 50% 12%, var(--red-hi) 0%, var(--red) 42%, #8E1016 76%, var(--red-deep) 100%)}
@@ -545,80 +552,84 @@ ANTI_SLOP_BRIEF
         <div class="rlo">
           <svg viewBox="0 0 1320 640" xmlns="http://www.w3.org/2000/svg" aria-label="The rollout: five lanes converging on Fully functional">
             <!-- month frame -->
-            <g class="rr">
-              <text class="rl-mo" x="300" y="52">NOV</text><line class="rl-tick" x1="300" y1="62" x2="300" y2="72"/>
-              <text class="rl-mo" x="480" y="52">DEC</text><line class="rl-tick" x1="480" y1="62" x2="480" y2="72"/>
-              <text class="rl-mo" x="660" y="52">JAN</text><line class="rl-tick" x1="660" y1="62" x2="660" y2="72"/>
-              <text class="rl-mo" x="840" y="52">FEB</text><line class="rl-tick" x1="840" y1="62" x2="840" y2="72"/>
-              <text class="rl-mo" x="1000" y="52">MAR</text><line class="rl-tick" x1="1000" y1="62" x2="1000" y2="72"/>
+            <g class="rr rr-months">
+              <text class="rl-mo" x="300" y="52">NOV</text><line class="rl-tick" x1="300" y1="64" x2="300" y2="74"/>
+              <text class="rl-mo" x="480" y="52">DEC</text><line class="rl-tick" x1="480" y1="64" x2="480" y2="74"/>
+              <text class="rl-mo" x="660" y="52">JAN</text><line class="rl-tick" x1="660" y1="64" x2="660" y2="74"/>
+              <text class="rl-mo" x="840" y="52">FEB</text><line class="rl-tick" x1="840" y1="64" x2="840" y2="74"/>
+              <text class="rl-mo" x="1000" y="52">MAR</text><line class="rl-tick" x1="1000" y1="64" x2="1000" y2="74"/>
             </g>
+            <!-- lane names -->
+            <g class="rr rr-names">
+              <text class="rl-name" x="178" y="126">The SOPs</text>
+              <text class="rl-name" x="178" y="221">Digital solution</text>
+              <text class="rl-name" x="178" y="316">E-learning</text>
+              <text class="rl-name" x="178" y="411">Atlas</text>
+              <text class="rl-name" x="178" y="506">The cascade</text>
+            </g>
+            <!-- baselines, drawn left to right as the months arrive -->
+            <line class="rl-base" pathLength="100" x1="200" y1="120" x2="970" y2="120" stroke="#B8232A"/>
+            <line class="rl-base" pathLength="100" x1="200" y1="215" x2="970" y2="215" stroke="#5C6E86"/>
+            <line class="rl-base" pathLength="100" x1="200" y1="310" x2="970" y2="310" stroke="#5E7C5A"/>
+            <line class="rl-base" pathLength="100" x1="200" y1="405" x2="970" y2="405" stroke="#A8632E"/>
+            <line class="rl-base" pathLength="100" x1="200" y1="500" x2="970" y2="500" stroke="#A8781E"/>
             <!-- the ID alignment stage -->
-            <g class="rr">
+            <g class="rr rr-band">
               <rect x="600" y="70" width="120" height="470" fill="rgba(184,35,42,.032)"/>
               <line x1="600" y1="70" x2="600" y2="540" stroke="#E0CFC7" stroke-dasharray="3 5"/>
               <line x1="720" y1="70" x2="720" y2="540" stroke="#E0CFC7" stroke-dasharray="3 5"/>
-              <text class="rl-stage" x="660" y="562">ALIGNMENT &middot; NEW ID STRUCTURE</text>
+              <text class="rl-stage" x="660" y="566">ALIGNMENT &middot; NEW ID STRUCTURE</text>
             </g>
-            <!-- lane 1 · the SOPs -->
-            <g class="rr">
-              <text class="rl-name" x="178" y="125">The SOPs</text>
-              <line class="rl-base" x1="200" y1="120" x2="970" y2="120" stroke="#B8232A"/>
-              <circle cx="300" cy="120" r="5" fill="#B8232A"/><text class="rl-n" x="300" y="102">Change requests and log</text>
-              <circle cx="660" cy="120" r="5" fill="#B8232A"/><text class="rl-n" x="660" y="144">Changes applied</text>
-              <circle cx="940" cy="120" r="5" fill="#B8232A"/><text class="rl-n" x="906" y="102">Final versions published</text>
+            <!-- November -->
+            <g class="mm m1">
+              <circle cx="300" cy="120" r="6" fill="#B8232A"/><text class="rl-n" x="300" y="98">Change requests and log</text>
+              <circle cx="330" cy="215" r="6" fill="#5C6E86"/><text class="rl-n" x="330" y="245">Coordination with IT</text>
+              <circle cx="330" cy="405" r="6" fill="#A8632E"/><text class="rl-n" x="330" y="383">Clean up and delete</text>
+              <circle cx="300" cy="500" r="6" fill="#A8781E"/><text class="rl-n" x="300" y="478">Launch panel &middot; webinar</text>
             </g>
-            <!-- lane 2 · digital solution -->
-            <g class="rr">
-              <text class="rl-name" x="178" y="220">Digital solution</text>
-              <line class="rl-base" x1="200" y1="215" x2="970" y2="215" stroke="#5C6E86"/>
-              <circle cx="330" cy="215" r="5" fill="#5C6E86"/><text class="rl-n" x="330" y="197">Coordination with IT</text>
-              <circle cx="600" cy="215" r="5" fill="#5C6E86"/><text class="rl-n" x="588" y="239">Prototype testing with the ICAs</text>
-              <circle cx="880" cy="215" r="5" fill="#5C6E86"/><text class="rl-n" x="880" y="197">Super-user sessions</text>
+            <!-- December -->
+            <g class="mm m2">
+              <circle cx="470" cy="310" r="6" fill="#5E7C5A"/><text class="rl-n" x="470" y="288">Super-user sessions with the ICAs</text>
             </g>
-            <!-- lane 3 · e-learning -->
-            <g class="rr">
-              <text class="rl-name" x="178" y="315">E-learning</text>
-              <line class="rl-base" x1="200" y1="310" x2="970" y2="310" stroke="#5E7C5A"/>
-              <circle cx="450" cy="310" r="5" fill="#5E7C5A"/><text class="rl-n" x="450" y="292">Super-user sessions with the ICAs</text>
-              <circle cx="800" cy="310" r="5" fill="#5E7C5A"/><text class="rl-n" x="800" y="334">ICAs host the country focal points</text>
+            <!-- January -->
+            <g class="mm m3">
+              <circle cx="660" cy="120" r="6" fill="#B8232A"/><text class="rl-n" x="660" y="150">Changes applied</text>
+              <circle cx="600" cy="215" r="6" fill="#5C6E86"/><text class="rl-n" x="588" y="245">Prototype testing with the ICAs</text>
+              <circle cx="640" cy="405" r="6" fill="#A8632E"/><text class="rl-n" x="640" y="435">Restructure</text>
+              <circle cx="660" cy="500" r="6" fill="#A8781E"/><text class="rl-n" x="660" y="530">ICA super users</text>
             </g>
-            <!-- lane 4 · Atlas -->
-            <g class="rr">
-              <text class="rl-name" x="178" y="410">Atlas</text>
-              <line class="rl-base" x1="200" y1="405" x2="970" y2="405" stroke="#A8632E"/>
-              <circle cx="330" cy="405" r="5" fill="#A8632E"/><text class="rl-n" x="330" y="387">Clean up and delete</text>
-              <circle cx="620" cy="405" r="5" fill="#A8632E"/><text class="rl-n" x="620" y="429">Restructure</text>
-              <circle cx="900" cy="405" r="5" fill="#A8632E"/><text class="rl-n" x="880" y="387">The ordered home of the SOPs</text>
+            <!-- February -->
+            <g class="mm m4">
+              <circle cx="820" cy="310" r="6" fill="#5E7C5A"/><text class="rl-n" x="820" y="340">ICAs host the country focal points</text>
             </g>
-            <!-- lane 5 · the cascade -->
-            <g class="rr">
-              <text class="rl-name" x="178" y="505">The cascade</text>
-              <line class="rl-base" x1="200" y1="500" x2="970" y2="500" stroke="#A8781E"/>
-              <circle cx="300" cy="500" r="5" fill="#A8781E"/><text class="rl-n" x="300" y="482">Launch panel &middot; webinar</text>
-              <circle cx="620" cy="500" r="5" fill="#A8781E"/><text class="rl-n" x="620" y="524">ICA super users</text>
-              <circle cx="900" cy="500" r="5" fill="#A8781E"/><text class="rl-n" x="900" y="482">Country finance focal points</text>
+            <!-- March -->
+            <g class="mm m5">
+              <circle cx="940" cy="120" r="6" fill="#B8232A"/><text class="rl-n" x="906" y="98">Final versions published</text>
+              <circle cx="900" cy="215" r="6" fill="#5C6E86"/><text class="rl-n" x="900" y="193">Super-user sessions</text>
+              <circle cx="920" cy="405" r="6" fill="#A8632E"/><text class="rl-n" x="890" y="383">The ordered home of the SOPs</text>
+              <circle cx="920" cy="500" r="6" fill="#A8781E"/><text class="rl-n" x="920" y="478">Country finance focal points</text>
             </g>
-            <!-- convergence -->
-            <g class="rr">
-              <path class="rl-cv" d="M970 120 C 1015 120, 1020 310, 1058 310" stroke="#B8232A"/>
-              <path class="rl-cv" d="M970 215 C 1012 215, 1018 310, 1058 310" stroke="#5C6E86"/>
-              <path class="rl-cv" d="M970 310 L 1058 310" stroke="#5E7C5A"/>
-              <path class="rl-cv" d="M970 405 C 1012 405, 1018 310, 1058 310" stroke="#A8632E"/>
-              <path class="rl-cv" d="M970 500 C 1015 500, 1020 310, 1058 310" stroke="#A8781E"/>
+            <!-- convergence, drawn after the months -->
+            <g class="rr-conv">
+              <path class="rl-cv" pathLength="100" d="M970 120 C 1015 120, 1020 310, 1058 310" stroke="#B8232A"/>
+              <path class="rl-cv" pathLength="100" d="M970 215 C 1012 215, 1018 310, 1058 310" stroke="#5C6E86"/>
+              <path class="rl-cv" pathLength="100" d="M970 310 L 1058 310" stroke="#5E7C5A"/>
+              <path class="rl-cv" pathLength="100" d="M970 405 C 1012 405, 1018 310, 1058 310" stroke="#A8632E"/>
+              <path class="rl-cv" pathLength="100" d="M970 500 C 1015 500, 1020 310, 1058 310" stroke="#A8781E"/>
             </g>
             <!-- the strategy lens -->
-            <g class="rr">
-              <line x1="1058" y1="310" x2="1252" y2="310" stroke="#B8232A" stroke-width="2" opacity=".55"/>
-              <circle cx="1128" cy="310" r="64" fill="none" stroke="#A8781E" stroke-width="1.5" opacity=".9"/>
+            <g class="rr rr-lens">
+              <line x1="1058" y1="310" x2="1252" y2="310" stroke="#B8232A" stroke-width="2.2" opacity=".55"/>
+              <circle cx="1128" cy="310" r="64" fill="none" stroke="#A8781E" stroke-width="1.8" opacity=".9"/>
               <circle cx="1128" cy="310" r="52" fill="none" stroke="#A8781E" stroke-width="1" opacity=".3"/>
-              <text class="rl-lens" x="1128" y="222">2020-2030 STRATEGY &middot; MUST-WINS</text>
-              <text class="rl-lensb" x="1128" y="402">the SOPs as an enabler</text>
+              <text class="rl-lens" x="1128" y="218">2020-2030 STRATEGY &middot; MUST-WINS</text>
+              <text class="rl-lensb" x="1128" y="404">the SOPs as an enabler</text>
             </g>
             <!-- arrival -->
-            <g class="rr">
-              <circle cx="1258" cy="310" r="6" fill="#B8232A"/>
-              <text class="rl-endd" x="1258" y="345">END Q1 2027</text>
-              <text class="rl-end" x="1258" y="366">Fully functional</text>
+            <g class="rr rr-end">
+              <circle cx="1258" cy="310" r="7" fill="#B8232A"/>
+              <text class="rl-endd" x="1258" y="348">END Q1 2027</text>
+              <text class="rl-end" x="1258" y="372">Fully functional</text>
             </g>
           </svg>
         </div>
