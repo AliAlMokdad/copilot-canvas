@@ -291,12 +291,12 @@ body.entered.stA #ctl{display:flex}
   radial-gradient(45% 55% at 22% 92%, rgba(114,201,178,.11), transparent 72%),
   linear-gradient(160deg,#FDFAF6,#FAF3EE)}
 #sR .wrap{max-width:2280px;padding-top:44px}
-.rlo{margin-top:0;height:calc(100vh - 185px);display:flex;align-items:center;justify-content:center}
+.rlo{margin-top:0;height:calc(100vh - 185px);display:flex;align-items:center;justify-content:center;transition:opacity .7s var(--e),filter .7s var(--e)}
 .rlo svg{display:block;width:100%;height:auto;max-height:100%;margin:0 auto;overflow:visible}
 .rl-gd{stroke:#E6D6CB;stroke-width:1}
 /* every label wears a paper halo so no text ever sits on a line */
 #sR svg text{paint-order:stroke;stroke:#FBF4ED;stroke-width:6;stroke-linejoin:round}
-#sR svg text.lgt{stroke:none;fill:#FFF;font-size:15px;font-weight:600;text-anchor:middle;letter-spacing:0}
+#sR svg text.lgt{stroke:none;fill:#FFF;font-weight:700;text-anchor:middle;letter-spacing:0}
 .rl-mo{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:.22em;fill:#96775F;text-anchor:middle;transition:fill .5s var(--e),font-size .5s var(--e),opacity .5s var(--e)}
 .rl-stage{font-family:var(--mono);font-size:15.5px;letter-spacing:.2em;fill:#8D6F5C;text-anchor:middle}
 .rl-name{font-family:var(--serif);font-size:23px;font-weight:600;fill:#33261F;text-anchor:end}
@@ -332,7 +332,7 @@ body.entered.stA #ctl{display:flex}
 #sR[data-rb="1"] .m1 text,#sR[data-rb="2"] .m2 text,#sR[data-rb="3"] .m3 text,#sR[data-rb="4"] .m4 text,#sR[data-rb="5"] .m5 text{transform:scale(1.24)}
 #sR[data-rb="1"] .m1 circle,#sR[data-rb="2"] .m2 circle,#sR[data-rb="3"] .m3 circle,#sR[data-rb="4"] .m4 circle,#sR[data-rb="5"] .m5 circle{transform:scale(1.75)}
 #sR[data-rb="1"] .m1 .rl-cap,#sR[data-rb="2"] .m2 .rl-cap,#sR[data-rb="3"] .m3 .rl-cap,#sR[data-rb="4"] .m4 .rl-cap,#sR[data-rb="5"] .m5 .rl-cap{opacity:.3}
-#sR[data-rb="6"] .mm,#sR[data-rb="7"] .mm{opacity:1;transform:none}
+#sR[data-rb="6"] .mm,#sR[data-rb="7"] .mm,#sR[data-rb="8"] .mm{opacity:1;transform:none}
 #sR.rb3 .rr-band{animation:up .8s var(--e) both}
 #sR.rb5 .rr-band5{animation:up .8s var(--e) both}
 #sR.rb6 .rl-cv{transition:stroke-dashoffset .9s var(--e);stroke-dashoffset:0}
@@ -341,9 +341,53 @@ body.entered.stA #ctl{display:flex}
 #sR[data-rb="1"] .mo1,#sR[data-rb="2"] .mo2,#sR[data-rb="3"] .mo3,#sR[data-rb="4"] .mo4,#sR[data-rb="5"] .mo5{fill:var(--red);font-size:30px}
 /* past month headers step back with their month; all return at the finale */
 #sR[data-rb="2"] .mo1,#sR[data-rb="3"] .mo1,#sR[data-rb="3"] .mo2,#sR[data-rb="4"] .mo1,#sR[data-rb="4"] .mo2,#sR[data-rb="4"] .mo3,#sR[data-rb="5"] .mo1,#sR[data-rb="5"] .mo2,#sR[data-rb="5"] .mo3,#sR[data-rb="5"] .mo4{opacity:.45}
+/* the last next: the SOP takes the page, the spark is born, energy feeds the platforms */
+.fin{position:absolute;inset:0;z-index:6;opacity:0;pointer-events:none;transition:opacity .8s var(--e);background:
+  radial-gradient(45% 55% at 12% 16%, rgba(102,178,230,.18), transparent 70%),
+  radial-gradient(42% 52% at 88% 20%, rgba(155,114,203,.15), transparent 70%),
+  radial-gradient(50% 58% at 82% 86%, rgba(217,101,112,.12), transparent 70%),
+  radial-gradient(42% 52% at 18% 90%, rgba(114,201,178,.12), transparent 72%),
+  linear-gradient(160deg,#FDFAF6,#FAF3EE)}
+#sR[data-rb="8"] .fin{opacity:1}
+#sR[data-rb="8"] .rlo{opacity:0;filter:blur(2px)}
+.fin-art{width:100%;height:100%;display:block;padding:34px 40px 20px;box-sizing:border-box}
+.f-lab{font-family:var(--mono);font-size:15.5px;letter-spacing:.24em;fill:#8A6A1F;text-anchor:middle;paint-order:stroke;stroke:#FBF4ED;stroke-width:6;stroke-linejoin:round}
+.f-aura,.f-cover,.f-spark,.f-card,.f-stamp,.f-pulse{opacity:0}
+.f-aura,.f-spark,.f-card,.f-stamp{transform-box:fill-box;transform-origin:center}
+.f-path{stroke-dasharray:100;stroke-dashoffset:100;opacity:0}
+#sR[data-rb="8"] .f-aura{animation:finaura 1.4s var(--e) .25s both,finbreathe 5.5s ease-in-out 2s infinite}
+#sR[data-rb="8"] .f-cover{animation:finup 1s var(--e) .15s both}
+#sR[data-rb="8"] .f-spark{animation:finspark .9s cubic-bezier(.34,1.45,.42,1) 1.15s both}
+#sR[data-rb="8"] .fp-1{animation:findraw 1s var(--e) 1.9s forwards}
+#sR[data-rb="8"] .fp-2{animation:findraw 1s var(--e) 2.15s forwards}
+#sR[data-rb="8"] .fp-3{animation:findraw 1s var(--e) 2.4s forwards}
+#sR[data-rb="8"] .fc-1{animation:fincard .8s var(--e) 2.55s both}
+#sR[data-rb="8"] .fc-2{animation:fincard .8s var(--e) 2.8s both}
+#sR[data-rb="8"] .fc-3{animation:fincard .8s var(--e) 3.05s both}
+#sR[data-rb="8"] .fc-1 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 3.45s both}
+#sR[data-rb="8"] .fc-2 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 3.65s both}
+#sR[data-rb="8"] .fc-3 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 3.85s both}
+.pu-1{offset-path:path("M646 282 C 820 260, 940 250, 1082 250")}
+.pu-2{offset-path:path("M650 300 C 820 330, 940 460, 1082 460")}
+.pu-3{offset-path:path("M646 316 C 820 380, 940 670, 1082 670")}
+#sR[data-rb="8"] .pu-1{animation:finflow 2.3s linear 3.5s infinite}
+#sR[data-rb="8"] .pu-2{animation:finflow 2.3s linear 4.1s infinite}
+#sR[data-rb="8"] .pu-3{animation:finflow 2.3s linear 4.7s infinite}
+@keyframes finaura{from{opacity:0}to{opacity:1}}
+@keyframes finbreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes finup{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:none}}
+@keyframes finspark{from{opacity:0;transform:scale(.15) rotate(-130deg)}to{opacity:1;transform:none}}
+@keyframes findraw{from{stroke-dashoffset:100;opacity:0}12%{opacity:.85}to{stroke-dashoffset:0;opacity:.85}}
+@keyframes fincard{from{opacity:0;transform:scale(.72)}62%{opacity:1;transform:scale(1.045)}to{opacity:1;transform:none}}
+@keyframes finstamp{from{opacity:0;transform:scale(0)}58%{opacity:1;transform:scale(1.28)}to{opacity:1;transform:scale(1)}}
+@keyframes finflow{0%{offset-distance:0%;opacity:0}12%{opacity:1}86%{opacity:1}100%{offset-distance:100%;opacity:0}}
 @media (prefers-reduced-motion:reduce){
   #sR .aHead h2,#sR .rr,#sR .mm,#sR .rr-band,#sR .rr-band5,#sR .rr-lens,#sR .rr-end{opacity:1;animation:none;transform:none}
   #sR .rl-base,#sR .rl-cv{stroke-dasharray:none;stroke-dashoffset:0;transition:none}
+  #sR[data-rb="8"] .fin *{animation:none!important}
+  #sR[data-rb="8"] .f-aura,#sR[data-rb="8"] .f-cover,#sR[data-rb="8"] .f-spark,#sR[data-rb="8"] .f-card,#sR[data-rb="8"] .f-stamp{opacity:1;transform:none}
+  #sR[data-rb="8"] .f-path{stroke-dashoffset:0;opacity:.85}
+  #sR[data-rb="8"] .f-pulse{display:none}
 }
 
 /* ---------- state Q : questions, in the cover's own language ---------- */
@@ -580,6 +624,28 @@ ANTI_SLOP_BRIEF
               <linearGradient id="ggrad" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0" stop-color="#4285F4"/><stop offset=".55" stop-color="#9B72CB"/><stop offset="1" stop-color="#D96570"/>
               </linearGradient>
+              <symbol id="lg-gemini" viewBox="0 0 32 32" overflow="visible">
+                <path d="M16 2 C 17.8 10.6 21.4 14.2 30 16 C 21.4 17.8 17.8 21.4 16 30 C 14.2 21.4 10.6 17.8 2 16 C 10.6 14.2 14.2 10.6 16 2 Z" fill="url(#ggrad)"/>
+              </symbol>
+              <symbol id="lg-teams" viewBox="0 0 32 32" overflow="visible">
+                <circle cx="24" cy="9.6" r="4.1" fill="#7B83EB"/>
+                <path d="M20 14.6 h8.2 a1.7 1.7 0 0 1 1.7 1.7 v6.2 a5.7 5.7 0 0 1 -5.7 5.7 h-.4 a5.9 5.9 0 0 1 -3.8 -1.4 z" fill="#7B83EB"/>
+                <rect x="2.5" y="8" width="17" height="17" rx="3.2" fill="#4B53BC"/>
+                <rect x="7" y="12.4" width="8" height="2.7" fill="#FFF"/>
+                <rect x="9.65" y="12.4" width="2.7" height="9" fill="#FFF"/>
+              </symbol>
+              <symbol id="lg-outlook" viewBox="0 0 32 32" overflow="visible">
+                <rect x="13.5" y="7" width="16" height="18.5" rx="2" fill="#28A8EA"/>
+                <path d="M13.5 15.5 l8 4.8 8 -4.8 v8 a2 2 0 0 1 -2 2 h-12 a2 2 0 0 1 -2 -2 z" fill="#0364B8"/>
+                <rect x="2.5" y="8" width="17" height="17" rx="3.2" fill="#0F6CBD"/>
+                <circle cx="11" cy="16.5" r="4.9" fill="none" stroke="#FFF" stroke-width="2.6"/>
+              </symbol>
+              <symbol id="lg-sharepoint" viewBox="0 0 32 32" overflow="visible">
+                <circle cx="21.5" cy="9.5" r="6.4" fill="#1A9BA1"/>
+                <circle cx="11.5" cy="15" r="9.4" fill="#036C70"/>
+                <circle cx="23" cy="22.5" r="5.4" fill="#37C6D0"/>
+                <text class="lgt" x="11.5" y="19.8" font-size="13">S</text>
+              </symbol>
             </defs>
             <!-- month guides + header -->
             <g class="rr rr-months">
@@ -652,9 +718,9 @@ ANTI_SLOP_BRIEF
               <line class="rl-lk" x1="720" y1="255" x2="720" y2="247" stroke="#46658A"/>
               <circle cx="720" cy="264" r="7" fill="#46658A"/><text class="rl-n" x="760" y="238">Integration with Teams, Outlook and Atlas</text>
               <g class="lgrow">
-                <rect x="711" y="282" width="26" height="26" rx="7" fill="#6264A7"/><text class="lgt" x="724" y="301">T</text>
-                <rect x="747" y="282" width="26" height="26" rx="7" fill="#0F6CBD"/><text class="lgt" x="760" y="301">O</text>
-                <rect x="783" y="282" width="26" height="26" rx="7" fill="#036C70"/><text class="lgt" x="796" y="301">S</text>
+                <use href="#lg-teams" x="702" y="280" width="30" height="30"/>
+                <use href="#lg-outlook" x="744" y="280" width="30" height="30"/>
+                <use href="#lg-sharepoint" x="786" y="280" width="30" height="30"/>
               </g>
               <line class="rl-lk" x1="660" y1="379" x2="660" y2="349" stroke="#46734A"/>
               <circle cx="660" cy="388" r="7" fill="#46734A"/><text class="rl-nf" x="660" y="341">Super-user sessions with the ICAs</text>
@@ -707,9 +773,7 @@ ANTI_SLOP_BRIEF
                 <path d="M-5.5 0.8 L-5.5 5 Q0 8.2 5.5 5 L5.5 0.8 L0 3.5 Z" fill="#46734A"/>
                 <line x1="10" y1="-1.5" x2="10" y2="5.5" stroke="#46734A" stroke-width="1.6" stroke-linecap="round"/>
               </g>
-              <g transform="translate(1350,486)">
-                <rect x="-13" y="-13" width="26" height="26" rx="7" fill="#036C70"/><text class="lgt" x="0" y="6">S</text>
-              </g>
+              <use href="#lg-sharepoint" x="1335" y="471" width="30" height="30"/>
               <line class="rl-lk" x1="1350" y1="521" x2="1350" y2="533" stroke="#A05A28"/>
               <circle cx="1350" cy="512" r="7" fill="#A05A28"/><text class="rl-n" x="1350" y="552">The ordered home of the SOPs</text>
             </g>
@@ -740,6 +804,48 @@ ANTI_SLOP_BRIEF
               <circle cx="1672" cy="450" r="8" fill="#B8232A"/>
               <text class="rl-endd" x="1688" y="546">END Q1 2027</text>
               <text class="rl-end" x="1688" y="574">Fully functional</text>
+            </g>
+          </svg>
+        </div>
+        <div class="fin" aria-hidden="true">
+          <svg class="fin-art" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+            <radialGradient id="fingold" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="rgba(222,197,131,.45)"/><stop offset="1" stop-color="rgba(222,197,131,0)"/>
+            </radialGradient>
+            <linearGradient id="fe1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C9A24B"/><stop offset="1" stop-color="#5059C9"/></linearGradient>
+            <linearGradient id="fe2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C9A24B"/><stop offset="1" stop-color="#0F6CBD"/></linearGradient>
+            <linearGradient id="fe3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C9A24B"/><stop offset="1" stop-color="#036C70"/></linearGradient>
+            <ellipse class="f-aura" cx="430" cy="460" rx="330" ry="360" fill="url(#fingold)"/>
+            <path class="f-path fp-1" pathLength="100" d="M646 282 C 820 260, 940 250, 1082 250" stroke="url(#fe1)" stroke-width="2.6" fill="none"/>
+            <path class="f-path fp-2" pathLength="100" d="M650 300 C 820 330, 940 460, 1082 460" stroke="url(#fe2)" stroke-width="2.6" fill="none"/>
+            <path class="f-path fp-3" pathLength="100" d="M646 316 C 820 380, 940 670, 1082 670" stroke="url(#fe3)" stroke-width="2.6" fill="none"/>
+            <circle class="f-pulse pu-1" r="5" fill="url(#ggrad)"/>
+            <circle class="f-pulse pu-2" r="5" fill="url(#ggrad)"/>
+            <circle class="f-pulse pu-3" r="5" fill="url(#ggrad)"/>
+            <g class="f-cover">
+              <g transform="rotate(-2 430 460)">
+                <rect x="268" y="234" width="324" height="452" fill="#FDF7F0" stroke="#D8C4B4" stroke-width="1.2"/>
+                <image href="assets/cover.jpg" x="280" y="246" width="300" height="424" preserveAspectRatio="xMidYMid slice"/>
+              </g>
+            </g>
+            <g class="f-spark"><use href="#lg-gemini" x="562" y="222" width="93" height="93"/></g>
+            <g class="f-card fc-1">
+              <rect x="1090" y="165" width="170" height="170" rx="22" fill="#FFFDF8" stroke="#EADCCB"/>
+              <use href="#lg-teams" x="1121" y="196" width="108" height="108"/>
+              <g transform="translate(1246,183)"><g class="f-stamp"><circle r="17" fill="#FDF7F0" stroke="#E4D4C6"/><use href="#lg-gemini" x="-11" y="-11" width="22" height="22"/></g></g>
+              <text class="f-lab" x="1175" y="368">TEAMS</text>
+            </g>
+            <g class="f-card fc-2">
+              <rect x="1090" y="375" width="170" height="170" rx="22" fill="#FFFDF8" stroke="#EADCCB"/>
+              <use href="#lg-outlook" x="1121" y="406" width="108" height="108"/>
+              <g transform="translate(1246,393)"><g class="f-stamp"><circle r="17" fill="#FDF7F0" stroke="#E4D4C6"/><use href="#lg-gemini" x="-11" y="-11" width="22" height="22"/></g></g>
+              <text class="f-lab" x="1175" y="578">OUTLOOK</text>
+            </g>
+            <g class="f-card fc-3">
+              <rect x="1090" y="585" width="170" height="170" rx="22" fill="#FFFDF8" stroke="#EADCCB"/>
+              <use href="#lg-sharepoint" x="1121" y="616" width="108" height="108"/>
+              <g transform="translate(1246,603)"><g class="f-stamp"><circle r="17" fill="#FDF7F0" stroke="#E4D4C6"/><use href="#lg-gemini" x="-11" y="-11" width="22" height="22"/></g></g>
+              <text class="f-lab" x="1175" y="788">SHAREPOINT</text>
             </g>
           </svg>
         </div>
@@ -1417,11 +1523,11 @@ function goNow(s){
   }
 }
 /* the rollout's own presenter beats: 0 frame, 1-5 the months, 6 the lens, 7 the arrival */
-var RB=0, RB_DRAW=[5,23,45,67,87,100,100,100];
+var RB=0, RB_DRAW=[5,23,45,67,87,100,100,100,100];
 function rbSet(n){
-  RB=Math.max(0,Math.min(7,n));
+  RB=Math.max(0,Math.min(8,n));
   var sR=$("#sR");
-  for(var k=1;k<=7;k++) sR.classList.toggle("rb"+k, k<=RB);
+  for(var k=1;k<=8;k++) sR.classList.toggle("rb"+k, k<=RB);
   sR.setAttribute("data-rb", RB);
   Array.prototype.forEach.call(sR.querySelectorAll(".rl-base"),function(l){
     l.style.strokeDashoffset=(100-RB_DRAW[RB]);
