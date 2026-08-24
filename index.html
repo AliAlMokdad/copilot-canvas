@@ -107,16 +107,16 @@ body.entered #s0 .in{opacity:0}
 .gpg::before,.gpg::after{content:"";position:absolute;left:12%;right:14%;height:2px;background:rgba(255,255,255,.052)}
 .gpg::before{top:14%}
 .gpg::after{top:22%;right:32%}
-.g1{width:22vmin;height:30vmin;right:16%;top:7%;transform:rotate(-9deg);animation:gfloat 52s ease-in-out infinite alternate}
-.g2{width:18vmin;height:25vmin;right:8%;top:26%;transform:rotate(7deg);animation:gfloat 64s ease-in-out -20s infinite alternate-reverse}
-.g3{width:13vmin;height:18vmin;right:36%;top:44%;transform:rotate(-4deg);animation:gfloat 74s ease-in-out -40s infinite alternate}
+.g1{width:22vmin;height:30vmin;right:16%;top:7%;transform:rotate(-9deg);animation:gdrift 26s ease-in-out infinite}
+.g2{width:18vmin;height:25vmin;right:8%;top:26%;transform:rotate(7deg);animation:gdrift 34s ease-in-out -11s infinite reverse}
+.g3{width:13vmin;height:18vmin;right:36%;top:44%;transform:rotate(-4deg);animation:gdrift 30s ease-in-out -21s infinite}
 /* the deeper layer: fainter still, further behind */
 .g4,.g5,.g6{background:rgba(255,255,255,.02);border-color:rgba(255,255,255,.034)}
 .g4::before,.g4::after,.g5::before,.g5::after,.g6::before,.g6::after{background:rgba(255,255,255,.035)}
-.g4{width:10vmin;height:14vmin;right:27%;top:10%;transform:rotate(12deg);animation:gfloat 88s ease-in-out -12s infinite alternate-reverse}
-.g5{width:16vmin;height:22vmin;right:1%;top:33%;transform:rotate(-6deg);animation:gfloat 96s ease-in-out -55s infinite alternate}
-.g6{width:8vmin;height:11vmin;right:33%;top:58%;transform:rotate(5deg);animation:gfloat 80s ease-in-out -30s infinite alternate-reverse}
-@keyframes gfloat{from{margin-top:0}to{margin-top:26px}}
+.g4{width:10vmin;height:14vmin;right:27%;top:10%;transform:rotate(12deg);animation:gdrift 42s ease-in-out -7s infinite reverse}
+.g5{width:16vmin;height:22vmin;right:1%;top:33%;transform:rotate(-6deg);animation:gdrift 46s ease-in-out -30s infinite}
+.g6{width:8vmin;height:11vmin;right:33%;top:58%;transform:rotate(5deg);animation:gdrift 38s ease-in-out -16s infinite reverse}
+@keyframes gdrift{0%,100%{margin-top:0;margin-left:0}25%{margin-top:15px;margin-left:-11px}50%{margin-top:24px;margin-left:5px}75%{margin-top:9px;margin-left:13px}}
 @media (prefers-reduced-motion:reduce){.gpg{animation:none}}
 
 .cv-title em{animation:up 1s var(--e) .42s both}
