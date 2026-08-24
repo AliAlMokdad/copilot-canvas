@@ -351,8 +351,8 @@ body.entered.stA #ctl{display:flex}
 #sR[data-rb="8"] .fin{opacity:1}
 #sR[data-rb="8"] .rlo{opacity:0;filter:blur(2px)}
 .fin-art{width:100%;height:100%;display:block;padding:34px 40px 20px;box-sizing:border-box}
-.f-lab{font-family:var(--mono);font-size:15.5px;letter-spacing:.24em;fill:#8A6A1F;text-anchor:middle;paint-order:stroke;stroke:#FBF4ED;stroke-width:6;stroke-linejoin:round}
-.f-aura,.f-cover,.f-spark,.f-card,.f-stamp,.f-pulse{opacity:0}
+.f-sht{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;fill:#33261F;stroke:none;font-weight:600}
+.f-aura,.f-cover,.f-spark,.f-card,.f-stamp,.f-sheet{opacity:0}
 .f-aura,.f-spark,.f-card,.f-stamp{transform-box:fill-box;transform-origin:center}
 .f-path{stroke-dasharray:100;stroke-dashoffset:100;opacity:0}
 #sR[data-rb="8"] .f-aura{animation:finaura 1.4s var(--e) .25s both,finbreathe 5.5s ease-in-out 2s infinite}
@@ -361,18 +361,17 @@ body.entered.stA #ctl{display:flex}
 #sR[data-rb="8"] .fp-1{animation:findraw 1s var(--e) 1.9s forwards}
 #sR[data-rb="8"] .fp-2{animation:findraw 1s var(--e) 2.15s forwards}
 #sR[data-rb="8"] .fp-3{animation:findraw 1s var(--e) 2.4s forwards}
+#sR[data-rb="8"] .fp-4{animation:findraw 1s var(--e) 2.65s forwards}
 #sR[data-rb="8"] .fc-1{animation:fincard .8s var(--e) 2.55s both}
 #sR[data-rb="8"] .fc-2{animation:fincard .8s var(--e) 2.8s both}
 #sR[data-rb="8"] .fc-3{animation:fincard .8s var(--e) 3.05s both}
+#sR[data-rb="8"] .fc-4{animation:fincard .8s var(--e) 3.3s both}
 #sR[data-rb="8"] .fc-1 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 3.45s both}
 #sR[data-rb="8"] .fc-2 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 3.65s both}
 #sR[data-rb="8"] .fc-3 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 3.85s both}
-.pu-1{offset-path:path("M646 282 C 820 260, 940 250, 1082 250")}
-.pu-2{offset-path:path("M650 300 C 820 330, 940 460, 1082 460")}
-.pu-3{offset-path:path("M646 316 C 820 380, 940 670, 1082 670")}
-#sR[data-rb="8"] .pu-1{animation:finflow 2.3s linear 3.5s infinite}
-#sR[data-rb="8"] .pu-2{animation:finflow 2.3s linear 4.1s infinite}
-#sR[data-rb="8"] .pu-3{animation:finflow 2.3s linear 4.7s infinite}
+#sR[data-rb="8"] .fc-4 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 4.05s both}
+#sR[data-rb="8"] .fs-1{animation:finsheet .8s var(--e) .7s both}
+#sR[data-rb="8"] .fs-2{animation:finsheet .8s var(--e) .9s both}
 @keyframes finaura{from{opacity:0}to{opacity:1}}
 @keyframes finbreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 @keyframes finup{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:none}}
@@ -380,14 +379,13 @@ body.entered.stA #ctl{display:flex}
 @keyframes findraw{from{stroke-dashoffset:100;opacity:0}12%{opacity:.85}to{stroke-dashoffset:0;opacity:.85}}
 @keyframes fincard{from{opacity:0;transform:scale(.72)}62%{opacity:1;transform:scale(1.045)}to{opacity:1;transform:none}}
 @keyframes finstamp{from{opacity:0;transform:scale(0)}58%{opacity:1;transform:scale(1.28)}to{opacity:1;transform:scale(1)}}
-@keyframes finflow{0%{offset-distance:0%;opacity:0}12%{opacity:1}86%{opacity:1}100%{offset-distance:100%;opacity:0}}
+@keyframes finsheet{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){
   #sR .aHead h2,#sR .rr,#sR .mm,#sR .rr-band,#sR .rr-band5,#sR .rr-lens,#sR .rr-end{opacity:1;animation:none;transform:none}
   #sR .rl-base,#sR .rl-cv{stroke-dasharray:none;stroke-dashoffset:0;transition:none}
   #sR[data-rb="8"] .fin *{animation:none!important}
-  #sR[data-rb="8"] .f-aura,#sR[data-rb="8"] .f-cover,#sR[data-rb="8"] .f-spark,#sR[data-rb="8"] .f-card,#sR[data-rb="8"] .f-stamp{opacity:1;transform:none}
+  #sR[data-rb="8"] .f-aura,#sR[data-rb="8"] .f-cover,#sR[data-rb="8"] .f-spark,#sR[data-rb="8"] .f-card,#sR[data-rb="8"] .f-stamp,#sR[data-rb="8"] .f-sheet{opacity:1;transform:none}
   #sR[data-rb="8"] .f-path{stroke-dashoffset:0;opacity:.85}
-  #sR[data-rb="8"] .f-pulse{display:none}
 }
 
 /* ---------- state Q : questions, in the cover's own language ---------- */
@@ -646,6 +644,11 @@ ANTI_SLOP_BRIEF
                 <circle cx="23" cy="22.5" r="5.4" fill="#37C6D0"/>
                 <text class="lgt" x="11.5" y="19.8" font-size="13">S</text>
               </symbol>
+              <symbol id="lg-elearn" viewBox="0 0 32 32" overflow="visible">
+                <path d="M3 13.5 L16 7 L29 13.5 L16 20 Z" fill="#46734A"/>
+                <path d="M9.5 16.8 L9.5 22 Q16 26 22.5 22 L22.5 16.8 L16 20 Z" fill="#46734A"/>
+                <line x1="29" y1="13.5" x2="29" y2="21.5" stroke="#46734A" stroke-width="2" stroke-linecap="round"/>
+              </symbol>
             </defs>
             <!-- month guides + header -->
             <g class="rr rr-months">
@@ -815,37 +818,75 @@ ANTI_SLOP_BRIEF
             <linearGradient id="fe1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C9A24B"/><stop offset="1" stop-color="#5059C9"/></linearGradient>
             <linearGradient id="fe2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C9A24B"/><stop offset="1" stop-color="#0F6CBD"/></linearGradient>
             <linearGradient id="fe3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C9A24B"/><stop offset="1" stop-color="#036C70"/></linearGradient>
+            <linearGradient id="fe4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C9A24B"/><stop offset="1" stop-color="#46734A"/></linearGradient>
+            <filter id="fsh" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#3A2214" flood-opacity=".16"/></filter>
             <ellipse class="f-aura" cx="430" cy="460" rx="330" ry="360" fill="url(#fingold)"/>
-            <path class="f-path fp-1" pathLength="100" d="M646 282 C 820 260, 940 250, 1082 250" stroke="url(#fe1)" stroke-width="2.6" fill="none"/>
-            <path class="f-path fp-2" pathLength="100" d="M650 300 C 820 330, 940 460, 1082 460" stroke="url(#fe2)" stroke-width="2.6" fill="none"/>
-            <path class="f-path fp-3" pathLength="100" d="M646 316 C 820 380, 940 670, 1082 670" stroke="url(#fe3)" stroke-width="2.6" fill="none"/>
-            <circle class="f-pulse pu-1" r="5" fill="url(#ggrad)"/>
-            <circle class="f-pulse pu-2" r="5" fill="url(#ggrad)"/>
-            <circle class="f-pulse pu-3" r="5" fill="url(#ggrad)"/>
+            <g class="f-sheet fs-1"><g transform="translate(-18 0) rotate(-4 188 414)" filter="url(#fsh)">
+              <rect x="92" y="352" width="192" height="124" rx="8" fill="#FFFDF8" stroke="#E6D8C8"/>
+              <path d="M92 360 a8 8 0 0 1 8 -8 h176 a8 8 0 0 1 8 8 v2 h-192 z" fill="#217346"/>
+              <text class="f-sht" x="104" y="379">FREQUENTLY ASKED QUESTIONS</text>
+              <line x1="104" y1="390" x2="272" y2="390" stroke="#D9C8B6" stroke-width="1"/>
+              <line x1="122" y1="390" x2="122" y2="466" stroke="#F0E4D6" stroke-width="1"/>
+              <line x1="104" y1="410" x2="272" y2="410" stroke="#EDE0D0" stroke-width="1"/>
+              <line x1="104" y1="430" x2="272" y2="430" stroke="#EDE0D0" stroke-width="1"/>
+              <line x1="104" y1="450" x2="272" y2="450" stroke="#EDE0D0" stroke-width="1"/>
+              <rect x="108" y="396" width="8" height="8" rx="2" fill="#217346" opacity=".5"/>
+              <rect x="130" y="398" width="96" height="3.5" rx="1.75" fill="#D8C9BA"/>
+              <rect x="108" y="416" width="8" height="8" rx="2" fill="#217346" opacity=".3"/>
+              <rect x="130" y="418" width="70" height="3.5" rx="1.75" fill="#E2D5C6"/>
+              <rect x="108" y="436" width="8" height="8" rx="2" fill="#217346" opacity=".5"/>
+              <rect x="130" y="438" width="88" height="3.5" rx="1.75" fill="#D8C9BA"/>
+              <rect x="108" y="456" width="8" height="8" rx="2" fill="#217346" opacity=".3"/>
+              <rect x="130" y="458" width="62" height="3.5" rx="1.75" fill="#E2D5C6"/>
+            </g></g>
+            <g class="f-sheet fs-2"><g transform="rotate(3 214 562)" filter="url(#fsh)">
+              <rect x="118" y="500" width="192" height="124" rx="8" fill="#FFFDF8" stroke="#E6D8C8"/>
+              <path d="M118 508 a8 8 0 0 1 8 -8 h176 a8 8 0 0 1 8 8 v2 h-192 z" fill="#8A6A1F"/>
+              <text class="f-sht" x="130" y="527">CHANGE LOG</text>
+              <line x1="130" y1="538" x2="298" y2="538" stroke="#D9C8B6" stroke-width="1"/>
+              <line x1="148" y1="538" x2="148" y2="614" stroke="#F0E4D6" stroke-width="1"/>
+              <line x1="130" y1="558" x2="298" y2="558" stroke="#EDE0D0" stroke-width="1"/>
+              <line x1="130" y1="578" x2="298" y2="578" stroke="#EDE0D0" stroke-width="1"/>
+              <line x1="130" y1="598" x2="298" y2="598" stroke="#EDE0D0" stroke-width="1"/>
+              <rect x="134" y="544" width="8" height="8" rx="2" fill="#8A6A1F" opacity=".5"/>
+              <rect x="156" y="546" width="92" height="3.5" rx="1.75" fill="#D8C9BA"/>
+              <rect x="134" y="564" width="8" height="8" rx="2" fill="#8A6A1F" opacity=".3"/>
+              <rect x="156" y="566" width="66" height="3.5" rx="1.75" fill="#E2D5C6"/>
+              <rect x="134" y="584" width="8" height="8" rx="2" fill="#8A6A1F" opacity=".5"/>
+              <rect x="156" y="586" width="84" height="3.5" rx="1.75" fill="#D8C9BA"/>
+              <rect x="134" y="604" width="8" height="8" rx="2" fill="#8A6A1F" opacity=".3"/>
+              <rect x="156" y="606" width="58" height="3.5" rx="1.75" fill="#E2D5C6"/>
+            </g></g>
+            <path class="f-path fp-1" pathLength="100" d="M646 278 C 820 230, 940 145, 1082 145" stroke="url(#fe1)" stroke-width="2.6" fill="none"/>
+            <path class="f-path fp-2" pathLength="100" d="M650 294 C 820 320, 940 350, 1082 350" stroke="url(#fe2)" stroke-width="2.6" fill="none"/>
+            <path class="f-path fp-3" pathLength="100" d="M648 310 C 820 380, 940 555, 1082 555" stroke="url(#fe3)" stroke-width="2.6" fill="none"/>
+            <path class="f-path fp-4" pathLength="100" d="M644 324 C 820 440, 940 760, 1082 760" stroke="url(#fe4)" stroke-width="2.6" fill="none"/>
             <g class="f-cover">
-              <g transform="rotate(-2 430 460)">
+              <g transform="rotate(-2 430 460)" filter="url(#fsh)">
                 <rect x="268" y="234" width="324" height="452" fill="#FDF7F0" stroke="#D8C4B4" stroke-width="1.2"/>
                 <image href="assets/cover.jpg" x="280" y="246" width="300" height="424" preserveAspectRatio="xMidYMid slice"/>
               </g>
             </g>
             <g class="f-spark"><use href="#lg-gemini" x="562" y="222" width="93" height="93"/></g>
             <g class="f-card fc-1">
-              <rect x="1090" y="165" width="170" height="170" rx="22" fill="#FFFDF8" stroke="#EADCCB"/>
-              <use href="#lg-teams" x="1121" y="196" width="108" height="108"/>
-              <g transform="translate(1246,183)"><g class="f-stamp"><circle r="17" fill="#FDF7F0" stroke="#E4D4C6"/><use href="#lg-gemini" x="-11" y="-11" width="22" height="22"/></g></g>
-              <text class="f-lab" x="1175" y="368">TEAMS</text>
+              <rect x="1090" y="70" width="150" height="150" rx="20" fill="#FFFDF8" stroke="#EADCCB" filter="url(#fsh)"/>
+              <use href="#lg-teams" x="1117" y="97" width="96" height="96"/>
+              <g transform="translate(1226,86)"><g class="f-stamp"><circle r="16" fill="#FDF7F0" stroke="#E4D4C6"/><use href="#lg-gemini" x="-10" y="-10" width="20" height="20"/></g></g>
             </g>
             <g class="f-card fc-2">
-              <rect x="1090" y="375" width="170" height="170" rx="22" fill="#FFFDF8" stroke="#EADCCB"/>
-              <use href="#lg-outlook" x="1121" y="406" width="108" height="108"/>
-              <g transform="translate(1246,393)"><g class="f-stamp"><circle r="17" fill="#FDF7F0" stroke="#E4D4C6"/><use href="#lg-gemini" x="-11" y="-11" width="22" height="22"/></g></g>
-              <text class="f-lab" x="1175" y="578">OUTLOOK</text>
+              <rect x="1090" y="275" width="150" height="150" rx="20" fill="#FFFDF8" stroke="#EADCCB" filter="url(#fsh)"/>
+              <use href="#lg-outlook" x="1117" y="302" width="96" height="96"/>
+              <g transform="translate(1226,291)"><g class="f-stamp"><circle r="16" fill="#FDF7F0" stroke="#E4D4C6"/><use href="#lg-gemini" x="-10" y="-10" width="20" height="20"/></g></g>
             </g>
             <g class="f-card fc-3">
-              <rect x="1090" y="585" width="170" height="170" rx="22" fill="#FFFDF8" stroke="#EADCCB"/>
-              <use href="#lg-sharepoint" x="1121" y="616" width="108" height="108"/>
-              <g transform="translate(1246,603)"><g class="f-stamp"><circle r="17" fill="#FDF7F0" stroke="#E4D4C6"/><use href="#lg-gemini" x="-11" y="-11" width="22" height="22"/></g></g>
-              <text class="f-lab" x="1175" y="788">SHAREPOINT</text>
+              <rect x="1090" y="480" width="150" height="150" rx="20" fill="#FFFDF8" stroke="#EADCCB" filter="url(#fsh)"/>
+              <use href="#lg-sharepoint" x="1117" y="507" width="96" height="96"/>
+              <g transform="translate(1226,496)"><g class="f-stamp"><circle r="16" fill="#FDF7F0" stroke="#E4D4C6"/><use href="#lg-gemini" x="-10" y="-10" width="20" height="20"/></g></g>
+            </g>
+            <g class="f-card fc-4">
+              <rect x="1090" y="685" width="150" height="150" rx="20" fill="#FFFDF8" stroke="#EADCCB" filter="url(#fsh)"/>
+              <use href="#lg-elearn" x="1117" y="712" width="96" height="96"/>
+              <g transform="translate(1226,701)"><g class="f-stamp"><circle r="16" fill="#FDF7F0" stroke="#E4D4C6"/><use href="#lg-gemini" x="-10" y="-10" width="20" height="20"/></g></g>
             </g>
           </svg>
         </div>
