@@ -1593,6 +1593,8 @@ document.addEventListener("keydown",function(e){
   else if(STATE==="A" && e.key==="ArrowLeft"){ e.preventDefault(); setBeat(BEAT-1); }
   else if(STATE==="R" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); rbSet(RB+1); }
   else if(STATE==="R" && e.key==="ArrowLeft"){ e.preventDefault(); rbSet(RB-1); }
+  else if(STATE==="R" && e.key==="End"){ e.preventDefault(); rbSet(7); }
+  else if(STATE==="R" && e.key==="Home"){ e.preventDefault(); rbSet(0); }
   else if(STATE==="B" && e.key==="ArrowRight"){ e.preventDefault(); readerFirst(); }
   else if(STATE==="B" && e.key==="ArrowLeft"){ e.preventDefault(); go("A"); }
   else if(STATE==="Q" && e.key==="ArrowLeft"){ e.preventDefault(); go("B"); }
