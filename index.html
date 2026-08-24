@@ -216,6 +216,14 @@ body.entered #s0 .in{opacity:0}
 body.entered.stA #ctl,body.entered.stR #ctl{display:flex}
 .nav{width:44px;height:44px;border-radius:50%;border:1px solid var(--hair);background:#fff;color:var(--ink2);font-size:18px;display:grid;place-items:center;transition:.25s var(--e);box-shadow:0 2px 8px rgba(60,20,20,.06)}
 .nav:hover{border-color:var(--red);color:var(--red)}
+#fsbtn{position:fixed;left:18px;bottom:18px;z-index:72;width:44px;height:44px;border-radius:50%;border:1px solid var(--hair);background:rgba(255,255,255,.88);color:var(--ink2);display:grid;place-items:center;box-shadow:0 2px 8px rgba(60,20,20,.08);transition:.25s var(--e);opacity:.5}
+#fsbtn:hover{opacity:1;border-color:var(--red);color:var(--red)}
+#fsbtn svg{width:19px;height:19px}
+#fsbtn .fs-out{display:none}
+body.isfs #fsbtn .fs-in{display:none}
+body.isfs #fsbtn .fs-out{display:block}
+body.stQ #fsbtn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#FBF3F0}
+body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 /* ---------- state B : the real document ---------- */
 .bwrap{padding:84px 3vw 40px}
 .arts{display:flex;gap:3vw;justify-content:center;align-items:flex-start;margin:40px 0 0}
@@ -946,6 +954,7 @@ ANTI_SLOP_BRIEF
   </div>
 </div>
 
+<button id="fsbtn" aria-label="Toggle full screen" title="Full screen"><svg class="fs-in" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9 V4 h5 M15 4 h5 v5 M20 15 v5 h-5 M9 20 H4 v-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="fs-out" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 v5 H4 M20 9 h-5 V4 M15 20 v-5 h5 M4 15 h5 v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <div id="ctl">
   <button class="nav" id="nvPrev" aria-label="Back">&larr;</button>
   <button class="nav" id="nvNext" aria-label="Forward">&rarr;</button>
@@ -1234,6 +1243,11 @@ function setBeat(b){
 /* past the closing beat, one more step carries the presenter into Draft 1 */
 function nextStep(){ if(BEAT>=MS.length) go("B"); else setBeat(BEAT+1); }
 $("#nvNext").addEventListener("click",function(e){ e.stopPropagation(); if(STATE==="R"){ rbSet(RB+1); } else { nextStep(); } });
+$("#fsbtn").addEventListener("click",function(e){ e.stopPropagation();
+  if(document.fullscreenElement){ document.exitFullscreen(); }
+  else{ document.documentElement.requestFullscreen().catch(function(){}); }
+});
+document.addEventListener("fullscreenchange",function(){ document.body.classList.toggle("isfs", !!document.fullscreenElement); });
 $("#nvPrev").addEventListener("click",function(e){ e.stopPropagation(); if(STATE==="R"){ rbSet(RB-1); } else { setBeat(BEAT-1); } });
 $("#roadzone").addEventListener("click",function(e){
   var d=e.target.closest(".ms");
