@@ -352,6 +352,15 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 #sR[data-rb="1"] .m1 text,#sR[data-rb="2"] .m2 text,#sR[data-rb="3"] .m3 text,#sR[data-rb="4"] .m4 text,#sR[data-rb="5"] .m5 text{transform:translateY(-5px) scale(1.26);filter:drop-shadow(0 7px 9px rgba(64,26,16,.30))}
 #sR[data-rb="1"] .m1 circle,#sR[data-rb="2"] .m2 circle,#sR[data-rb="3"] .m3 circle,#sR[data-rb="4"] .m4 circle,#sR[data-rb="5"] .m5 circle{transform:scale(1.9);filter:drop-shadow(0 6px 8px rgba(64,26,16,.32))}
 #sR[data-rb="1"] .m1 .rl-cap,#sR[data-rb="2"] .m2 .rl-cap,#sR[data-rb="3"] .m3 .rl-cap,#sR[data-rb="4"] .m4 .rl-cap,#sR[data-rb="5"] .m5 .rl-cap{opacity:.3}
+/* depth of field falls off with distance from the month under discussion */
+#sR[data-rb="2"] .m1,#sR[data-rb="3"] .m2,#sR[data-rb="4"] .m3,#sR[data-rb="5"] .m4{opacity:.34;filter:blur(.8px) saturate(.78)}
+#sR[data-rb="3"] .m1,#sR[data-rb="4"] .m2,#sR[data-rb="5"] .m3{opacity:.24;filter:blur(1.5px) saturate(.7)}
+#sR[data-rb="4"] .m1,#sR[data-rb="5"] .m2{opacity:.17;filter:blur(2.2px) saturate(.62)}
+#sR[data-rb="5"] .m1{opacity:.12;filter:blur(2.8px) saturate(.55)}
+/* the focused month lands on a spring and its guide lights up */
+#sR[data-rb="1"] .m1 text,#sR[data-rb="2"] .m2 text,#sR[data-rb="3"] .m3 text,#sR[data-rb="4"] .m4 text,#sR[data-rb="5"] .m5 text,#sR[data-rb="1"] .m1 circle,#sR[data-rb="2"] .m2 circle,#sR[data-rb="3"] .m3 circle,#sR[data-rb="4"] .m4 circle,#sR[data-rb="5"] .m5 circle{transition:transform .62s cubic-bezier(.32,1.5,.46,1),filter .55s var(--e)}
+.glit{opacity:0;transition:opacity .65s var(--e)}
+#sR[data-rb="1"] .gl1,#sR[data-rb="2"] .gl2,#sR[data-rb="3"] .gl3,#sR[data-rb="4"] .gl4,#sR[data-rb="5"] .gl5{opacity:1}
 #sR[data-rb="6"] .mm,#sR[data-rb="7"] .mm,#sR[data-rb="8"] .mm{opacity:1;transform:none;filter:none}
 #sR.rb3 .rr-band{animation:up .8s var(--e) both}
 #sR.rb5 .rr-band5{animation:up .8s var(--e) both}
@@ -675,6 +684,9 @@ ANTI_SLOP_BRIEF
                 <circle cx="23" cy="22.5" r="5.4" fill="#37C6D0"/>
                 <text class="lgt" x="11.5" y="19.8" font-size="13">S</text>
               </symbol>
+              <linearGradient id="gline" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#C9A24B" stop-opacity="0"/><stop offset=".5" stop-color="#C9A24B" stop-opacity=".7"/><stop offset="1" stop-color="#C9A24B" stop-opacity="0"/>
+              </linearGradient>
               <linearGradient id="spg" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#DEC583" stop-opacity="0"/><stop offset=".5" stop-color="#DEC583" stop-opacity=".24"/><stop offset="1" stop-color="#DEC583" stop-opacity="0"/>
               </linearGradient>
@@ -691,6 +703,11 @@ ANTI_SLOP_BRIEF
               <line class="rl-gd" x1="960" y1="76" x2="960" y2="825"/>
               <line class="rl-gd" x1="1265" y1="76" x2="1265" y2="825"/>
               <line class="rl-gd" x1="1550" y1="76" x2="1550" y2="825"/>
+              <line class="glit gl1" x1="350" y1="76" x2="350" y2="825" stroke="url(#gline)" stroke-width="2.5"/>
+              <line class="glit gl2" x1="655" y1="76" x2="655" y2="825" stroke="url(#gline)" stroke-width="2.5"/>
+              <line class="glit gl3" x1="960" y1="76" x2="960" y2="825" stroke="url(#gline)" stroke-width="2.5"/>
+              <line class="glit gl4" x1="1265" y1="76" x2="1265" y2="825" stroke="url(#gline)" stroke-width="2.5"/>
+              <line class="glit gl5" x1="1550" y1="76" x2="1550" y2="825" stroke="url(#gline)" stroke-width="2.5"/>
               <text class="rl-mo mo1" x="350" y="52">NOV</text>
               <text class="rl-mo mo2" x="655" y="52">DEC</text>
               <text class="rl-mo mo3" x="960" y="52">JAN</text>
