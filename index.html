@@ -406,15 +406,16 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 @keyframes finstamp{from{opacity:0;transform:scale(0)}58%{opacity:1;transform:scale(1.28)}to{opacity:1;transform:scale(1)}}
 @keyframes finsheet{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){
-  #sR .aHead h2,#sR .rr,#sR .mm,#sR .rr-band,#sR .rr-band5,#sR .rr-lens,#sR .rr-end{opacity:1;animation:none;transform:none}
+  #sR .aHead h2,#sR .rr,#sR .mm,#sR .rr-band,#sR .rr-band5,#sR .rr-lens,#sR .rr-end{opacity:1!important;animation:none!important;transform:none!important}
   #sR .rl-base,#sR .rl-cv{stroke-dasharray:none;stroke-dashoffset:0;transition:none}
-  #sR::before{opacity:1;animation:none}
-  #sR .rr-names text{opacity:1;animation:none}
-  #sR .lensring{stroke-dasharray:none;stroke-dashoffset:0}
+  #sR::before{opacity:1!important;animation:none!important}
+  #sR .rr-names text{opacity:1!important;animation:none!important}
+  #sR .lensring{stroke-dasharray:none;stroke-dashoffset:0;transition:none}
   #sR .spot{display:none}
   #sR[data-rb="8"] .fin *{animation:none!important}
   #sR[data-rb="8"] .f-aura,#sR[data-rb="8"] .f-cover,#sR[data-rb="8"] .f-spark,#sR[data-rb="8"] .f-card,#sR[data-rb="8"] .f-stamp,#sR[data-rb="8"] .f-sheet{opacity:1;transform:none}
   #sR[data-rb="8"] .f-path{stroke-dashoffset:0;opacity:.85}
+  .fin,.rlo{transition:none}
 }
 
 /* ---------- state Q : questions, in the cover's own language ---------- */
@@ -1559,7 +1560,7 @@ function playD0(){
 /* ---------- state machine ---------- */
 var STATE="0", NAV=0, PENDGO=null;
 function go(s){
-  if(s===STATE) return;
+  if(s===STATE){ if(PENDGO){ NAV++; PENDGO=null; } return; }
   var n=++NAV;
   PENDGO=null;
   if((s==="B"||s==="Q") && !RM){
