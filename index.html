@@ -296,7 +296,7 @@ body.entered.stA #ctl{display:flex}
 .rl-gd{stroke:#E6D6CB;stroke-width:1}
 /* every label wears a paper halo so no text ever sits on a line */
 #sR svg text{paint-order:stroke;stroke:#FBF4ED;stroke-width:6;stroke-linejoin:round}
-.rl-mo{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:.22em;fill:#96775F;text-anchor:middle;transition:fill .5s var(--e),font-size .5s var(--e)}
+.rl-mo{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:.22em;fill:#96775F;text-anchor:middle;transition:fill .5s var(--e),font-size .5s var(--e),opacity .5s var(--e)}
 .rl-stage{font-family:var(--mono);font-size:15.5px;letter-spacing:.2em;fill:#8D6F5C;text-anchor:middle}
 .rl-name{font-family:var(--serif);font-size:23px;font-weight:600;fill:#33261F;text-anchor:end}
 .rl-name2{font-family:var(--serif);font-size:19px;font-weight:600;fill:#33261F;text-anchor:end}
@@ -326,10 +326,10 @@ body.entered.stA #ctl{display:flex}
 #sR .mm{transform:translateY(16px);transition:transform .65s var(--e),opacity .65s var(--e)}
 #sR .mm text,#sR .mm circle{transform-box:fill-box;transform-origin:center;transition:transform .55s var(--e)}
 #sR .mm rect{transition:opacity .55s var(--e)}
-#sR.rb1 .m1,#sR.rb2 .m2,#sR.rb3 .m3,#sR.rb4 .m4,#sR.rb5 .m5{opacity:.38;transform:none}
+#sR.rb1 .m1,#sR.rb2 .m2,#sR.rb3 .m3,#sR.rb4 .m4,#sR.rb5 .m5{opacity:.22;transform:none}
 #sR[data-rb="1"] .m1,#sR[data-rb="2"] .m2,#sR[data-rb="3"] .m3,#sR[data-rb="4"] .m4,#sR[data-rb="5"] .m5{opacity:1}
-#sR[data-rb="1"] .m1 text,#sR[data-rb="2"] .m2 text,#sR[data-rb="3"] .m3 text,#sR[data-rb="4"] .m4 text,#sR[data-rb="5"] .m5 text{transform:scale(1.08)}
-#sR[data-rb="1"] .m1 circle,#sR[data-rb="2"] .m2 circle,#sR[data-rb="3"] .m3 circle,#sR[data-rb="4"] .m4 circle,#sR[data-rb="5"] .m5 circle{transform:scale(1.45)}
+#sR[data-rb="1"] .m1 text,#sR[data-rb="2"] .m2 text,#sR[data-rb="3"] .m3 text,#sR[data-rb="4"] .m4 text,#sR[data-rb="5"] .m5 text{transform:scale(1.16)}
+#sR[data-rb="1"] .m1 circle,#sR[data-rb="2"] .m2 circle,#sR[data-rb="3"] .m3 circle,#sR[data-rb="4"] .m4 circle,#sR[data-rb="5"] .m5 circle{transform:scale(1.6)}
 #sR[data-rb="1"] .m1 .rl-cap,#sR[data-rb="2"] .m2 .rl-cap,#sR[data-rb="3"] .m3 .rl-cap,#sR[data-rb="4"] .m4 .rl-cap,#sR[data-rb="5"] .m5 .rl-cap{opacity:.3}
 #sR[data-rb="6"] .mm,#sR[data-rb="7"] .mm{opacity:1;transform:none}
 #sR.rb3 .rr-band{animation:up .8s var(--e) both}
@@ -338,6 +338,8 @@ body.entered.stA #ctl{display:flex}
 #sR.rb6 .rr-lens{animation:up .9s var(--e) .45s both}
 #sR.rb7 .rr-end{animation:up .7s var(--e) both}
 #sR[data-rb="1"] .mo1,#sR[data-rb="2"] .mo2,#sR[data-rb="3"] .mo3,#sR[data-rb="4"] .mo4,#sR[data-rb="5"] .mo5{fill:var(--red);font-size:26px}
+/* past month headers step back with their month; all return at the finale */
+#sR[data-rb="2"] .mo1,#sR[data-rb="3"] .mo1,#sR[data-rb="3"] .mo2,#sR[data-rb="4"] .mo1,#sR[data-rb="4"] .mo2,#sR[data-rb="4"] .mo3,#sR[data-rb="5"] .mo1,#sR[data-rb="5"] .mo2,#sR[data-rb="5"] .mo3,#sR[data-rb="5"] .mo4{opacity:.45}
 @media (prefers-reduced-motion:reduce){
   #sR .aHead h2,#sR .rr,#sR .mm,#sR .rr-band,#sR .rr-band5,#sR .rr-lens,#sR .rr-end{opacity:1;animation:none;transform:none}
   #sR .rl-base,#sR .rl-cv{stroke-dasharray:none;stroke-dashoffset:0;transition:none}
