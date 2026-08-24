@@ -213,7 +213,7 @@ body.entered #s0 .in{opacity:0}
 
 /* presenter controls */
 #ctl{position:fixed;right:44px;bottom:34px;z-index:8;display:none;align-items:center;gap:14px}
-body.entered.stA #ctl{display:flex}
+body.entered.stA #ctl,body.entered.stR #ctl{display:flex}
 .nav{width:44px;height:44px;border-radius:50%;border:1px solid var(--hair);background:#fff;color:var(--ink2);font-size:18px;display:grid;place-items:center;transition:.25s var(--e);box-shadow:0 2px 8px rgba(60,20,20,.06)}
 .nav:hover{border-color:var(--red);color:var(--red)}
 /* ---------- state B : the real document ---------- */
@@ -510,7 +510,7 @@ body.stQ .mk .wt span{color:rgba(255,255,255,.72)}
   #fcover{display:none}
 }
 /* the hand on clickables, same blood red as the arrow; placed last so it wins everywhere */
-button,.mk,#roadzone,#fcover,.xr,.art,#dr.on,#d0.on{cursor:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='22'%20height='22'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M9.7%201.2c.8%200%201.4.6%201.4%201.4v6.9l.6.1V8.3c0-.7.6-1.3%201.4-1.3.7%200%201.3.5%201.4%201.2l.1.7c.2-.3.6-.5%201.1-.5.7%200%201.3.5%201.4%201.2l.1.6c.2-.2.5-.3.9-.3.8%200%201.4.6%201.4%201.4v4.2c0%203-2.1%205.3-5.2%205.3h-2.6c-1.5%200-2.9-.7-3.8-1.9L3.6%2013.8c-.5-.7-.4-1.6.2-2.2.6-.5%201.6-.5%202.1.1l2.4%202.6V2.6c0-.8.6-1.4%201.4-1.4Z'%20fill='%238A0303'%20stroke='%23FFFFFF'%20stroke-width='1.3'%20stroke-linejoin='round'/%3E%3C/svg%3E") 9 1,pointer}
+button,.mk,#roadzone,#fcover,.xr,.art,#dr.on,#d0.on,#sR{cursor:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='22'%20height='22'%20viewBox='0%200%2024%2024'%3E%3Cpath%20d='M9.7%201.2c.8%200%201.4.6%201.4%201.4v6.9l.6.1V8.3c0-.7.6-1.3%201.4-1.3.7%200%201.3.5%201.4%201.2l.1.7c.2-.3.6-.5%201.1-.5.7%200%201.3.5%201.4%201.2l.1.6c.2-.2.5-.3.9-.3.8%200%201.4.6%201.4%201.4v4.2c0%203-2.1%205.3-5.2%205.3h-2.6c-1.5%200-2.9-.7-3.8-1.9L3.6%2013.8c-.5-.7-.4-1.6.2-2.2.6-.5%201.6-.5%202.1.1l2.4%202.6V2.6c0-.8.6-1.4%201.4-1.4Z'%20fill='%238A0303'%20stroke='%23FFFFFF'%20stroke-width='1.3'%20stroke-linejoin='round'/%3E%3C/svg%3E") 9 1,pointer}
 </style>
 </head>
 <body>
@@ -1196,8 +1196,8 @@ function setBeat(b){
 }
 /* past the closing beat, one more step carries the presenter into Draft 1 */
 function nextStep(){ if(BEAT>=MS.length) go("B"); else setBeat(BEAT+1); }
-$("#nvNext").addEventListener("click",function(e){ e.stopPropagation(); nextStep(); });
-$("#nvPrev").addEventListener("click",function(e){ e.stopPropagation(); setBeat(BEAT-1); });
+$("#nvNext").addEventListener("click",function(e){ e.stopPropagation(); if(STATE==="R"){ rbSet(RB+1); } else { nextStep(); } });
+$("#nvPrev").addEventListener("click",function(e){ e.stopPropagation(); if(STATE==="R"){ rbSet(RB-1); } else { setBeat(BEAT-1); } });
 $("#roadzone").addEventListener("click",function(e){
   var d=e.target.closest(".ms");
   if(d){ setBeat(+d.getAttribute("data-i")); return; }
@@ -1541,6 +1541,7 @@ function goNow(s){
   STATE=s;
   document.body.classList.toggle("entered", s!=="0");
   document.body.classList.toggle("stA", s==="A");
+  document.body.classList.toggle("stR", s==="R");
   document.body.classList.toggle("stQ", s==="Q");
   ["0","A","B","Q","R"].forEach(function(k){ $("#s"+k).classList.toggle("on", k===s); });
   Array.prototype.forEach.call(document.querySelectorAll(".seg"),function(b){
