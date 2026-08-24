@@ -363,6 +363,11 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 #sR[data-rb="1"] .gl1,#sR[data-rb="2"] .gl2,#sR[data-rb="3"] .gl3,#sR[data-rb="4"] .gl4,#sR[data-rb="5"] .gl5{opacity:1}
 #sR[data-rb="6"] .mm,#sR[data-rb="7"] .mm,#sR[data-rb="8"] .mm{opacity:1;transform:none;filter:none}
 #sR.rb3 .rr-band{animation:up .8s var(--e) both}
+.stg{opacity:0;transform-box:fill-box;transform-origin:center;transition:filter .6s var(--e)}
+#sR.rb3 .stg3{animation:stgin .75s cubic-bezier(.34,1.45,.5,1) .4s both}
+#sR.rb5 .stg5{animation:stgin .75s cubic-bezier(.34,1.45,.5,1) .4s both}
+#sR[data-rb="4"] .stg3,#sR[data-rb="5"] .stg3{filter:opacity(.5) saturate(.8)}
+@keyframes stgin{from{opacity:0;transform:scale(.62)}to{opacity:1;transform:none}}
 #sR.rb5 .rr-band5{animation:up .8s var(--e) both}
 #sR.rb6 .rl-cv{transition:stroke-dashoffset .9s var(--e);stroke-dashoffset:0}
 #sR.rb6 .rr-lens{animation:up .9s var(--e) .45s both}
@@ -422,6 +427,7 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
   #sR .rr-names text{opacity:1!important;animation:none!important}
   #sR .lensring{stroke-dasharray:none;stroke-dashoffset:0;transition:none}
   #sR .spot{display:none}
+  #sR .stg{opacity:1!important;animation:none!important;transform:none!important;filter:none!important}
   #sR[data-rb="8"] .fin *{animation:none!important}
   #sR[data-rb="8"] .f-aura,#sR[data-rb="8"] .f-cover,#sR[data-rb="8"] .f-spark,#sR[data-rb="8"] .f-card,#sR[data-rb="8"] .f-stamp,#sR[data-rb="8"] .f-sheet{opacity:1;transform:none}
   #sR[data-rb="8"] .f-path{stroke-dashoffset:0;opacity:.85}
@@ -690,6 +696,7 @@ ANTI_SLOP_BRIEF
               <linearGradient id="spg" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#DEC583" stop-opacity="0"/><stop offset=".5" stop-color="#DEC583" stop-opacity=".24"/><stop offset="1" stop-color="#DEC583" stop-opacity="0"/>
               </linearGradient>
+              <filter id="psh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#4A2A18" flood-opacity=".13"/></filter>
               <symbol id="lg-elearn" viewBox="0 0 32 32" overflow="visible">
                 <path d="M3 13.5 L16 7 L29 13.5 L16 20 Z" fill="#46734A"/>
                 <path d="M9.5 16.8 L9.5 22 Q16 26 22.5 22 L22.5 16.8 L16 20 Z" fill="#46734A"/>
@@ -736,13 +743,22 @@ ANTI_SLOP_BRIEF
               <rect x="910" y="76" width="100" height="749" fill="rgba(184,35,42,.035)"/>
               <line x1="910" y1="76" x2="910" y2="825" stroke="#E0CFC7" stroke-dasharray="3 5"/>
               <line x1="1010" y1="76" x2="1010" y2="825" stroke="#E0CFC7" stroke-dasharray="3 5"/>
-              <text class="rl-stage" x="960" y="863">ALIGNMENT &middot; NEW ID STRUCTURE</text>
             </g>
             <!-- march: everything meets -->
             <g class="rr-band5">
               <rect x="1500" y="76" width="100" height="749" fill="rgba(168,120,30,.05)"/>
               <line x1="1500" y1="76" x2="1500" y2="825" stroke="#E2D3BC" stroke-dasharray="3 5"/>
               <line x1="1600" y1="76" x2="1600" y2="825" stroke="#E2D3BC" stroke-dasharray="3 5"/>
+            </g>
+            <!-- the stage names arrive as glass pills, the apple way -->
+            <g class="stg stg3">
+              <rect x="735" y="836" width="450" height="44" rx="22" fill="rgba(255,252,246,.62)" stroke="rgba(140,100,70,.22)" stroke-width="1" filter="url(#psh)"/>
+              <line x1="757" y1="838.5" x2="1163" y2="838.5" stroke="rgba(255,255,255,.85)" stroke-width="1"/>
+              <text class="rl-stage" x="960" y="864">ALIGNMENT &middot; NEW ID STRUCTURE</text>
+            </g>
+            <g class="stg stg5">
+              <rect x="1335" y="816" width="430" height="64" rx="24" fill="rgba(255,252,246,.62)" stroke="rgba(140,100,70,.22)" stroke-width="1" filter="url(#psh)"/>
+              <line x1="1359" y1="818.5" x2="1741" y2="818.5" stroke="rgba(255,255,255,.85)" stroke-width="1"/>
               <text class="rl-stageg" x="1550" y="842">PAUSE AND REFLECT &middot; ALL</text>
               <text class="rl-stageg" x="1550" y="866">SOPS DEVELOPMENT WORKSHOP</text>
             </g>
