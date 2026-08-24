@@ -125,6 +125,10 @@ body.entered #s0 .in{opacity:0}
 .aHead{padding:6px 0 0}
 .aHead h2{font-family:var(--serif);font-size:clamp(30px,3.6vw,46px);font-weight:600;letter-spacing:-.02em;margin:10px 0 0}
 .aHead p.hint{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin:14px 0 0}
+/* the three tab headlines share one spot on the page */
+#sA .aHead{margin-left:min(0px,calc(666px - 50vw))}
+#sB .aHead{margin-left:calc(60px - 3vw)}
+#sR .aHead{margin-left:48px;margin-top:40px}
 #sA,#sB{overflow-y:auto;background:transparent;scrollbar-width:thin;scrollbar-color:#D8C6BE transparent}
 #sA::-webkit-scrollbar,#sB::-webkit-scrollbar{width:9px}
 #sA::-webkit-scrollbar-track,#sB::-webkit-scrollbar-track{background:transparent}
@@ -301,7 +305,7 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 #sR.reveal::before{animation:washin 1.7s var(--e) .1s both}
 @keyframes washin{from{opacity:0}to{opacity:1}}
 #sR .wrap{max-width:2280px;padding:44px 12px 0;position:relative;z-index:1}
-.rlo{margin-top:0;height:calc(100vh - 185px);display:flex;align-items:center;justify-content:center;transition:opacity .7s var(--e),filter .7s var(--e)}
+.rlo{margin-top:0;height:calc(100vh - 225px);display:flex;align-items:center;justify-content:center;transition:opacity .7s var(--e),filter .7s var(--e)}
 .rlo svg{display:block;width:100%;height:auto;max-height:100%;margin:0 auto;overflow:visible}
 .rl-gd{stroke:#E6D6CB;stroke-width:1}
 /* every label wears a paper halo so no text ever sits on a line */
