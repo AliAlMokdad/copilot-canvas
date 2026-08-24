@@ -307,14 +307,14 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 /* every label wears a paper halo so no text ever sits on a line */
 #sR svg text{paint-order:stroke;stroke:rgba(251,243,236,.85);stroke-width:4;stroke-linejoin:round}
 #sR svg text.lgt{stroke:none;fill:#FFF;font-weight:700;text-anchor:middle;letter-spacing:0}
-.rl-mo{font-family:var(--serif);font-size:24px;font-weight:600;letter-spacing:.22em;fill:#96775F;text-anchor:middle;transition:fill .5s var(--e),font-size .5s var(--e),opacity .5s var(--e)}
+.rl-mo{font-family:var(--serif);font-size:25px;font-weight:600;letter-spacing:.22em;fill:#96775F;text-anchor:middle;transition:fill .5s var(--e),font-size .5s var(--e),opacity .5s var(--e)}
 .rl-stage{font-family:var(--mono);font-size:17px;letter-spacing:.24em;fill:#5C4936;text-anchor:middle}
-.rl-name{font-family:var(--serif);font-size:26px;font-weight:600;fill:#33261F;text-anchor:end}
-.rl-name2{font-family:var(--serif);font-size:21px;font-weight:600;fill:#33261F;text-anchor:end}
+.rl-name{font-family:var(--serif);font-size:27px;font-weight:600;fill:#33261F;text-anchor:end}
+.rl-name2{font-family:var(--serif);font-size:22px;font-weight:600;fill:#33261F;text-anchor:end}
 .rl-base{opacity:.32;stroke-width:1.8}
-.rl-n,.rl-nf{font-size:20.5px;font-weight:500;fill:#33261F;text-anchor:middle}
-.rl-ns{font-size:17.5px;fill:#574538;text-anchor:middle}
-.rl-nsf{font-size:17.5px;font-weight:500;fill:#4A3A31;text-anchor:start}
+.rl-n,.rl-nf{font-size:21.5px;font-weight:500;fill:#33261F;text-anchor:middle}
+.rl-ns{font-size:18.5px;fill:#574538;text-anchor:middle}
+.rl-nsf{font-size:18.5px;font-weight:500;fill:#4A3A31;text-anchor:start}
 .rl-cap{opacity:.18}
 #sR .mm circle{stroke:#FDF7F0;stroke-width:2}
 .rl-stageg{font-family:var(--mono);font-size:18px;letter-spacing:.24em;fill:#5C4936;text-anchor:middle}
@@ -349,8 +349,8 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 #sR .mm rect{transition:opacity .55s var(--e)}
 #sR.rb1 .m1,#sR.rb2 .m2,#sR.rb3 .m3,#sR.rb4 .m4,#sR.rb5 .m5{opacity:.22;transform:none;filter:blur(1.6px) saturate(.7)}
 #sR[data-rb="1"] .m1,#sR[data-rb="2"] .m2,#sR[data-rb="3"] .m3,#sR[data-rb="4"] .m4,#sR[data-rb="5"] .m5{opacity:1;filter:none}
-#sR[data-rb="1"] .m1 text,#sR[data-rb="2"] .m2 text,#sR[data-rb="3"] .m3 text,#sR[data-rb="4"] .m4 text,#sR[data-rb="5"] .m5 text{transform:translateY(-5px) scale(1.26);filter:drop-shadow(0 5px 6px rgba(64,26,16,.20))}
-#sR[data-rb="1"] .m1 circle,#sR[data-rb="2"] .m2 circle,#sR[data-rb="3"] .m3 circle,#sR[data-rb="4"] .m4 circle,#sR[data-rb="5"] .m5 circle{transform:scale(1.9);filter:drop-shadow(0 6px 8px rgba(64,26,16,.32))}
+#sR[data-rb="1"] .m1 text,#sR[data-rb="2"] .m2 text,#sR[data-rb="3"] .m3 text,#sR[data-rb="4"] .m4 text,#sR[data-rb="5"] .m5 text{transform:translateY(-6px) scale(1.38);fill:#241B16;filter:drop-shadow(0 5px 6px rgba(64,26,16,.20))}
+#sR[data-rb="1"] .m1 circle,#sR[data-rb="2"] .m2 circle,#sR[data-rb="3"] .m3 circle,#sR[data-rb="4"] .m4 circle,#sR[data-rb="5"] .m5 circle{transform:scale(2.05);filter:drop-shadow(0 6px 8px rgba(64,26,16,.32))}
 #sR[data-rb="1"] .m1 .rl-cap,#sR[data-rb="2"] .m2 .rl-cap,#sR[data-rb="3"] .m3 .rl-cap,#sR[data-rb="4"] .m4 .rl-cap,#sR[data-rb="5"] .m5 .rl-cap{opacity:.3}
 /* depth of field falls off with distance from the month under discussion */
 #sR[data-rb="2"] .m1,#sR[data-rb="3"] .m2,#sR[data-rb="4"] .m3,#sR[data-rb="5"] .m4{opacity:.34;filter:blur(.8px) saturate(.78)}
@@ -663,7 +663,7 @@ ANTI_SLOP_BRIEF
           <h2>Rollout plan</h2>
         </div>
         <div class="rlo">
-          <svg viewBox="0 0 1980 880" xmlns="http://www.w3.org/2000/svg" aria-label="The rollout plan: six lanes converging on Fully functional">
+          <svg viewBox="-100 0 2080 910" xmlns="http://www.w3.org/2000/svg" aria-label="The rollout plan: six lanes converging on Fully functional">
             <defs>
               <linearGradient id="ggrad" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0" stop-color="#4285F4"/><stop offset=".55" stop-color="#9B72CB"/><stop offset="1" stop-color="#D96570"/>
@@ -723,13 +723,13 @@ ANTI_SLOP_BRIEF
             </g>
             <!-- lane names -->
             <g class="rr rr-names">
-              <text class="rl-name" x="230" y="147">The SOPs</text>
-              <text class="rl-name" x="230" y="271">Digital solution</text>
-              <text class="rl-name" x="230" y="395">E-learning</text>
-              <text class="rl-name" x="230" y="519">Atlas</text>
-              <text class="rl-name" x="230" y="643">Communication</text>
-              <text class="rl-name2" x="230" y="755">International Department</text>
-              <text class="rl-name2" x="230" y="776">Engagement</text>
+              <text class="rl-name" x="140" y="147">The SOPs</text>
+              <text class="rl-name" x="140" y="271">Digital solution</text>
+              <text class="rl-name" x="140" y="395">E-learning</text>
+              <text class="rl-name" x="140" y="519">Atlas</text>
+              <text class="rl-name" x="140" y="643">Communication</text>
+              <text class="rl-name2" x="140" y="755">International Department</text>
+              <text class="rl-name2" x="140" y="776">Engagement</text>
             </g>
             <!-- baselines -->
             <line class="rl-base" pathLength="100" x1="250" y1="140" x2="1610" y2="140" stroke="#B8232A"/>
@@ -752,15 +752,15 @@ ANTI_SLOP_BRIEF
             </g>
             <!-- the stage names arrive as glass pills, the apple way -->
             <g class="stg stg3">
-              <rect x="735" y="836" width="450" height="44" rx="22" fill="rgba(255,252,246,.62)" stroke="rgba(140,100,70,.22)" stroke-width="1" filter="url(#psh)"/>
-              <line x1="757" y1="838.5" x2="1163" y2="838.5" stroke="rgba(255,255,255,.85)" stroke-width="1"/>
-              <text class="rl-stage" x="960" y="864">ALIGNMENT &middot; NEW ID STRUCTURE</text>
+              <rect x="735" y="861" width="450" height="44" rx="22" fill="rgba(255,252,246,.62)" stroke="rgba(140,100,70,.22)" stroke-width="1" filter="url(#psh)"/>
+              <line x1="757" y1="863.5" x2="1163" y2="863.5" stroke="rgba(255,255,255,.85)" stroke-width="1"/>
+              <text class="rl-stage" x="960" y="889">ALIGNMENT &middot; NEW ID STRUCTURE</text>
             </g>
             <g class="stg stg5">
-              <rect x="1335" y="816" width="430" height="64" rx="24" fill="rgba(255,252,246,.62)" stroke="rgba(140,100,70,.22)" stroke-width="1" filter="url(#psh)"/>
-              <line x1="1359" y1="818.5" x2="1741" y2="818.5" stroke="rgba(255,255,255,.85)" stroke-width="1"/>
-              <text class="rl-stageg" x="1550" y="842">PAUSE AND REFLECT &middot; ALL</text>
-              <text class="rl-stageg" x="1550" y="866">SOPS DEVELOPMENT WORKSHOP</text>
+              <rect x="1335" y="841" width="430" height="64" rx="24" fill="rgba(255,252,246,.62)" stroke="rgba(140,100,70,.22)" stroke-width="1" filter="url(#psh)"/>
+              <line x1="1359" y1="843.5" x2="1741" y2="843.5" stroke="rgba(255,255,255,.85)" stroke-width="1"/>
+              <text class="rl-stageg" x="1550" y="867">PAUSE AND REFLECT &middot; ALL</text>
+              <text class="rl-stageg" x="1550" y="891">SOPS DEVELOPMENT WORKSHOP</text>
             </g>
             <!-- the light that lands with each month -->
             <g aria-hidden="true">
@@ -808,7 +808,7 @@ ANTI_SLOP_BRIEF
               <line class="rl-lk" x1="655" y1="379" x2="655" y2="349" stroke="#46734A"/>
               <circle cx="655" cy="388" r="8" fill="#46734A"/><text class="rl-nf" x="655" y="341">Super-user sessions with the ICAs</text>
               <line class="rl-lk" x1="655" y1="627" x2="655" y2="594" stroke="#9A6E1B"/>
-              <circle cx="655" cy="636" r="8" fill="#9A6E1B"/><text class="rl-nf" x="725" y="581">Super users' feedback: solution and e-learning</text>
+              <circle cx="655" cy="636" r="8" fill="#9A6E1B"/><text class="rl-nf" x="725" y="577">Super users' feedback: solution and e-learning</text>
             </g>
             <!-- january -->
             <g class="mm m3">
