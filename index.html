@@ -384,6 +384,8 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 #sR .rl-cv{stroke-dasharray:100;stroke-dashoffset:100}
 #sR.reveal .aHead h2{animation:up .8s var(--e) .1s both}
 #sR.reveal .rr-months{animation:up .9s var(--e) .3s both}
+#sR.reveal .rr-plaq{animation:up .9s var(--e) .4s both}
+#sR .pl-tie{opacity:.3}
 #sR.reveal .rr-names{opacity:1}
 #sR .rr-names text{opacity:0}
 #sR.reveal .rr-names text{animation:up .7s var(--e) both}
@@ -720,7 +722,7 @@ ANTI_SLOP_BRIEF
           <h2>Rollout plan</h2>
         </div>
         <div class="rlo">
-          <svg viewBox="-135 0 2115 910" xmlns="http://www.w3.org/2000/svg" aria-label="The rollout plan: six lanes converging on Fully functional">
+          <svg viewBox="-180 0 2160 910" xmlns="http://www.w3.org/2000/svg" aria-label="The rollout plan: six lanes converging on Fully functional">
             <defs>
               <linearGradient id="ggrad" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0" stop-color="#4285F4"/><stop offset=".55" stop-color="#9B72CB"/><stop offset="1" stop-color="#D96570"/>
@@ -777,6 +779,45 @@ ANTI_SLOP_BRIEF
               <text class="rl-mo mo3" x="960" y="52">JAN</text>
               <text class="rl-mo mo4" x="1265" y="52">FEB</text>
               <text class="rl-mo mo5" x="1550" y="52">MAR</text>
+            </g>
+            <!-- the lanes are categories: each name on its own plate, tied to its track -->
+            <g class="rr rr-plaq">
+              <g class="pl">
+                <rect x="20" y="117" width="156" height="46" rx="23" fill="rgba(255,252,246,.74)" stroke="rgba(150,112,84,.22)" stroke-width="1" filter="url(#psh)"/>
+                <rect x="23" y="119.5" width="150" height="1" fill="rgba(255,255,255,.85)"/>
+                <rect x="158" y="131" width="4" height="18" rx="2" fill="#B8232A"/>
+                <line class="pl-tie" x1="186" y1="140" x2="240" y2="140" stroke="#B8232A" stroke-width="1.2"/>
+              </g>
+              <g class="pl">
+                <rect x="-44" y="241" width="220" height="46" rx="23" fill="rgba(255,252,246,.74)" stroke="rgba(150,112,84,.22)" stroke-width="1" filter="url(#psh)"/>
+                <rect x="-41" y="243.5" width="214" height="1" fill="rgba(255,255,255,.85)"/>
+                <rect x="158" y="255" width="4" height="18" rx="2" fill="#46658A"/>
+                <line class="pl-tie" x1="186" y1="264" x2="240" y2="264" stroke="#46658A" stroke-width="1.2"/>
+              </g>
+              <g class="pl">
+                <rect x="7" y="365" width="169" height="46" rx="23" fill="rgba(255,252,246,.74)" stroke="rgba(150,112,84,.22)" stroke-width="1" filter="url(#psh)"/>
+                <rect x="10" y="367.5" width="163" height="1" fill="rgba(255,255,255,.85)"/>
+                <rect x="158" y="379" width="4" height="18" rx="2" fill="#46734A"/>
+                <line class="pl-tie" x1="186" y1="388" x2="240" y2="388" stroke="#46734A" stroke-width="1.2"/>
+              </g>
+              <g class="pl">
+                <rect x="65" y="489" width="111" height="46" rx="23" fill="rgba(255,252,246,.74)" stroke="rgba(150,112,84,.22)" stroke-width="1" filter="url(#psh)"/>
+                <rect x="68" y="491.5" width="105" height="1" fill="rgba(255,255,255,.85)"/>
+                <rect x="158" y="503" width="4" height="18" rx="2" fill="#A05A28"/>
+                <line class="pl-tie" x1="186" y1="512" x2="240" y2="512" stroke="#A05A28" stroke-width="1.2"/>
+              </g>
+              <g class="pl">
+                <rect x="-53" y="613" width="229" height="46" rx="23" fill="rgba(255,252,246,.74)" stroke="rgba(150,112,84,.22)" stroke-width="1" filter="url(#psh)"/>
+                <rect x="-50" y="615.5" width="223" height="1" fill="rgba(255,255,255,.85)"/>
+                <rect x="158" y="627" width="4" height="18" rx="2" fill="#9A6E1B"/>
+                <line class="pl-tie" x1="186" y1="636" x2="240" y2="636" stroke="#9A6E1B" stroke-width="1.2"/>
+              </g>
+              <g class="pl">
+                <rect x="-156" y="713" width="332" height="86" rx="23" fill="rgba(255,252,246,.74)" stroke="rgba(150,112,84,.22)" stroke-width="1" filter="url(#psh)"/>
+                <rect x="-153" y="715.5" width="326" height="1" fill="rgba(255,255,255,.85)"/>
+                <rect x="158" y="751" width="4" height="18" rx="2" fill="#6E5B8E"/>
+                <line class="pl-tie" x1="186" y1="760" x2="240" y2="760" stroke="#6E5B8E" stroke-width="1.2"/>
+              </g>
             </g>
             <!-- lane names -->
             <g class="rr rr-names">
