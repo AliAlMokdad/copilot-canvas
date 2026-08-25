@@ -276,6 +276,27 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 @media (prefers-reduced-motion:reduce){#lw{display:none}}
 
 /* ---------- the red wash between the two parts ---------- */
+/* the launch: the timeline drains, one date keeps its colour */
+#sA{transition:filter 1s var(--e)}
+#sA.bw{filter:grayscale(1) blur(4px) brightness(1.06) contrast(.92)}
+#launch{position:fixed;inset:0;z-index:59;display:grid;place-items:center;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .75s var(--e),visibility 0s linear .75s}
+#launch.on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .7s var(--e)}
+#launch .lx-bloom{position:absolute;inset:0;
+  background:radial-gradient(62% 56% at 50% 50%, rgba(252,246,239,.97) 0%, rgba(252,245,238,.92) 38%, rgba(251,243,240,.6) 66%, rgba(251,243,240,0) 88%)}
+#launch .lx-in{position:relative;text-align:center;padding:0 6vw}
+#launch .lx-rule{display:block;width:0;height:2px;background:var(--gold);margin:0 auto 30px;transition:width .95s var(--e) .34s}
+#launch.on .lx-rule{width:132px}
+#launch .lx-eyebrow{font-family:var(--mono);font-size:15.5px;font-weight:500;letter-spacing:.44em;color:#A8781E;
+  opacity:0;transform:translateY(9px);transition:opacity .7s var(--e) .3s,transform .7s var(--e) .3s}
+#launch .lx-date{font-family:var(--serif);font-size:clamp(58px,7.6vw,132px);font-weight:600;letter-spacing:-.032em;line-height:1.02;
+  color:var(--red);margin:16px 0 0;opacity:0;transform:scale(.82);
+  transition:opacity .8s var(--e) .06s,transform 1s cubic-bezier(.26,1.34,.4,1) .06s}
+#launch .lx-sub{font-family:var(--serif);font-size:clamp(21px,2vw,32px);color:var(--ink);margin:18px 0 0;
+  opacity:0;transform:translateY(12px);transition:opacity .8s var(--e) .5s,transform .8s var(--e) .5s}
+#launch.on .lx-eyebrow,#launch.on .lx-date,#launch.on .lx-sub{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){#sA.bw{filter:grayscale(1)}#launch{display:none}}
+
 /* Draft 1 hands over as a publication: the cover fills the room, flashes, and the plan is on the other side */
 #flip{position:fixed;inset:0;z-index:61;pointer-events:none;visibility:hidden;display:grid;place-items:center;overflow:hidden}
 #flip.run{visibility:visible}
@@ -1031,6 +1052,16 @@ ANTI_SLOP_BRIEF
   <svg id="lwsvg"><path id="lwl" pathLength="1000"/></svg>
   <i id="lwh"></i>
 </div>
+<div id="launch" aria-hidden="true">
+  <i class="lx-bloom"></i>
+  <div class="lx-in">
+    <i class="lx-rule"></i>
+    <div class="lx-eyebrow">OFFICIAL LAUNCH</div>
+    <div class="lx-date">1 November 2026</div>
+    <div class="lx-sub">International Finance SOPs</div>
+  </div>
+</div>
+
 <div id="flip" aria-hidden="true">
   <i class="hd-field"></i>
   <div class="hd-doc"><img src="assets/cover.jpg" alt=""><i class="hd-sheen"></i></div>
@@ -1093,7 +1124,7 @@ var MS=[
   txt:"Global finance community consultation, including country finance teams on the preferred rollout approach. A new round of review starts."},
  {d:"2026-10-01",lab:"1 October 2026",t:"ID review and check",st:"fut",
   txt:"International Department review and check."},
- {d:"2026-11-01",lab:"1 November 2026",t:"Change request submissions and log",st:"fut",
+ {d:"2026-11-01",lab:"1 November 2026",t:"Change request submissions and log",st:"fut",lx:1,
   txt:"Subject to approval and feasibility. Users apply the SOPs in practice and submit change requests. Super-users appointed. Awareness and training with country finance teams, Country Managers, Finance and International Department units. Publish and communicate."},
  {d:"2027-01-31",lab:"31 January 2027",t:"Alignment with the new ID structure",st:"fut",
   txt:"Further alignment with the new International Department structure, with any needed changes applied."},
@@ -1281,6 +1312,9 @@ function renderFocus(i){
   }
   requestAnimationFrame(function(){ requestAnimationFrame(function(){ fmain.classList.add("in"); }); });
 }
+var LXT=null, LXON=false;
+function lxOpen(){ if(LXON) return; LXON=true; $("#sA").classList.add("bw"); $("#launch").classList.add("on"); }
+function lxClose(){ if(!LXON) return; LXON=false; $("#launch").classList.remove("on"); $("#sA").classList.remove("bw"); }
 function setBeat(b){
   b=Math.max(-1,Math.min(MS.length,b));
   if(b===BEAT) return;
@@ -1292,6 +1326,11 @@ function setBeat(b){
   /* the line draws with distance-proportional time, so the long stall is felt */
   var target = b<0 ? 0 : (b>=MS.length ? ROWS[MS.length-1].pc : ROWS[b].pc);
   var from = prev<0 ? 0 : (prev>=MS.length ? ROWS[MS.length-1].pc : ROWS[prev].pc);
+  clearTimeout(LXT); lxClose();
+  if(!RM && MS[b] && MS[b].lx){
+    var lxb=b;
+    LXT=setTimeout(function(){ if(BEAT===lxb && STATE==="A") lxOpen(); },820);
+  }
   var dur = RM ? 0 : Math.min(2200, 300 + Math.abs(target-from)*36);
   doneBar.style.transitionDuration=dur+"ms";
   doneBar.style.width=target+"%";
@@ -1316,13 +1355,14 @@ function setBeat(b){
 }
 /* past the closing beat, one more step carries the presenter into Draft 1 */
 function nextStep(){ if(BEAT>=MS.length) go("B"); else setBeat(BEAT+1); }
-$("#nvNext").addEventListener("click",function(e){ e.stopPropagation(); if(STATE==="R"){ if(RB>=8){ go("Q"); } else { rbSet(RB+1); } } else { nextStep(); } });
+$("#launch").addEventListener("click",function(e){ e.stopPropagation(); lxClose(); });
+$("#nvNext").addEventListener("click",function(e){ e.stopPropagation(); if(LXON){ lxClose(); return; } if(STATE==="R"){ if(RB>=8){ go("Q"); } else { rbSet(RB+1); } } else { nextStep(); } });
 $("#fsbtn").addEventListener("click",function(e){ e.stopPropagation();
   if(document.fullscreenElement){ document.exitFullscreen(); }
   else{ document.documentElement.requestFullscreen().catch(function(){}); }
 });
 document.addEventListener("fullscreenchange",function(){ document.body.classList.toggle("isfs", !!document.fullscreenElement); });
-$("#nvPrev").addEventListener("click",function(e){ e.stopPropagation(); if(STATE==="R"){ rbSet(RB-1); } else { setBeat(BEAT-1); } });
+$("#nvPrev").addEventListener("click",function(e){ e.stopPropagation(); if(LXON){ lxClose(); return; } if(STATE==="R"){ rbSet(RB-1); } else { setBeat(BEAT-1); } });
 $("#roadzone").addEventListener("click",function(e){
   var d=e.target.closest(".ms");
   if(d){ setBeat(+d.getAttribute("data-i")); return; }
@@ -1671,6 +1711,7 @@ function go(s){
 function goNow(s){
   PENDGO=null;
   if(s===STATE) return;
+  clearTimeout(LXT); lxClose();
   STATE=s;
   document.body.classList.toggle("entered", s!=="0");
   document.body.classList.toggle("stA", s==="A");
@@ -1719,6 +1760,9 @@ document.addEventListener("keydown",function(e){
   if(g && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); go(g.getAttribute("data-go")); return; }
   /* a focused presenter arrow keeps its own Enter/Space activation */
   if((e.key==="Enter"||e.key===" ") && e.target && e.target.closest && e.target.closest("#ctl")) return;
+  if(LXON && (e.key==="ArrowRight"||e.key==="ArrowLeft"||e.key===" "||e.key==="Enter"||e.key==="Escape")){
+    e.preventDefault(); e.stopPropagation(); lxClose(); return;
+  }
   if(e.key==="1") go("A");
   else if(e.key==="2") go("B");
   else if(e.key==="3") go("R");
