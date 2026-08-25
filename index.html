@@ -276,27 +276,33 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 @media (prefers-reduced-motion:reduce){#lw{display:none}}
 
 /* ---------- the red wash between the two parts ---------- */
-/* the last page of Draft 1 turns on its spine and the plan lies underneath */
-#flip{position:fixed;inset:0;z-index:61;pointer-events:none;visibility:hidden;perspective:2600px}
+/* Draft 1 hands over as a publication: the cover fills the room, flashes, and the plan is on the other side */
+#flip{position:fixed;inset:0;z-index:61;pointer-events:none;visibility:hidden;display:grid;place-items:center;overflow:hidden}
 #flip.run{visibility:visible}
-#flip .fp{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d}
-#flip.run .fp{animation:pturn 1.25s cubic-bezier(.34,.08,.5,.96) both}
-#flip .fp-f,#flip .fp-b{position:absolute;inset:0;backface-visibility:hidden;overflow:hidden}
-#flip .fp-f{background:var(--red-deep);box-shadow:0 0 90px rgba(40,12,10,.5)}
-#flip .fp-f img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
-#flip .fp-b{background:linear-gradient(104deg,#EFE3DA,#FBF4EE 55%,#F3E9E0);transform:rotateY(180deg)}
-#flip .fp-sheen{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;
-  background:linear-gradient(102deg,transparent 26%,rgba(255,243,214,.10) 42%,rgba(255,247,226,.42) 50%,rgba(255,243,214,.10) 58%,transparent 74%);
-  background-size:260% 100%;background-position:130% 0}
-#flip.run .fp-sheen{animation:psheen 1.25s cubic-bezier(.34,.08,.5,.96) both}
-#flip .fp-spine{position:absolute;left:0;top:0;bottom:0;width:26px;background:linear-gradient(90deg,rgba(0,0,0,.34),rgba(0,0,0,.06) 55%,transparent)}
-#flip .fp-spine.b{background:linear-gradient(90deg,rgba(90,60,40,.22),transparent 70%)}
-#flip .fp-cast{position:absolute;inset:0;opacity:0;
-  background:linear-gradient(93deg,rgba(38,14,9,.5),rgba(38,14,9,.22) 38%,rgba(38,14,9,.06) 62%,transparent 82%)}
-#flip.run .fp-cast{animation:pcast 1.25s ease-out both}
-@keyframes pturn{0%{transform:rotateY(0deg)}13%{transform:rotateY(-6deg)}100%{transform:rotateY(-97deg)}}
-@keyframes psheen{0%{background-position:135% 0}70%{background-position:-5% 0}100%{background-position:-35% 0}}
-@keyframes pcast{0%{opacity:0}20%{opacity:1}78%{opacity:.62}100%{opacity:0}}
+#flip .hd-field{position:absolute;inset:0;
+  background:radial-gradient(125% 95% at 50% 42%, #CC2026 0%, var(--red) 38%, #8E1016 72%, var(--red-deep) 100%)}
+#flip.run .hd-field{animation:hdfield 1.9s cubic-bezier(.4,0,.3,1) both}
+#flip .hd-doc{position:relative;line-height:0;transform-origin:center}
+#flip .hd-doc img{height:66vh;width:auto;max-width:76vw;display:block;border-radius:2px;
+  box-shadow:0 42px 96px rgba(18,3,3,.62),0 0 0 1px rgba(222,197,131,.55),0 0 90px rgba(255,190,150,.16)}
+#flip.run .hd-doc{animation:hddoc 1.9s cubic-bezier(.34,1.28,.5,1) both}
+#flip .hd-sheen{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;border-radius:2px;
+  background:linear-gradient(104deg,transparent 30%,rgba(255,240,205,.14) 44%,rgba(255,247,225,.5) 50%,rgba(255,240,205,.14) 56%,transparent 70%);
+  background-size:280% 100%;background-position:140% 0}
+#flip.run .hd-sheen{animation:hdsheen 1.9s cubic-bezier(.3,.05,.5,1) both}
+#flip .hd-flash{position:absolute;inset:0;opacity:0;mix-blend-mode:screen;
+  background:radial-gradient(58% 58% at 50% 46%, rgba(255,247,240,.98), rgba(255,150,130,.62) 38%, rgba(214,40,40,.28) 62%, transparent 80%)}
+#flip.run .hd-flash{animation:hdflash 1.9s linear both}
+@keyframes hdfield{0%{opacity:0}6%{opacity:1}74%{opacity:1}100%{opacity:0}}
+@keyframes hddoc{0%{opacity:0;transform:scale(.74) translateY(26px)}
+  20%{opacity:1;transform:scale(1.015) translateY(0)}
+  30%{opacity:1;transform:scale(1)}
+  56%{opacity:1;transform:scale(1.02)}
+  62%{opacity:1;transform:scale(1.06)}
+  78%{opacity:.55;transform:scale(1.3)}
+  100%{opacity:0;transform:scale(1.62)}}
+@keyframes hdsheen{0%{background-position:140% 0}12%{background-position:140% 0}52%{background-position:-40% 0}100%{background-position:-40% 0}}
+@keyframes hdflash{0%{opacity:0}56%{opacity:0}61%{opacity:1}66%{opacity:.55}80%{opacity:0}100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){#flip{display:none}}
 #wipe{position:fixed;inset:0;z-index:60;pointer-events:none;transform:translateX(-103%);
   background:radial-gradient(120% 90% at 50% 12%, var(--red-hi) 0%, var(--red) 42%, #8E1016 76%, var(--red-deep) 100%);
@@ -1026,11 +1032,9 @@ ANTI_SLOP_BRIEF
   <i id="lwh"></i>
 </div>
 <div id="flip" aria-hidden="true">
-  <i class="fp-cast"></i>
-  <div class="fp">
-    <div class="fp-f"><img src="assets/cover.jpg" alt=""><i class="fp-sheen"></i><i class="fp-spine"></i></div>
-    <div class="fp-b"><i class="fp-spine b"></i></div>
-  </div>
+  <i class="hd-field"></i>
+  <div class="hd-doc"><img src="assets/cover.jpg" alt=""><i class="hd-sheen"></i></div>
+  <i class="hd-flash"></i>
 </div>
 
 <div id="wipe" aria-hidden="true">
@@ -1067,7 +1071,8 @@ ANTI_SLOP_BRIEF
 /* ===== all content from the 12 August 2026 update deck and the Draft 1 document ===== */
 var MS=[
  {d:"2024-08-01",lab:"Aug 2024",t:"Need formally raised",st:"done",
-  txt:"International Department observations highlighted the need for finance SOPs."},
+  pts:["International Department observations","MFA review and audit findings"],
+  txt:"Both highlighted the need for finance SOPs."},
  {d:"2024-11-01",lab:"Nov 2024",t:"ICC section introduced",st:"done",
   txt:"Internal Control and Compliance began supporting the International Finance section on SOPs development."},
  {d:"2025-03-01",lab:"Q1 2025",t:"Priority SOPs identified",st:"done",
@@ -1635,8 +1640,8 @@ function go(s){
     PENDGO=s;
     var fl=$("#flip");
     fl.classList.remove("run"); void fl.offsetWidth; fl.classList.add("run");
-    setTimeout(function(){ if(n===NAV) goNow(s); },220);
-    setTimeout(function(){ if(n===NAV) fl.classList.remove("run"); },1300);
+    setTimeout(function(){ if(n===NAV) goNow(s); },1240);
+    setTimeout(function(){ if(n===NAV) fl.classList.remove("run"); },2000);
     return;
   }
   if((s==="B"||s==="Q"||s==="R") && !RM){
