@@ -1624,6 +1624,7 @@ function playDR(){
   }
   ov.addEventListener("click",step);
   document.addEventListener("keydown",drkey,true);
+  window.drShut=function(){ if(ov.classList.contains("on")) shut(); };   /* leaving the tab takes the wall with it */
 }
 
 /* ---------- the Draft 0 assembly: 31 documents fly in, stack, become the draft, then Draft 1 ---------- */
@@ -1689,6 +1690,7 @@ function playD0(){
   }
   ov.addEventListener("click",step);
   document.addEventListener("keydown",keystep,true);
+  window.d0Shut=function(){ if(ov.classList.contains("on")) shut(); };   /* leaving the tab takes the wall with it */
 }
 
 /* ---------- reader: FLIP open, wheel zoom, drag pan ---------- */
@@ -1822,6 +1824,8 @@ function playD0(){
     var fr=document.querySelector("#arts .art .art-fr");
     if(fr) zoom(fr, fr.classList.contains("xr"));
   };
+  /* leaving the tab must take the reader with it, or it stays over the next one */
+  window.readerShut=function(){ if(rd.classList.contains("on")) shut(); };
   $("#rprev").addEventListener("click",function(e){ e.stopPropagation(); nav(-1); });
   $("#rnext").addEventListener("click",function(e){ e.stopPropagation(); nav(1); });
   /* the reader follows the window: recompute the mount on resize */
@@ -2039,6 +2043,10 @@ function goNow(s){
   PENDGO=null;
   if(s===STATE) return;
   if(window.bkIsOpen && window.bkIsOpen()) window.bkClose();
+  /* nothing that was open on the old tab may survive onto the new one */
+  if(window.readerShut) window.readerShut();
+  if(window.drShut) window.drShut();
+  if(window.d0Shut) window.d0Shut();
   clearTimeout(LXT); lxClose();
   if(s!=="R") $("#flip").classList.remove("run");
   STATE=s;
