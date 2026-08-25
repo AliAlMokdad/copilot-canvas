@@ -1761,18 +1761,31 @@ function playD0(){
     z=nz; clampPan(); apply();
   },{passive:false});
   var dragging=false,lx=0,ly=0;
+  var moved=0;
   mt.addEventListener("pointerdown",function(e){
     if(rd.classList.contains("xray")) return;
-    dragging=true; lx=e.clientX; ly=e.clientY;
+    dragging=true; moved=0; lx=e.clientX; ly=e.clientY;
     mt.classList.add("drag"); mt.setPointerCapture(e.pointerId);
   });
   mt.addEventListener("pointermove",function(e){
     if(!dragging) return;
-    px+=e.clientX-lx; py+=e.clientY-ly; lx=e.clientX; ly=e.clientY;
+    var dx=e.clientX-lx, dy=e.clientY-ly;
+    moved+=Math.abs(dx)+Math.abs(dy);
+    px+=dx; py+=dy; lx=e.clientX; ly=e.clientY;
     clampPan(); apply();
   });
   mt.addEventListener("pointerup",function(){ dragging=false; mt.classList.remove("drag"); });
   mt.addEventListener("pointercancel",function(){ dragging=false; mt.classList.remove("drag"); });
+  /* one click zooms in on the point, the next click zooms back out */
+  mt.addEventListener("click",function(e){
+    if(rd.classList.contains("xray")||!img) return;
+    if(moved>6){ moved=0; return; }        /* that was a drag, not a click */
+    if(z>1.02){ reset(); return; }
+    var box=mt.getBoundingClientRect(), nz=2.2;
+    var mx=e.clientX-box.left, my=e.clientY-box.top;
+    px=mx-(mx-px)*(nz/z); py=my-(my-py)*(nz/z);
+    z=nz; clampPan(); apply();
+  });
   mt.addEventListener("dblclick",function(){ reset(); });
   $("#arts").addEventListener("click",function(e){
     var a=e.target.closest(".art"); if(!a) return;
