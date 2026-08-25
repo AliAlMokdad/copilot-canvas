@@ -1281,7 +1281,7 @@ function setBeat(b){
 }
 /* past the closing beat, one more step carries the presenter into Draft 1 */
 function nextStep(){ if(BEAT>=MS.length) go("B"); else setBeat(BEAT+1); }
-$("#nvNext").addEventListener("click",function(e){ e.stopPropagation(); if(STATE==="R"){ rbSet(RB+1); } else { nextStep(); } });
+$("#nvNext").addEventListener("click",function(e){ e.stopPropagation(); if(STATE==="R"){ if(RB>=8){ go("Q"); } else { rbSet(RB+1); } } else { nextStep(); } });
 $("#fsbtn").addEventListener("click",function(e){ e.stopPropagation();
   if(document.fullscreenElement){ document.exitFullscreen(); }
   else{ document.documentElement.requestFullscreen().catch(function(){}); }
@@ -1563,7 +1563,7 @@ function playD0(){
     var i=frs.indexOf(open);
     if(i<0) return;
     var j=i+dir;
-    if(j>=frs.length){ shut(); go("Q"); return; }   /* past the last page, the walk ends on Questions */
+    if(j>=frs.length){ shut(); go("R"); return; }   /* past the last page, the arc continues into the Rollout */
     if(j<0){ shut(); return; }                       /* before the first page, back to the shelf */
     swap(frs[j]);
   }
@@ -1601,7 +1601,7 @@ function go(s){
   if(s===STATE){ if(PENDGO){ NAV++; PENDGO=null; } return; }
   var n=++NAV;
   PENDGO=null;
-  if((s==="B"||s==="Q") && !RM){
+  if((s==="B"||s==="Q"||s==="R") && !RM){
     PENDGO=s;
     var w=$("#wipe");
     w.classList.remove("run"); void w.offsetWidth; w.classList.add("run");
@@ -1665,7 +1665,7 @@ function rbSet(n){
     l.style.strokeDashoffset=(100-RB_DRAW[RB]);
   });
 }
-$("#sR").addEventListener("click",function(){ if(STATE==="R") rbSet(RB+1); });
+$("#sR").addEventListener("click",function(){ if(STATE==="R"){ if(RB>=8){ go("Q"); } else { rbSet(RB+1); } } });
 document.addEventListener("click",function(e){
   var g=e.target.closest("[data-go]"); if(g) go(g.getAttribute("data-go"));
 });
@@ -1681,7 +1681,7 @@ document.addEventListener("keydown",function(e){
   else if(e.key==="3") go("R");
   else if(STATE==="A" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); nextStep(); }
   else if(STATE==="A" && e.key==="ArrowLeft"){ e.preventDefault(); setBeat(BEAT-1); }
-  else if(STATE==="R" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); rbSet(RB+1); }
+  else if(STATE==="R" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); if(RB>=8){ go("Q"); } else { rbSet(RB+1); } }
   else if(STATE==="R" && e.key==="ArrowLeft"){ e.preventDefault(); rbSet(RB-1); }
   else if(STATE==="R" && e.key==="End"){ e.preventDefault(); rbSet(7); }
   else if(STATE==="R" && e.key==="Home"){ e.preventDefault(); rbSet(0); }
