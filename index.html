@@ -52,7 +52,8 @@ body.entered .xc.on{opacity:1}
 /* ---------- shell ---------- */
 #shell{position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;pointer-events:none}
 #shell > *{pointer-events:auto}
-#topbar{position:absolute;top:0;left:0;right:0;z-index:9;display:flex;align-items:center;justify-content:space-between;gap:26px;padding:20px 44px;opacity:0;transform:translateY(-10px);visibility:hidden;transition:opacity .7s var(--e),transform .7s var(--e),visibility 0s linear .7s}
+#topbar{position:absolute;top:0;left:0;right:0;z-index:9;display:flex;align-items:center;justify-content:space-between;gap:26px;padding:20px 44px;opacity:0;transform:translateY(-10px);visibility:hidden;transition:opacity .7s var(--e),transform .7s var(--e),visibility 0s linear .7s,filter .95s var(--e)}
+body.lxon #topbar{filter:grayscale(1)}
 body.entered #topbar{opacity:1;transform:none;visibility:visible;transition:opacity .7s var(--e),transform .7s var(--e),visibility 0s}
 .mk{display:flex;align-items:center;gap:12px;cursor:pointer}
 .mk .cr{width:34px;height:34px;border-radius:6px;background:#fff;display:grid;place-items:center;box-shadow:0 1px 4px rgba(42,20,20,.15)}
@@ -279,7 +280,7 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 /* the launch: the timeline drains, one date keeps its colour */
 #sA{transition:filter 1s var(--e)}
 #sA.bw{filter:grayscale(1) blur(4px) brightness(1.06) contrast(.92)}
-#launch{position:fixed;inset:0;z-index:59;display:grid;place-items:center;opacity:0;visibility:hidden;pointer-events:none;
+#launch{position:fixed;inset:0;z-index:8;display:grid;place-items:center;opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .75s var(--e),visibility 0s linear .75s}
 #launch.on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .7s var(--e)}
 #launch .lx-bloom{position:absolute;inset:0;
@@ -1092,6 +1093,16 @@ ANTI_SLOP_BRIEF
     </section>
 
   </div>
+
+  <div id="launch" aria-hidden="true">
+    <i class="lx-bloom"></i>
+    <div class="lx-in">
+      <i class="lx-rule"></i>
+      <div class="lx-eyebrow">OFFICIAL LAUNCH</div>
+      <div class="lx-date">November 2026</div>
+      <div class="lx-sub">International Finance SOPs</div>
+    </div>
+  </div>
 </div>
 
 <button id="fsbtn" aria-label="Toggle full screen" title="Full screen"><svg class="fs-in" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9 V4 h5 M15 4 h5 v5 M20 15 v5 h-5 M9 20 H4 v-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="fs-out" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 v5 H4 M20 9 h-5 V4 M15 20 v-5 h5 M4 15 h5 v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -1104,16 +1115,6 @@ ANTI_SLOP_BRIEF
   <svg id="lwsvg"><path id="lwl" pathLength="1000"/></svg>
   <i id="lwh"></i>
 </div>
-<div id="launch" aria-hidden="true">
-  <i class="lx-bloom"></i>
-  <div class="lx-in">
-    <i class="lx-rule"></i>
-    <div class="lx-eyebrow">OFFICIAL LAUNCH</div>
-    <div class="lx-date">November 2026</div>
-    <div class="lx-sub">International Finance SOPs</div>
-  </div>
-</div>
-
 <div id="flip" aria-hidden="true">
   <i class="hd-field"></i>
   <div class="hd-doc"><img src="assets/cover.jpg" alt=""><i class="hd-sheen"></i></div>
@@ -1365,8 +1366,8 @@ function renderFocus(i){
   requestAnimationFrame(function(){ requestAnimationFrame(function(){ fmain.classList.add("in"); }); });
 }
 var LXT=null, LXON=false;
-function lxOpen(){ if(LXON) return; LXON=true; $("#sA").classList.add("bw"); $("#launch").classList.add("on"); }
-function lxClose(){ if(!LXON) return; LXON=false; $("#launch").classList.remove("on"); $("#sA").classList.remove("bw"); }
+function lxOpen(){ if(LXON) return; LXON=true; document.body.classList.add("lxon"); $("#sA").classList.add("bw"); $("#launch").classList.add("on"); }
+function lxClose(){ if(!LXON) return; LXON=false; document.body.classList.remove("lxon"); $("#launch").classList.remove("on"); $("#sA").classList.remove("bw"); }
 function setBeat(b){
   b=Math.max(-1,Math.min(MS.length,b));
   if(b===BEAT) return;
@@ -1381,7 +1382,7 @@ function setBeat(b){
   clearTimeout(LXT); lxClose();
   if(!RM && MS[b] && MS[b].lx){
     var lxb=b;
-    LXT=setTimeout(function(){ if(BEAT===lxb && STATE==="A") lxOpen(); },820);
+    LXT=setTimeout(function(){ if(BEAT===lxb && STATE==="A" && !PENDGO) lxOpen(); },820);
   }
   var dur = RM ? 0 : Math.min(2200, 300 + Math.abs(target-from)*36);
   doneBar.style.transitionDuration=dur+"ms";
@@ -1725,9 +1726,11 @@ function playD0(){
 /* ---------- state machine ---------- */
 var STATE="0", NAV=0, PENDGO=null;
 function go(s){
-  if(s===STATE){ if(PENDGO){ NAV++; PENDGO=null; } return; }
+  var fl=$("#flip");
+  if(s===STATE){ if(PENDGO){ NAV++; PENDGO=null; fl.classList.remove("run"); } return; }
   var n=++NAV;
   PENDGO=null;
+  fl.classList.remove("run");
   if(s==="R" && STATE==="B" && !RM){
     PENDGO=s;
     var fl=$("#flip");
@@ -1764,6 +1767,7 @@ function goNow(s){
   PENDGO=null;
   if(s===STATE) return;
   clearTimeout(LXT); lxClose();
+  if(s!=="R") $("#flip").classList.remove("run");
   STATE=s;
   document.body.classList.toggle("entered", s!=="0");
   document.body.classList.toggle("stA", s==="A");
@@ -1807,17 +1811,18 @@ document.addEventListener("click",function(e){
 });
 document.addEventListener("keydown",function(e){
   if($("#reader").classList.contains("on")) return;
+  if(LXON && (e.key==="ArrowRight"||e.key==="ArrowLeft"||e.key===" "||e.key==="Enter"||e.key==="Escape")){
+    e.preventDefault(); e.stopPropagation(); lxClose(); return;
+  }
   /* a focused [data-go] control activates natively on Enter/Space, never hijacked */
   var g=e.target && e.target.closest ? e.target.closest("[data-go]") : null;
   if(g && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); go(g.getAttribute("data-go")); return; }
   /* a focused presenter arrow keeps its own Enter/Space activation */
   if((e.key==="Enter"||e.key===" ") && e.target && e.target.closest && e.target.closest("#ctl")) return;
-  if(LXON && (e.key==="ArrowRight"||e.key==="ArrowLeft"||e.key===" "||e.key==="Enter"||e.key==="Escape")){
-    e.preventDefault(); e.stopPropagation(); lxClose(); return;
-  }
   if(e.key==="1") go("A");
   else if(e.key==="2") go("B");
   else if(e.key==="3") go("R");
+  else if(STATE==="0" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); go("A"); }
   else if(STATE==="A" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); nextStep(); }
   else if(STATE==="A" && e.key==="ArrowLeft"){ e.preventDefault(); setBeat(BEAT-1); }
   else if(STATE==="R" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); if(RB>=8){ go("Q"); } else { rbSet(RB+1); } }
@@ -1826,7 +1831,7 @@ document.addEventListener("keydown",function(e){
   else if(STATE==="R" && e.key==="Home"){ e.preventDefault(); rbSet(0); }
   else if(STATE==="B" && e.key==="ArrowRight"){ e.preventDefault(); readerFirst(); }
   else if(STATE==="B" && e.key==="ArrowLeft"){ e.preventDefault(); go("A"); }
-  else if(STATE==="Q" && e.key==="ArrowLeft"){ e.preventDefault(); go("B"); }
+  else if(STATE==="Q" && e.key==="ArrowLeft"){ e.preventDefault(); go("R"); }
   else if(e.key==="Escape") go("0");
 });
 </script>
