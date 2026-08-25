@@ -54,6 +54,8 @@ body.entered .xc.on{opacity:1}
 #shell > *{pointer-events:auto}
 #topbar{position:absolute;top:0;left:0;right:0;z-index:9;display:flex;align-items:center;justify-content:space-between;gap:26px;padding:20px 44px;opacity:0;transform:translateY(-10px);visibility:hidden;transition:opacity .7s var(--e),transform .7s var(--e),visibility 0s linear .7s,filter .95s var(--e)}
 body.lxon #topbar{filter:grayscale(1)}
+/* the launch owns the screen: the open document walls drop behind the shell and lose their colour with everything else */
+body.lxon #d0,body.lxon #dr{z-index:2;filter:grayscale(1) blur(4px);transition:filter .9s var(--e)}
 body.entered #topbar{opacity:1;transform:none;visibility:visible;transition:opacity .7s var(--e),transform .7s var(--e),visibility 0s}
 .mk{display:flex;align-items:center;gap:12px;cursor:pointer}
 .mk .cr{width:34px;height:34px;border-radius:6px;background:#fff;display:grid;place-items:center;box-shadow:0 1px 4px rgba(42,20,20,.15)}
@@ -277,6 +279,94 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 @media (prefers-reduced-motion:reduce){#lw{display:none}}
 
 /* ---------- the red wash between the two parts ---------- */
+/* an SOP as a bound volume: dark stage, paper light, one leaf turning on the spine */
+.bk-open{margin:34px auto 0;display:flex;align-items:center;justify-content:center;gap:18px;cursor:pointer;
+  width:fit-content;padding:6px 4px;opacity:0;transform:translateY(10px)}
+#sB.reveal .bk-open{animation:up .8s var(--e) .95s both}
+.bk-open .bko-rule{display:block;width:64px;height:1px;background:linear-gradient(90deg,rgba(168,120,30,0),rgba(168,120,30,.5));transition:width .5s var(--e)}
+.bk-open .bko-rule.r{background:linear-gradient(90deg,rgba(168,120,30,.5),rgba(168,120,30,0))}
+.bk-open:hover .bko-rule{width:88px}
+.bko-lab{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.34em;color:#8C6A22;text-indent:.34em}
+.bko-nm{font-family:var(--serif);font-size:16.5px;color:var(--ink2)}
+.bk-open:hover .bko-nm{color:var(--red)}
+
+#bk{position:fixed;inset:0;z-index:64;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .6s var(--e),visibility 0s linear .6s;
+  background:radial-gradient(120% 100% at 50% 40%,#3A2A24 0%,#241A16 52%,#150E0C 100%)}
+#bk.on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .55s var(--e)}
+.bk-stage{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:30px 92px 22px}
+.bk-vol{position:relative;display:flex;height:min(86vh,calc((100vw - 250px) * 0.7066));perspective:3000px;
+  filter:drop-shadow(0 34px 60px rgba(0,0,0,.55));transform:scale(.94);opacity:0;
+  transition:transform .8s cubic-bezier(.28,1.2,.42,1),opacity .6s var(--e)}
+#bk.on .bk-vol{transform:none;opacity:1}
+.bk-pg{position:relative;height:100%;aspect-ratio:1447/2047;background:#fff;overflow:hidden}
+.bk-pg img{width:100%;height:100%;object-fit:contain;display:block;cursor:zoom-in}
+.bk-pg.lft{border-radius:3px 0 0 3px;box-shadow:inset -14px 0 26px -14px rgba(60,34,22,.42)}
+.bk-pg.rgt{border-radius:0 3px 3px 0;box-shadow:inset 14px 0 26px -14px rgba(60,34,22,.42)}
+.bk-spine{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-1px);
+  background:linear-gradient(90deg,rgba(60,34,22,.34),rgba(255,255,255,.5) 50%,rgba(60,34,22,.34));pointer-events:none}
+.bk-edge{position:absolute;top:6px;bottom:6px;width:9px;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.9) 0 1px,rgba(190,170,155,.5) 1px 2px)}
+.bk-edge.l{left:-9px;border-radius:3px 0 0 3px}
+.bk-edge.r{right:-9px;border-radius:0 3px 3px 0}
+.bk-leaf{position:absolute;top:0;left:50%;width:50%;height:100%;transform-style:preserve-3d;
+  transform-origin:left center;visibility:hidden;z-index:3}
+.bk-leaf.go{visibility:visible;animation:bkturn 1.05s cubic-bezier(.4,.03,.36,1) both}
+.bk-leaf.back{left:0;transform-origin:right center}
+.bk-leaf.back.go{animation:bkturnb 1.05s cubic-bezier(.4,.03,.36,1) both}
+.bk-face{position:absolute;inset:0;backface-visibility:hidden;background:#fff;overflow:hidden}
+.bk-face img{width:100%;height:100%;object-fit:contain;display:block}
+.bk-face.b{transform:rotateY(180deg)}
+.bk-sh{position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,rgba(40,22,14,.5),rgba(40,22,14,.06) 46%,transparent)}
+.bk-leaf.go .bk-face.f .bk-sh{animation:bkshf 1.05s ease-out both}
+.bk-leaf.go .bk-face.b .bk-sh{animation:bkshb 1.05s ease-in both}
+@keyframes bkturn{0%{transform:rotateY(0)}100%{transform:rotateY(-180deg)}}
+@keyframes bkturnb{0%{transform:rotateY(0)}100%{transform:rotateY(180deg)}}
+@keyframes bkshf{0%{opacity:0}40%{opacity:.5}100%{opacity:.7}}
+@keyframes bkshb{0%{opacity:.7}60%{opacity:.3}100%{opacity:0}}
+.bk-foot{display:flex;align-items:baseline;gap:26px;font-family:var(--mono);font-size:12px;letter-spacing:.22em;
+  color:rgba(255,246,236,.5);opacity:0;transition:opacity .6s var(--e) .4s}
+#bk.on .bk-foot{opacity:1}
+.bk-hint{letter-spacing:.14em;font-size:11.5px;color:rgba(255,246,236,.3)}
+.bk-nav,.bk-x{position:absolute;border:1px solid rgba(255,246,236,.2);background:rgba(255,246,236,.06);
+  color:rgba(255,246,236,.72);border-radius:50%;display:grid;place-items:center;transition:.25s var(--e);backdrop-filter:blur(4px)}
+.bk-nav{top:50%;width:52px;height:52px;font-size:20px;transform:translateY(-50%)}
+.bk-nav.p{left:26px}
+.bk-nav.n{right:26px}
+.bk-x{top:24px;right:26px;width:42px;height:42px;font-size:20px}
+.bk-nav:hover,.bk-x:hover{background:rgba(255,246,236,.16);color:#fff;border-color:rgba(255,246,236,.45)}
+.bk-nav[disabled]{opacity:.22;pointer-events:none}
+/* the SOP lines on the document's own contents page are clickable */
+.bk-hot{position:absolute;inset:0;pointer-events:none}
+.bk-hot i{position:absolute;display:block;cursor:pointer;pointer-events:auto;border-radius:3px;
+  background:rgba(184,58,42,0);transition:background .18s var(--e),box-shadow .18s var(--e)}
+.bk-hot i:hover{background:rgba(184,58,42,.09);box-shadow:inset 0 0 0 1px rgba(184,58,42,.28)}
+#bk.zoom .bk-hot{display:none}
+.bk-toc{position:absolute;top:24px;left:26px;font-family:var(--mono);font-size:11px;letter-spacing:.28em;
+  padding:11px 20px;border-radius:20px;border:1px solid rgba(255,246,236,.2);background:rgba(255,246,236,.06);
+  color:rgba(255,246,236,.72);transition:.25s var(--e);backdrop-filter:blur(4px);text-indent:.28em}
+.bk-toc:hover{background:rgba(255,246,236,.16);color:#fff;border-color:rgba(255,246,236,.45)}
+
+/* reading a clause closely */
+#bk.zoom .bk-vol{opacity:0;transform:scale(.985);transition:opacity .3s var(--e),transform .5s var(--e)}
+#bk.zoom .bk-nav,#bk.zoom .bk-foot,#bk.zoom .bk-toc{opacity:0;pointer-events:none}
+/* reading a single page at its native resolution, outside the 3D volume so it stays sharp */
+.bk-read{position:absolute;inset:0;overflow:auto;overscroll-behavior:contain;
+  opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s var(--e);
+  padding:26px 82px;scrollbar-width:thin;scrollbar-color:rgba(240,226,214,.34) transparent}
+#bk.zoom .bk-read{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .42s var(--e) .12s}
+.bk-read::-webkit-scrollbar{width:9px;height:9px}
+.bk-read::-webkit-scrollbar-thumb{background:rgba(240,226,214,.3);border-radius:9px}
+.bk-read-in{min-height:100%;display:flex;align-items:flex-start;justify-content:center}
+.bk-read img{display:block;width:min(1447px,100%);height:auto;background:#fff;cursor:zoom-out;
+  border-radius:3px;box-shadow:0 30px 70px rgba(0,0,0,.6)}
+@media (prefers-reduced-motion:reduce){
+  .bk-vol{transition:none}.bk-leaf.go{animation-duration:.01s}
+  #bk.zoom .bk-vol{transition:none}
+  .bk-read,#bk.zoom .bk-read{transition:none}
+}
+
 /* the launch: the timeline drains, one date keeps its colour */
 #sA{transition:filter 1s var(--e)}
 #sA.bw{filter:grayscale(1) blur(4px) brightness(1.06) contrast(.92)}
@@ -731,6 +821,11 @@ ANTI_SLOP_BRIEF
             <i class="hl" style="--t:40.2%;--h:3.2%;--d:1.12s"></i>
           </div></div>
         </div>
+        <div class="bk-open" id="bkOpen" role="button" tabindex="0" aria-label="Open the Draft 1 document">
+          <i class="bko-rule"></i>
+          <span class="bko-lab">OPEN DRAFT 1</span>
+          <i class="bko-rule r"></i>
+        </div>
       </div>
     </section>
 
@@ -1120,6 +1215,27 @@ ANTI_SLOP_BRIEF
   <svg id="lwsvg"><path id="lwl" pathLength="1000"/></svg>
   <i id="lwh"></i>
 </div>
+<div id="bk" aria-hidden="true">
+  <div class="bk-stage">
+    <div class="bk-vol" id="bkVol">
+      <i class="bk-edge l"></i><i class="bk-edge r"></i>
+      <div class="bk-pg lft"><img id="bkL" src="" alt=""><div class="bk-hot" id="bkHotL"></div></div>
+      <div class="bk-pg rgt"><img id="bkR" src="" alt=""><div class="bk-hot" id="bkHotR"></div></div>
+      <i class="bk-spine"></i>
+      <div class="bk-leaf" id="bkLeaf">
+        <div class="bk-face f"><img id="bkLeafF" src="" alt=""><i class="bk-sh"></i></div>
+        <div class="bk-face b"><img id="bkLeafB" src="" alt=""><i class="bk-sh b"></i></div>
+      </div>
+    </div>
+    <div class="bk-foot"><span id="bkFolio"></span><span class="bk-hint">click a page to read it closely</span></div>
+  </div>
+  <div class="bk-read" id="bkRead"><div class="bk-read-in"><img id="bkReadImg" src="" alt=""></div></div>
+  <button class="bk-toc" id="bkToc" aria-label="Go to the contents page">CONTENTS</button>
+  <button class="bk-nav p" id="bkPrev" aria-label="Previous pages">&larr;</button>
+  <button class="bk-nav n" id="bkNext" aria-label="Next pages">&rarr;</button>
+  <button class="bk-x" id="bkX" aria-label="Close">&times;</button>
+</div>
+
 <div id="flip" aria-hidden="true">
   <i class="hd-field"></i>
   <div class="hd-doc"><img src="assets/cover.jpg" alt=""><i class="hd-sheen"></i></div>
@@ -1728,6 +1844,157 @@ function playD0(){
   },true);
 })();
 
+/* ---------- the SOP volume: the whole Draft 1, 126 pages ---------- */
+(function(){
+  var NP=126;
+  /* the page number printed on each sheet: front matter and dividers carry none */
+  var PRN=",,,,1,2,3,4,5,6,7,8,9,,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,,109,110,111,112,113,114,115,116,117,118,".split(",");
+  var PRLAST="118";
+  function prn(sheet){ return PRN[sheet-1]||""; }
+  /* the document carries its own contents on sheet 3: each line there is a live link.
+     [target sheet, top %, height %] measured from the page itself, so they track the render */
+  var TOC_SHEET=3, TOCX=[9.239,81.469];
+  var TOCH=[[5,21.545,2.364],[8,23.868,2.364],[15,31.070,2.364],[20,33.393,2.364],[33,35.716,2.364],
+    [40,38.054,2.364],[44,40.377,2.364],[48,47.575,2.364],[53,49.898,2.364],[59,52.224,2.364],
+    [64,54.547,2.364],[69,56.870,2.364],[76,59.194,2.364],[80,61.517,2.364],[86,63.840,2.364],
+    [92,66.163,2.364],[94,68.487,2.364],[101,70.824,2.364],[105,73.151,2.364],[108,75.474,2.364],
+    [111,77.797,2.364],[116,84.653,2.364],[121,86.976,2.364]];
+  var SPREAD=0, BUSY=false, LAST=Math.ceil(NP/2)-1;
+  var bk=$("#bk"), vol=$("#bkVol"), L=$("#bkL"), R=$("#bkR"),
+      leaf=$("#bkLeaf"), lf=$("#bkLeafF"), lb=$("#bkLeafB"), folio=$("#bkFolio"),
+      hotL=$("#bkHotL"), hotR=$("#bkHotR"), hint=$("#bk .bk-hint");
+  function src(n){ return (n>=1 && n<=NP) ? "assets/bk/p"+n+".jpg" : ""; }
+  /* lay the live SOP links over the contents page, and only over that page */
+  function hots(host, sheet){
+    if(host.getAttribute("data-sheet")===String(sheet)) return;
+    host.setAttribute("data-sheet", String(sheet));
+    while(host.firstChild) host.removeChild(host.firstChild);
+    if(sheet!==TOC_SHEET) return;
+    TOCH.forEach(function(h){
+      var b=document.createElement("i");
+      b.style.left=TOCX[0]+"%"; b.style.width=TOCX[1]+"%";
+      b.style.top=h[1]+"%";     b.style.height=h[2]+"%";
+      b.setAttribute("role","link"); b.setAttribute("tabindex","0");
+      b.setAttribute("aria-label","Go to page "+(prn(h[0])||h[0]));
+      b.addEventListener("click",function(e){ e.stopPropagation(); jump(h[0]); });
+      b.addEventListener("keydown",function(e){
+        if(e.key==="Enter"||e.key===" "){ e.preventDefault(); e.stopPropagation(); jump(h[0]); }
+      });
+      host.appendChild(b);
+    });
+  }
+  function paint(){
+    var l=SPREAD*2+1, r=l+1;
+    L.src=src(l); R.src=src(r);
+    L.style.visibility=src(l)?"visible":"hidden";
+    R.style.visibility=src(r)?"visible":"hidden";
+    hots(hotL,l); hots(hotR,r);
+    var pl=prn(l), pr=prn(r), lab;
+    if(pl && pr) lab="page "+pl+" \u2013 "+pr+"   of "+PRLAST;
+    else if(pl)  lab="page "+pl+"   of "+PRLAST;
+    else if(pr)  lab="page "+pr+"   of "+PRLAST;
+    else         lab="sheet "+l+(src(r)?" \u2013 "+r:"")+"   of "+NP;
+    folio.textContent = lab;
+    hint.textContent = (l===TOC_SHEET||r===TOC_SHEET)
+      ? "click an SOP to go to it, or a page to read it closely"
+      : "click a page to read it closely";
+    $("#bkPrev").disabled = SPREAD===0;
+    $("#bkNext").disabled = SPREAD>=LAST;
+  }
+  function turn(dir){
+    if(BUSY) return;
+    if(dir>0 && SPREAD>=LAST) return;
+    if(dir<0 && SPREAD<=0) return;
+    if(RM){ SPREAD+=dir; paint(); return; }
+    BUSY=true;
+    if(dir>0){
+      lf.src=src(SPREAD*2+2); lb.src=src(SPREAD*2+3);
+      leaf.classList.remove("back");
+      SPREAD++;
+      R.src=src(SPREAD*2+2); R.style.visibility=src(SPREAD*2+2)?"visible":"hidden";
+    }else{
+      lf.src=src(SPREAD*2+1); lb.src=src(SPREAD*2);
+      leaf.classList.add("back");
+      SPREAD--;
+      L.src=src(SPREAD*2+1); L.style.visibility="visible";
+    }
+    void leaf.offsetWidth; leaf.classList.add("go");
+    setTimeout(function(){ leaf.classList.remove("go"); paint(); BUSY=false; },1060);
+  }
+  function jump(page){
+    SPREAD=Math.max(0,Math.min(LAST,Math.floor((page-1)/2)));
+    paint();
+    bk.classList.remove("zoom");
+  }
+  function open(){
+    SPREAD=0; paint();
+    bk.classList.remove("zoom"); bk.classList.add("on");
+    bk.setAttribute("aria-hidden","false");     /* it takes focus and is read, so it must not be hidden */
+    document.body.classList.add("bkon");
+  }
+  function close(){
+    bk.classList.remove("on","zoom");
+    if(bk.contains(document.activeElement)) document.activeElement.blur();
+    bk.setAttribute("aria-hidden","true");
+    document.body.classList.remove("bkon");
+  }
+  window.bkOpen=open; window.bkClose=close; window.bkIsOpen=function(){ return bk.classList.contains("on"); };
+  $("#bkOpen").addEventListener("click",function(e){ e.stopPropagation(); open(); });
+  $("#bkOpen").addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); e.stopPropagation(); open(); } });
+  $("#bkNext").addEventListener("click",function(e){ e.stopPropagation(); turn(1); });
+  $("#bkPrev").addEventListener("click",function(e){ e.stopPropagation(); turn(-1); });
+  $("#bkX").addEventListener("click",function(e){ e.stopPropagation(); close(); });
+  $("#bkToc").addEventListener("click",function(e){ e.stopPropagation(); zoomOut(); jump(TOC_SHEET); });
+  /* reading one page closely: a flat native-resolution view, not a scaled 3D layer */
+  var rd=$("#bkRead"), rdi=$("#bkReadImg");
+  function zoomIn(sheet, frac){
+    if(!src(sheet)) return;
+    rdi.src=src(sheet);
+    bk.classList.add("zoom");
+    rd.scrollTop = 0;
+    requestAnimationFrame(function(){
+      var t=(rd.scrollHeight-rd.clientHeight)*Math.max(0,Math.min(1,(frac||0)-.18));
+      rd.scrollTop=t;
+      rd.scrollLeft=(rd.scrollWidth-rd.clientWidth)/2;
+    });
+  }
+  function zoomOut(){ bk.classList.remove("zoom"); }
+  Array.prototype.forEach.call(bk.querySelectorAll(".bk-pg img"),function(im){
+    im.addEventListener("click",function(e){
+      e.stopPropagation();
+      if(bk.classList.contains("zoom")){ zoomOut(); return; }
+      var r=im.getBoundingClientRect();
+      zoomIn(im.id==="bkL" ? SPREAD*2+1 : SPREAD*2+2, (e.clientY-r.top)/r.height);
+    });
+  });
+  rd.addEventListener("click",function(e){ e.stopPropagation(); zoomOut(); });
+  bk.addEventListener("click",function(e){
+    if(e.target===bk||e.target.classList.contains("bk-stage")){
+      if(bk.classList.contains("zoom")) zoomOut();
+      else close();
+    }
+  });
+  document.addEventListener("keydown",function(e){
+    if(!bk.classList.contains("on")) return;
+    var onZoom=bk.classList.contains("zoom");
+    if(e.key==="Escape"){ e.preventDefault(); e.stopPropagation();
+      if(onZoom) zoomOut(); else close();
+      return; }
+    if(onZoom){
+      if(e.key==="ArrowDown"||e.key==="ArrowUp"||e.key==="PageDown"||e.key==="PageUp"||e.key===" "){
+        e.stopPropagation();
+        var d=(e.key==="ArrowUp"||e.key==="PageUp")?-1:1,
+            step=(e.key==="ArrowDown"||e.key==="ArrowUp")?160:rd.clientHeight*.86;
+        e.preventDefault(); rd.scrollTop+=d*step; return;
+      }
+      if(e.key==="ArrowRight"||e.key==="ArrowLeft"){ e.preventDefault(); e.stopPropagation(); return; }
+      return;
+    }
+    if(e.key==="ArrowRight"||e.key===" "||e.key==="Enter"){ e.preventDefault(); e.stopPropagation(); turn(1); return; }
+    if(e.key==="ArrowLeft"){ e.preventDefault(); e.stopPropagation(); turn(-1); return; }
+  },true);
+})();
+
 /* ---------- state machine ---------- */
 var STATE="0", NAV=0, PENDGO=null;
 function go(s){
@@ -1771,6 +2038,7 @@ function go(s){
 function goNow(s){
   PENDGO=null;
   if(s===STATE) return;
+  if(window.bkIsOpen && window.bkIsOpen()) window.bkClose();
   clearTimeout(LXT); lxClose();
   if(s!=="R") $("#flip").classList.remove("run");
   STATE=s;
