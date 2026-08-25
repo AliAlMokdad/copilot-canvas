@@ -276,6 +276,28 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 @media (prefers-reduced-motion:reduce){#lw{display:none}}
 
 /* ---------- the red wash between the two parts ---------- */
+/* the last page of Draft 1 turns on its spine and the plan lies underneath */
+#flip{position:fixed;inset:0;z-index:61;pointer-events:none;visibility:hidden;perspective:2600px}
+#flip.run{visibility:visible}
+#flip .fp{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d}
+#flip.run .fp{animation:pturn 1.25s cubic-bezier(.34,.08,.5,.96) both}
+#flip .fp-f,#flip .fp-b{position:absolute;inset:0;backface-visibility:hidden;overflow:hidden}
+#flip .fp-f{background:var(--red-deep);box-shadow:0 0 90px rgba(40,12,10,.5)}
+#flip .fp-f img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
+#flip .fp-b{background:linear-gradient(104deg,#EFE3DA,#FBF4EE 55%,#F3E9E0);transform:rotateY(180deg)}
+#flip .fp-sheen{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(102deg,transparent 26%,rgba(255,243,214,.10) 42%,rgba(255,247,226,.42) 50%,rgba(255,243,214,.10) 58%,transparent 74%);
+  background-size:260% 100%;background-position:130% 0}
+#flip.run .fp-sheen{animation:psheen 1.25s cubic-bezier(.34,.08,.5,.96) both}
+#flip .fp-spine{position:absolute;left:0;top:0;bottom:0;width:26px;background:linear-gradient(90deg,rgba(0,0,0,.34),rgba(0,0,0,.06) 55%,transparent)}
+#flip .fp-spine.b{background:linear-gradient(90deg,rgba(90,60,40,.22),transparent 70%)}
+#flip .fp-cast{position:absolute;inset:0;opacity:0;
+  background:linear-gradient(93deg,rgba(38,14,9,.5),rgba(38,14,9,.22) 38%,rgba(38,14,9,.06) 62%,transparent 82%)}
+#flip.run .fp-cast{animation:pcast 1.25s ease-out both}
+@keyframes pturn{0%{transform:rotateY(0deg)}13%{transform:rotateY(-6deg)}100%{transform:rotateY(-97deg)}}
+@keyframes psheen{0%{background-position:135% 0}70%{background-position:-5% 0}100%{background-position:-35% 0}}
+@keyframes pcast{0%{opacity:0}20%{opacity:1}78%{opacity:.62}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){#flip{display:none}}
 #wipe{position:fixed;inset:0;z-index:60;pointer-events:none;transform:translateX(-103%);
   background:radial-gradient(120% 90% at 50% 12%, var(--red-hi) 0%, var(--red) 42%, #8E1016 76%, var(--red-deep) 100%);
   overflow:hidden}
@@ -1003,6 +1025,14 @@ ANTI_SLOP_BRIEF
   <svg id="lwsvg"><path id="lwl" pathLength="1000"/></svg>
   <i id="lwh"></i>
 </div>
+<div id="flip" aria-hidden="true">
+  <i class="fp-cast"></i>
+  <div class="fp">
+    <div class="fp-f"><img src="assets/cover.jpg" alt=""><i class="fp-sheen"></i><i class="fp-spine"></i></div>
+    <div class="fp-b"><i class="fp-spine b"></i></div>
+  </div>
+</div>
+
 <div id="wipe" aria-hidden="true">
   <svg class="wghost" viewBox="0 0 90 90"><path d="M30 0h30v30h30v30H60v30H30V60H0V30h30z"/></svg>
 </div>
@@ -1601,6 +1631,14 @@ function go(s){
   if(s===STATE){ if(PENDGO){ NAV++; PENDGO=null; } return; }
   var n=++NAV;
   PENDGO=null;
+  if(s==="R" && STATE==="B" && !RM){
+    PENDGO=s;
+    var fl=$("#flip");
+    fl.classList.remove("run"); void fl.offsetWidth; fl.classList.add("run");
+    setTimeout(function(){ if(n===NAV) goNow(s); },220);
+    setTimeout(function(){ if(n===NAV) fl.classList.remove("run"); },1300);
+    return;
+  }
   if((s==="B"||s==="Q"||s==="R") && !RM){
     PENDGO=s;
     var w=$("#wipe");
