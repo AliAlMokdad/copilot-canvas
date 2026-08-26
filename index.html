@@ -537,6 +537,25 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 #sR.rb5 .rr-band5{animation:up .8s var(--e) both}
 #sR.rb6 .rl-cv{transition:stroke-dashoffset .9s var(--e);stroke-dashoffset:0}
 #sR.rb6 .rr-lens{animation:up .9s var(--e) .45s both}
+/* the two captions are the conclusion, so they wait for the seventh line to feed in and
+   arrive on the back of the charge rather than sitting there from the start */
+#sR .rl-lens,#sR .rl-lensb{opacity:0}
+#sR.rb8 .rl-lens{animation:up .85s var(--e) 3.62s both}
+#sR.rb8 .rl-lensb{animation:up .85s var(--e) 3.90s both}
+/* the core takes the charge in three beats, each one bigger, then settles back */
+.lens-core{transform-box:fill-box;transform-origin:center}
+#sR[data-rb="8"] .lens-core{animation:lenspump 2.05s cubic-bezier(.3,.7,.3,1) 2.34s both}
+@keyframes lenspump{
+  0%{transform:scale(1)}
+  9%{transform:scale(1.045)}
+  19%{transform:scale(1.002)}
+  34%{transform:scale(1.085)}
+  47%{transform:scale(1.012)}
+  63%{transform:scale(1.14)}
+  80%{transform:scale(.998)}
+  100%{transform:scale(1)}}
+/* and once the chart has moved on, the captions stay put */
+#sR.rb9 .rl-lens,#sR.rb9 .rl-lensb{opacity:1}
 /* THE SEVENTH LINE. It is the one thing on this chart that is an offer rather than a
    plan, so it arrives last, on its own beat, and it is the only line drawn in a gradient
    that ends in the brand red: it runs toward the core and then charges it. */
@@ -673,6 +692,8 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
   #sR .orbboost{animation:none!important;transform:none!important}
   #sR .lensring{animation:none!important;transform:none!important}
   #sR .orbi use{animation:none!important;transform:none!important}
+  #sR .lens-core{animation:none!important;transform:none!important}
+  #sR .rl-lens,#sR .rl-lensb{opacity:1!important;animation:none!important;transform:none!important}
   #sR[data-rb="9"] .fin *{animation:none!important}
   #sR[data-rb="9"] .f-aura,#sR[data-rb="9"] .f-cover,#sR[data-rb="9"] .f-spark,#sR[data-rb="9"] .f-card,#sR[data-rb="9"] .f-stamp,#sR[data-rb="9"] .f-sheet{opacity:1;transform:none}
   #sR[data-rb="9"] .f-path{stroke-dashoffset:0;opacity:.85}
@@ -1328,6 +1349,7 @@ ANTI_SLOP_BRIEF
             </g>
             <g class="rr-lens">
               <line x1="1672" y1="450" x2="1862" y2="450" stroke="#B8232A" stroke-width="2.4" opacity=".55"/>
+              <g class="lens-core">
               <circle class="lens-bloom" cx="1752" cy="450" r="82" fill="url(#lensBloom)"/>
               <circle class="lensring" pathLength="100" cx="1752" cy="450" r="66" fill="none" stroke="#A8781E" stroke-width="2" opacity=".9"/>
               <circle class="lens-surge" cx="1752" cy="450" r="66" fill="none" stroke="#E8C36A" stroke-width="2.4"/>
@@ -1341,6 +1363,7 @@ ANTI_SLOP_BRIEF
                 <g transform="translate(1752,399)"><g class="orbi"><use href="#lg-gemini" x="-11" y="-11" width="22" height="22"/></g></g>
                 <g transform="rotate(120 1752 450)"><g transform="translate(1752,399)"><g transform="rotate(-120)"><g class="orbi"><use href="#lg-sharepoint" x="-11" y="-11" width="22" height="22"/></g></g></g></g>
                 <g transform="rotate(240 1752 450)"><g transform="translate(1752,399)"><g transform="rotate(-240)"><g class="orbi"><use href="#lg-cap" x="-11" y="-11" width="22" height="22"/></g></g></g></g>
+              </g>
               </g>
               </g>
               <text class="rl-lens" x="1752" y="358">STRATEGY 2030 &middot; MUST-WINS</text>
