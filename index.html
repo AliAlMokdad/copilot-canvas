@@ -766,6 +766,110 @@ body.stQ .mk .wt span{color:rgba(255,255,255,.72)}
 #reader.xray.on #rside .rs-i:nth-child(4)::after{transform:scaleX(1);transition-delay:1.32s}
 #reader.xray.on #rside .rs-i:nth-child(5)::after{transform:scaleX(1);transition-delay:1.62s}
 .rs-i span{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:-.012em;color:#FBF3F0;text-shadow:0 1px 14px rgba(30,8,8,.35)}
+/* The four International Department procedures. They are shown, not annotated: four covers
+   at one scale on a lit stage, so their marks, eyebrows and titles fall on shared lines by
+   themselves. A quadrant, because four side by side beside a full page can only be 240px
+   wide and the titles stop being readable. Here they are 40 percent larger. */
+#rali{position:absolute;top:50%;transform:translateY(-50%);z-index:41;pointer-events:none;
+  opacity:0;transition:opacity .55s var(--e) .1s}
+#reader.alis.on #rali{opacity:1}
+/* the room: a warm pool of light on a dark ground */
+.ra-glow{position:absolute;left:-12%;right:-8%;top:-10%;bottom:-10%;
+  background:
+    radial-gradient(46% 40% at 50% 40%, rgba(255,232,196,.13), rgba(255,232,196,0) 70%),
+    radial-gradient(60% 58% at 50% 52%, rgba(16,4,4,.70), rgba(16,4,4,.38) 48%, rgba(16,4,4,0) 78%)}
+.ra-fit{position:absolute;inset:0;transform-origin:50% 50%}
+.ra-stage{position:absolute;inset:0;perspective:2600px;perspective-origin:50% 42%}
+.ra-rot{position:absolute;inset:0;transform-style:preserve-3d;
+  transform:rotateY(7deg) rotateX(2.2deg)}
+.ra-card{position:absolute;transform-style:preserve-3d;will-change:transform,opacity;overflow:hidden;
+  box-shadow:0 26px 44px rgba(10,2,2,.52), 0 60px 110px rgba(10,2,2,.34)}
+.ra-card img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+/* one light from above: a gentle fall across every cover, identical on each */
+.ra-lit{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(176deg,rgba(255,250,238,.20),rgba(255,250,238,.04) 26%,
+             rgba(24,7,7,.05) 68%,rgba(24,7,7,.20))}
+/* a single specular pass, the same angle on all four, so they read as one set */
+/* while the four are out, the document eases back a little so the eye goes to them; when
+   they merge in, it comes back up to full. Attention follows the action. */
+#reader.alis.on #rmount{filter:brightness(.9) saturate(.96);
+  transition:transform .72s var(--e),width .72s var(--e),height .72s var(--e),
+             filter 1s var(--e) .35s}
+#reader.alis.on.merged #rmount{filter:none;transition:transform 1.05s var(--e),
+  width .72s var(--e),height .72s var(--e),filter 1.1s var(--e) .25s}
+/* the second click: the four gather into the document itself, and the document comes back
+   to the middle. The sources are absorbed, which is the point he makes out loud. */
+#rali .ra-card.gone{transition:opacity .8s var(--e),transform 1.05s cubic-bezier(.4,.02,.3,1)}
+/* must outrank #reader.alis.on #rali, or the ground lingers after the merge */
+#reader.alis.on.merged #rali{opacity:0;transition:opacity .5s var(--e) .55s}
+/* the four hold one breath together, which is what sync feels like. It sits on the single
+   parent, so they are in phase by construction and cannot drift apart. */
+#reader.alis.on #rali .ra-rot{animation:rabreathe 7.5s ease-in-out 3.4s infinite}
+#reader.alis.on.merged #rali .ra-rot{animation:none}
+@keyframes rabreathe{
+  0%,100%{transform:rotateY(7deg) rotateX(2.2deg) scale(1)}
+  50%{transform:rotateY(7deg) rotateX(2.2deg) scale(1.009)}}
+.ra-frame{position:absolute;inset:0;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(238,218,166,.30), inset 0 1px 0 rgba(255,250,240,.34)}
+/* each arrives in reading order, rising a little and settling */
+#rali .ra-card{opacity:0;transition:opacity .55s var(--e),transform 1.15s cubic-bezier(.2,.9,.22,1)}
+#reader.alis.on #rali .ra-card{opacity:1}
+@media (prefers-reduced-motion:reduce){
+  #rali .ra-card{opacity:1!important;transition:none!important}
+  #rali .ra-rot{animation:none!important}
+  #rali .ra-card{transform:none!important}
+}
+/* the four sources the suite was drawn from: the finale's fan, run backwards into the cover */
+#rref{position:absolute;top:50%;left:24px;transform:translateY(-50%);z-index:41;pointer-events:none;
+  opacity:0;transition:opacity .55s var(--e) .2s}
+#reader.refs.on #rref{opacity:1}
+/* what the sources give the cover: a hairline of gold, then two very soft falloffs.
+   It blooms in after the last rule lands, so the light reads as their arrival. */
+#reader.refs.on #rmount{
+  box-shadow:0 0 0 1px rgba(230,208,150,.30),
+             0 0 24px 1px rgba(222,197,131,.13),
+             0 0 78px 12px rgba(222,197,131,.055),
+             0 40px 110px rgba(30,8,8,.45);
+  transition:transform .72s var(--e),width .72s var(--e),height .72s var(--e),
+             box-shadow 1.7s var(--e) 1.95s}
+@media (prefers-reduced-motion:reduce){
+  #reader.refs.on #rmount{transition:none}
+}
+#rref svg{display:block;width:100%;height:100%;overflow:visible}
+.rr-eye{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:.32em;fill:#F7E9C2}
+.rr-n{font-family:var(--serif);font-size:39px;font-weight:600;letter-spacing:-.015em;fill:#FCF5F2}
+.rr-d{font-family:var(--mono);font-size:13.5px;font-weight:600;letter-spacing:.105em;fill:#F2DFA8}
+.rr-box{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:.85}
+.rr-tick{fill:none;stroke:var(--gold);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.rr-rule{stroke:rgba(222,197,131,.5);stroke-width:1.4;fill:none;stroke-dasharray:100;stroke-dashoffset:100}
+/* the rows arrive one at a time, on the rhythm the facing panel already uses */
+#rref .rr-row{opacity:0;transform:translateX(-20px);
+  transition:opacity .55s var(--e),transform .55s var(--e)}
+#reader.refs.on #rref .rr-row{opacity:1;transform:none}
+#reader.refs.on #rref .rr-row.r1{transition-delay:.50s}
+#reader.refs.on #rref .rr-row.r2{transition-delay:.85s}
+#reader.refs.on #rref .rr-row.r3{transition-delay:1.20s}
+#reader.refs.on #rref .rr-row.r4{transition-delay:1.55s}
+/* the tick lands after its row settles */
+#rref .rr-mark{transform-box:fill-box;transform-origin:center;opacity:0;transform:scale(.4)}
+#reader.refs.on #rref .rr-mark{animation:rrmark .5s cubic-bezier(.34,1.5,.5,1) both}
+#reader.refs.on #rref .rr-row.r1 .rr-mark{animation-delay:.86s}
+#reader.refs.on #rref .rr-row.r2 .rr-mark{animation-delay:1.21s}
+#reader.refs.on #rref .rr-row.r3 .rr-mark{animation-delay:1.56s}
+#reader.refs.on #rref .rr-row.r4 .rr-mark{animation-delay:1.91s}
+/* the rule under each name keeps going, bends, and runs into the cover */
+#reader.refs.on #rref .rr-rule{animation:rrdraw 1.5s var(--e) both}
+#reader.refs.on #rref .rr-row.r1 .rr-rule{animation-delay:.66s}
+#reader.refs.on #rref .rr-row.r2 .rr-rule{animation-delay:1.01s}
+#reader.refs.on #rref .rr-row.r3 .rr-rule{animation-delay:1.36s}
+#reader.refs.on #rref .rr-row.r4 .rr-rule{animation-delay:1.71s}
+@keyframes rrmark{from{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.22)}to{opacity:1;transform:none}}
+@keyframes rrdraw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){
+  #rref .rr-row{opacity:1!important;transform:none!important;transition:none!important}
+  #rref .rr-mark{opacity:1!important;transform:none!important;animation:none!important}
+  #rref .rr-rule{stroke-dashoffset:0!important;animation:none!important}
+}
 #rclose{position:absolute;top:28px;right:34px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);font-size:18px;color:#fff;display:grid;place-items:center;transition:.3s var(--e)}
 /* glide between the pages without leaving the reader */
 #rprev,#rnext{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);font-size:18px;color:#fff;display:grid;place-items:center;transition:.3s var(--e);z-index:42}
@@ -1344,6 +1448,8 @@ ANTI_SLOP_BRIEF
     <div class="rs-i"><span>Process flow</span></div>
     <div class="rs-i"><span>Tools</span></div>
   </aside>
+  <aside id="rref" aria-label="What the suite draws on"></aside>
+  <aside id="rali" aria-label="The International Department procedures this follows"></aside>
   <button id="rprev" aria-label="Previous page">&larr;</button>
   <button id="rnext" aria-label="Next page">&rarr;</button>
   <button id="rclose" aria-label="Close">&times;</button></div>
@@ -1780,6 +1886,187 @@ function playD0(){
     if(ih<=h) py=0;
   }
   function reset(){ z=1; px=0; py=0; apply(); }
+  /* what the suite was drawn from. Four sources, each rule bending into the cover. */
+  var REFS=[
+    ["Danish Red Cross","in-house SOP template"],
+    ["ECHO/Danida/IFRC","donor and partner templates"],
+    ["Deloitte","internal control practice"],
+    ["ISO 9001","documented procedure structure"]
+  ];
+  /* built at the measured size so one unit is one pixel: the curves land on the cover's
+     own edge and no glyph is ever stretched to get them there */
+  function drawRefs(gapW,coverH){
+    var host=$("#rref");
+    var W=Math.max(320,gapW-40), H=coverH;
+    host.style.width=W+"px"; host.style.height=H+"px";
+    var top=Math.round(H*0.155), gap=Math.round(H*0.203);
+    var padL=76, textX=padL+62, joinX=Math.min(486,W*0.62), endX=W+14;
+    var cy=H/2, spread=13;
+    var p=[];
+    p.push('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">');
+    p.push('<defs><linearGradient id="rrv" x1="0" y1="0" x2="1" y2="0">'
+      + '<stop offset="0" stop-color="#2A0D0D" stop-opacity=".66"/>'
+      + '<stop offset="46%" stop-color="#2A0D0D" stop-opacity=".46"/>'
+      + '<stop offset="78%" stop-color="#2A0D0D" stop-opacity=".16"/>'
+      + '<stop offset="100%" stop-color="#2A0D0D" stop-opacity="0"/></linearGradient>'
+      + '<linearGradient id="rrf" x1="0" y1="0" x2="0" y2="1">'
+      + '<stop offset="0" stop-color="#fff" stop-opacity="0"/>'
+      + '<stop offset="14%" stop-color="#fff" stop-opacity="1"/>'
+      + '<stop offset="86%" stop-color="#fff" stop-opacity="1"/>'
+      + '<stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>'
+      + '<mask id="rrm"><rect x="-60" y="0" width="'+(W+140)+'" height="'+H+'" fill="url(#rrf)"/></mask></defs>');
+    p.push('<g mask="url(#rrm)"><rect x="-60" y="0" width="'+(W+140)+'" height="'+H+'" fill="url(#rrv)"/></g>');
+    p.push('<text class="rr-eye" x="'+(padL+1)+'" y="'+(top-52)+'">DRAWS ON</text>');
+    for(var i=0;i<REFS.length;i++){
+      var y=top+i*gap, ruleY=y+40, endY=cy-spread*1.5+spread*i;
+      var d='M'+padL+' '+ruleY+' H '+joinX+' C '+(joinX+150)+' '+ruleY+', '+(endX-150)+' '+endY+', '+endX+' '+endY;
+      p.push('<g class="rr-row r'+(i+1)+'">'
+        + '<g class="rr-mark"><rect class="rr-box" x="'+padL+'" y="'+(y-33)+'" width="32" height="32" rx="4"/>'
+        + '<path class="rr-tick" d="M'+(padL+8)+' '+(y-17.5)+' l5.8 6 l10.6 -12.4"/></g>'
+        + '<text class="rr-n" x="'+textX+'" y="'+y+'">'+REFS[i][0]+'</text>'
+        + '<text class="rr-d" x="'+textX+'" y="'+(y+29)+'">'+REFS[i][1].toUpperCase()+'</text>'
+        + '<path class="rr-rule" pathLength="100" d="'+d+'"/>'
+        + '</g>');
+    }
+    p.push('</svg>');
+    /* parsed as a document rather than assigned as markup: the content is this file's own
+       constant table, and parsing keeps it that way */
+    var doc=new DOMParser().parseFromString(p.join(""),"image/svg+xml");
+    var node=doc.documentElement;
+    if(node && node.nodeName==="svg") host.replaceChildren(node);
+  }
+  /* The four International Department procedures, in the order of the cycle. Reading order
+     carries the sequence: preparation, implementation, closure, then the emergency track. */
+  var IDSET=["assets/id/id1.jpg","assets/id/id2.jpg","assets/id/id3.jpg","assets/id/id4.jpg"];
+  function drawAlign(gapLeft,coverH){
+    var host=$("#rali");
+    var left=gapLeft+24, W=Math.max(340,innerWidth-84-left), H=coverH;
+    host.style.left=left+"px"; host.style.width=W+"px"; host.style.height=H+"px";
+
+    /* two by two, sized by whichever of width or height binds, so the covers are as
+       large as the space allows and the titles stay legible */
+    var gap=Math.round(Math.min(W,H)*0.030);
+    var cw=Math.floor(Math.min((W-gap)/2, (H-gap)/2/1.414));
+    var ch=Math.round(cw*1.414);
+    var gw=cw*2+gap, gh=ch*2+gap;
+    var ox=Math.round((W-gw)/2), oy=Math.round((H-gh)/2);
+
+    host.replaceChildren();
+    var glow=document.createElement("div"); glow.className="ra-glow"; host.appendChild(glow);
+    var fit=document.createElement("div"); fit.className="ra-fit";
+    var stage=document.createElement("div"); stage.className="ra-stage";
+    var rot=document.createElement("div"); rot.className="ra-rot";
+    stage.appendChild(rot); fit.appendChild(stage); host.appendChild(fit);
+
+    /* the pile they arrive as, and the angles they hold while stacked */
+    var pileX=ox+cw/2+gap/2, pileY=oy+ch/2+gap/2, pileR=[-4.5,2.5,-1.5,4];
+    var cards=[];
+    for(var i=0;i<IDSET.length;i++){
+      var col=i%2, row=(i-col)/2;
+      var d=document.createElement("div");
+      d.className="ra-card c"+(i+1);
+      d.style.width=cw+"px";
+      /* explicit height: the box must be right before the image decodes, or the
+         fit is measured against a zero-height strip */
+      d.style.height=ch+"px";
+      var slotX=ox+col*(cw+gap), slotY=oy+row*(ch+gap);
+      d.style.left=slotX+"px";
+      d.style.top=slotY+"px";
+      d.style.zIndex=String(20-i);
+      /* built at rest first, so the fit can be measured before anything moves */
+      d.dataset.pile="translate("+(pileX-slotX-cw/2).toFixed(1)+"px,"
+        +(pileY-slotY-ch/2).toFixed(1)+"px) scale(.92) rotate("+pileR[i]+"deg)";
+      d.style.transition="none";
+      d.style.transform="none";
+      d.style.opacity="0";
+      var im=document.createElement("img"); im.src=IDSET[i]; im.alt=""; im.draggable=false;
+      d.appendChild(im);
+      var lit=document.createElement("i"); lit.className="ra-lit"; d.appendChild(lit);
+      var fr=document.createElement("i"); fr.className="ra-frame"; d.appendChild(fr);
+      rot.appendChild(d); cards.push(d);
+    }
+    /* The projected size of a 3D group cannot be predicted from its inputs, so it is
+       measured. Doing that AFTER the cards start moving snapped everything sideways by
+       13px mid-flight, which is what read as unsmooth. So: measure while hidden and
+       still, apply the fit, put them in the pile, and only then let them move. */
+    host.style.visibility="hidden";
+    requestAnimationFrame(function(){
+      fitStack(host,fit,cards);
+      cards.forEach(function(d){ d.style.transform=d.dataset.pile; });
+      host.style.visibility="";
+      requestAnimationFrame(function(){
+        cards.forEach(function(d,i){
+          d.style.transition="";
+          d.style.opacity="";
+          d.style.transitionDelay=(0.30+i*0.15)+"s";
+          d.style.transform="translate(0,0) scale(1) rotate(0deg)";
+        });
+      });
+    });
+    ALIS_CARDS=cards;
+  }
+  /* a 3D projection's rendered size is not predictable from its inputs, so it is measured */
+  function fitStack(host,fit,cards){
+    if(!host.isConnected) return;
+    var hb=host.getBoundingClientRect();
+    var l=Infinity,r=-Infinity,t=Infinity,b=-Infinity;
+    cards.forEach(function(d){ var q=d.getBoundingClientRect();
+      l=Math.min(l,q.left); r=Math.max(r,q.right); t=Math.min(t,q.top); b=Math.max(b,q.bottom); });
+    var bw=r-l, bh=b-t;
+    if(!(bw>0&&bh>0)) return;
+    var pad=10;
+    var k=Math.min(1,(hb.width-pad*2)/bw,(hb.height-pad*2)/bh);
+    var bcx=(l+r)/2-hb.left, bcy=(t+b)/2-hb.top;
+    fit.style.transform="translate("+((hb.width/2-bcx)*k).toFixed(1)+"px,"
+      +((hb.height/2-bcy)*k).toFixed(1)+"px) scale("+k.toFixed(4)+")";
+  }
+  /* the contents face takes two clicks: the set appears, then it merges in */
+  var ALIS_STEP=0, ALIS_CARDS=null;
+  function alisMerge(){
+    if(!ALIS_CARDS||!ALIS_CARDS.length) return;
+    var host=$("#rali"), hb=host.getBoundingClientRect();
+    /* they converge on where the page is going, not where it is, so it reads as being drawn in */
+    var tx=innerWidth/2-hb.left, ty=innerHeight/2-hb.top;
+    ALIS_CARDS.forEach(function(d,i){
+      var r=d.getBoundingClientRect();
+      var cxx=r.left-hb.left+r.width/2, cyy=r.top-hb.top+r.height/2;
+      d.classList.add("gone");
+      d.style.transitionDelay=(i*0.10)+"s";
+      d.style.transform="translate("+(tx-cxx).toFixed(1)+"px,"+(ty-cyy).toFixed(1)+"px) scale(.34)";
+      d.style.opacity="0";
+    });
+    rd.classList.add("merged");
+    /* and the page glides back to the middle to receive them */
+    var H=innerHeight*0.9, W=H/1.414;
+    mt.style.transform="translate3d("+((innerWidth-W)/2)+"px,"+((innerHeight-H)/2)+"px,0)";
+    ALIS_STEP=1;
+  }
+  function alisReset(){
+    ALIS_STEP=0; ALIS_CARDS=null;
+    rd.classList.remove("merged");
+  }
+  /* which face of the reader is open decides the whole composition */
+  function readerMode(fr){
+    if(!fr) return "";
+    if(fr.classList.contains("xr")) return "xray";
+    var frs=document.querySelectorAll("#arts .art .art-fr");
+    if(fr===frs[0]) return "cover";
+    if(fr===frs[1]) return "contents";
+    return "";
+  }
+  /* the cover slides right to open the ground the sources sit on */
+  function layout(mode){
+    var H=innerHeight*0.9, W=H/1.414, mid=(innerWidth-W)/2, cx=mid;
+    if(mode==="xray") cx=Math.max(24,mid-210);
+    else if(mode==="cover") cx=Math.min(innerWidth-W-24,mid+210);
+    else if(mode==="contents") cx=Math.max(96,mid-400);
+    mt.style.width=W+"px"; mt.style.height=H+"px";
+    mt.style.transform="translate3d("+cx+"px,"+((innerHeight-H)/2)+"px,0)";
+    if(mode==="xray") $("#rside").style.left=(cx+W+56)+"px";
+    if(mode==="cover") drawRefs(cx,H);
+    if(mode==="contents") drawAlign(cx+W,H);
+    return cx;
+  }
   function zoom(fr,xray){
     if(PENDGO) return;   /* a tab transition is mid-flight; do not open under it */
     var g=++ZG;
@@ -1803,20 +2090,17 @@ function playD0(){
     requestAnimationFrame(function(){ requestAnimationFrame(function(){
       if(g!==ZG) return;   /* a newer swap or shut owns the mount now */
       mt.style.transition="";
-      var H=innerHeight*0.9, W=H/1.414;
-      var cx=xray ? Math.max(24,(innerWidth-W)/2-210) : (innerWidth-W)/2;
-      mt.style.width=W+"px"; mt.style.height=H+"px";
-      mt.style.transform="translate3d("+cx+"px,"+((innerHeight-H)/2)+"px,0)";
-      if(xray){
-        var side=$("#rside");
-        side.style.left=(cx+W+56)+"px";
-        setTimeout(function(){ mt.classList.add("on"); },420);
-      }
+      alisReset();
+      var md=readerMode(fr);
+      layout(md);
+      rd.classList.toggle("refs", md==="cover");
+      rd.classList.toggle("alis", md==="contents");
+      if(xray) setTimeout(function(){ mt.classList.add("on"); },420);
     });});
   }
   function shut(){
     ZG++;
-    rd.classList.remove("xray"); mt.classList.remove("xr","on");
+    rd.classList.remove("xray","refs","alis","merged"); alisReset(); mt.classList.remove("xr","on");
     if(!open){ rd.classList.remove("on"); return; }
     reset();
     var r=open.getBoundingClientRect();
@@ -1884,16 +2168,21 @@ function playD0(){
       img.animate([{opacity:0},{opacity:1}],{duration:300,easing:"ease-out"});
     }
     reset();
-    var H=innerHeight*0.9, W=H/1.414;
-    var cx=xray ? Math.max(24,(innerWidth-W)/2-210) : (innerWidth-W)/2;
-    mt.style.width=W+"px"; mt.style.height=H+"px";
-    mt.style.transform="translate3d("+cx+"px,"+((innerHeight-H)/2)+"px,0)";
-    if(xray){
-      var side=$("#rside");
-      side.style.left=(cx+W+56)+"px";
-      setTimeout(function(){ mt.classList.add("on"); },420);
-    }
+    alisReset();
+    var md=readerMode(fr);
+    rd.classList.toggle("refs", md==="cover");
+    rd.classList.toggle("alis", md==="contents");
+    layout(md);
+    if(xray) setTimeout(function(){ mt.classList.add("on"); },420);
     open=fr;
+  }
+  /* one place decides whether a click advances the sub-step or the page */
+  function step(dir){
+    if(rd.classList.contains("alis")){
+      if(dir>0 && ALIS_STEP===0){ alisMerge(); return; }
+      if(dir<0 && ALIS_STEP===1){ var fr=open; alisReset(); swap(fr); return; }
+    }
+    nav(dir);
   }
   function nav(dir){
     if(!open) return;
@@ -1913,25 +2202,20 @@ function playD0(){
   };
   /* leaving the tab must take the reader with it, or it stays over the next one */
   window.readerShut=function(){ if(rd.classList.contains("on")) shut(); };
-  $("#rprev").addEventListener("click",function(e){ e.stopPropagation(); nav(-1); });
-  $("#rnext").addEventListener("click",function(e){ e.stopPropagation(); nav(1); });
+  $("#rprev").addEventListener("click",function(e){ e.stopPropagation(); step(-1); });
+  $("#rnext").addEventListener("click",function(e){ e.stopPropagation(); step(1); });
   /* the reader follows the window: recompute the mount on resize */
   addEventListener("resize",function(){
     if(!rd.classList.contains("on")||!open) return;
-    var xray=rd.classList.contains("xray");
-    var H=innerHeight*0.9, W=H/1.414;
-    var cx=xray ? Math.max(24,(innerWidth-W)/2-210) : (innerWidth-W)/2;
-    mt.style.width=W+"px"; mt.style.height=H+"px";
-    mt.style.transform="translate3d("+cx+"px,"+((innerHeight-H)/2)+"px,0)";
-    if(xray) $("#rside").style.left=(cx+W+56)+"px";
+    layout(rd.classList.contains("merged") ? "" : readerMode(open));
     reset();
   },{passive:true});
   rd.addEventListener("click",function(e){ if(e.target===rd) shut(); });
   document.addEventListener("keydown",function(e){
     if(!rd.classList.contains("on")) return;
     if(e.key==="Escape"){ e.stopPropagation(); shut(); }
-    else if(e.key==="ArrowRight"){ e.stopPropagation(); e.preventDefault(); nav(1); }
-    else if(e.key==="ArrowLeft"){ e.stopPropagation(); e.preventDefault(); nav(-1); }
+    else if(e.key==="ArrowRight"){ e.stopPropagation(); e.preventDefault(); step(1); }
+    else if(e.key==="ArrowLeft"){ e.stopPropagation(); e.preventDefault(); step(-1); }
   },true);
 })();
 
