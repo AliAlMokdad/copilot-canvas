@@ -539,6 +539,27 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 #sR .lensring{stroke-dasharray:100;stroke-dashoffset:100}
 #sR.rb6 .lensring{transition:stroke-dashoffset 1.2s var(--e) .55s;stroke-dashoffset:0}
 #sR.rb7 .rr-end{animation:up .7s var(--e) both}
+/* March arrives and then keeps breathing, each mark on its own clock so they never beat together.
+   the animation sits on an inner group because a CSS transform replaces the positioning attribute */
+.m5idle{transform-box:fill-box;transform-origin:center}
+.m5cover{animation:m5cov 9s ease-in-out infinite}
+.m5spark{animation:m5spk 34s linear infinite}
+.m5cap{animation:m5cap 7.5s ease-in-out infinite}
+.m5sp{animation:m5spf 8.5s ease-in-out infinite}
+/* the play-state has to come after the shorthands: the animation shorthand resets it to running */
+.m5idle{animation-play-state:paused}
+#sR.rb5 .m5idle{animation-play-state:running}
+@keyframes m5cov{0%,100%{transform:rotate(0deg) translateY(0)}50%{transform:rotate(-1.4deg) translateY(-2.5px)}}
+@keyframes m5spk{to{transform:rotate(360deg)}}
+@keyframes m5cap{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@keyframes m5spf{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-2px) scale(1.04)}}
+/* the lens: the SOPs hold the centre and the three enablers go round them.
+   the invisible square makes the fill box exactly centred, so the orbit turns about the lens, not about a corner */
+.orb{transform-box:fill-box;transform-origin:center;animation:orb 40s linear infinite;animation-play-state:paused}
+.orbi{transform-box:fill-box;transform-origin:center;animation:orbc 40s linear infinite;animation-play-state:paused}
+#sR.rb6 .orb,#sR.rb6 .orbi{animation-play-state:running}
+@keyframes orb{to{transform:rotate(360deg)}}
+@keyframes orbc{to{transform:rotate(-360deg)}}
 #sR[data-rb="1"] .mo1,#sR[data-rb="2"] .mo2,#sR[data-rb="3"] .mo3,#sR[data-rb="4"] .mo4,#sR[data-rb="5"] .mo5{fill:var(--red);font-size:34px;opacity:1}
 #sR[data-rb="6"] .rl-mo,#sR[data-rb="7"] .rl-mo,#sR[data-rb="8"] .rl-mo{opacity:1}
 .spot{opacity:0}
@@ -596,6 +617,7 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
   #sR .stg{opacity:1!important;animation:none!important;transform:none!important;filter:none!important}
   #sR .rl-mo{opacity:1!important}
   #sR .ghost-glint{animation:none!important;opacity:0!important}
+  #sR .m5idle,#sR .orb,#sR .orbi{animation:none!important;transform:none!important}
   #sR[data-rb="8"] .fin *{animation:none!important}
   #sR[data-rb="8"] .f-aura,#sR[data-rb="8"] .f-cover,#sR[data-rb="8"] .f-spark,#sR[data-rb="8"] .f-card,#sR[data-rb="8"] .f-stamp,#sR[data-rb="8"] .f-sheet{opacity:1;transform:none}
   #sR[data-rb="8"] .f-path{stroke-dashoffset:0;opacity:.85}
@@ -857,6 +879,11 @@ ANTI_SLOP_BRIEF
                 <rect x="2.5" y="8" width="17" height="17" rx="3.2" fill="#0F6CBD"/>
                 <circle cx="11" cy="16.5" r="4.9" fill="none" stroke="#FFF" stroke-width="2.6"/>
               </symbol>
+              <symbol id="lg-cap" viewBox="0 0 32 32" overflow="visible">
+                <path d="M2 14 L16 7 L30 14 L16 21 Z" fill="#46734A"/>
+                <path d="M9.5 16.8 L9.5 23 Q16 27.2 22.5 23 L22.5 16.8 L16 21 Z" fill="#46734A"/>
+                <line x1="30" y1="14" x2="30" y2="23.5" stroke="#46734A" stroke-width="2" stroke-linecap="round"/>
+              </symbol>
               <symbol id="lg-sharepoint" viewBox="0 0 32 32" overflow="visible">
                 <circle cx="21.5" cy="9.5" r="6.4" fill="#1A9BA1"/>
                 <circle cx="11.5" cy="15" r="9.4" fill="#036C70"/>
@@ -1052,22 +1079,23 @@ ANTI_SLOP_BRIEF
               <line class="rl-lk" x1="1550" y1="131" x2="1550" y2="121" stroke="#B8232A"/>
               <circle cx="1550" cy="140" r="8" fill="#B8232A"/><text class="rl-n" x="1550" y="114">Final versions published</text>
               <line class="rl-lk" x1="1550" y1="149" x2="1550" y2="158" stroke="#B8232A"/>
-              <g transform="rotate(2 1550 201)">
+              <g transform="rotate(2 1550 201)"><g class="m5idle m5cover">
                 <rect x="1519" y="158" width="62" height="86" fill="#FDF7F0" stroke="#D8C4B4" stroke-width="1"/>
                 <image href="assets/cover.jpg" x="1522" y="161" width="56" height="80" preserveAspectRatio="xMidYMid slice"/>
-              </g>
+              </g></g>
               <g transform="translate(1550,264)">
-                <rect x="-16" y="-16" width="32" height="32" rx="16" fill="#FDF7F0" stroke="#E4D4C6" stroke-width="1"/>
-                <path d="M0 -12 C 2.5 -3.4 3.4 -2.5 12 0 C 3.4 2.5 2.5 3.4 0 12 C -2.5 3.4 -3.4 2.5 -12 0 C -3.4 -2.5 -2.5 -3.4 0 -12 Z" fill="url(#ggrad)"/>
+                <rect x="-18" y="-18" width="36" height="36" rx="18" fill="#FDF7F0" stroke="#E4D4C6" stroke-width="1"/>
+                <g class="m5idle m5spark"><path d="M0 -13.5 C 2.8 -3.8 3.8 -2.8 13.5 0 C 3.8 2.8 2.8 3.8 0 13.5 C -2.8 3.8 -3.8 2.8 -13.5 0 C -3.8 -2.8 -2.8 -3.8 0 -13.5 Z" fill="url(#ggrad)"/></g>
               </g>
               <g transform="translate(1550,388)">
-                <rect x="-16" y="-16" width="32" height="32" rx="16" fill="#FDF7F0" stroke="#E4D4C6" stroke-width="1"/>
-                <path d="M-11.4 -1.7 L0 -7.4 L11.4 -1.7 L0 4 Z" fill="#46734A"/>
-                <path d="M-6.3 0.9 L-6.3 5.7 Q0 9.4 6.3 5.7 L6.3 0.9 L0 4 Z" fill="#46734A"/>
-                <line x1="11.4" y1="-1.7" x2="11.4" y2="6.3" stroke="#46734A" stroke-width="1.8" stroke-linecap="round"/>
+                <rect x="-18" y="-18" width="36" height="36" rx="18" fill="#FDF7F0" stroke="#E4D4C6" stroke-width="1"/>
+                <g class="m5idle m5cap">
+                  <path d="M-12.8 -1.9 L0 -8.3 L12.8 -1.9 L0 4.5 Z" fill="#46734A"/>
+                  <path d="M-7.1 1 L-7.1 6.4 Q0 10.6 7.1 6.4 L7.1 1 L0 4.5 Z" fill="#46734A"/>
+                  <line x1="12.8" y1="-1.9" x2="12.8" y2="7.1" stroke="#46734A" stroke-width="2" stroke-linecap="round"/>
+                </g>
               </g>
-              <use href="#lg-sharepoint" x="1533" y="469" width="34" height="34"/>
-              <circle cx="1550" cy="512" r="8" fill="#A05A28"/>
+              <g class="m5idle m5sp"><use href="#lg-sharepoint" x="1531" y="467" width="38" height="38"/></g>
               <line class="rl-lk" x1="1550" y1="645" x2="1550" y2="657" stroke="#9A6E1B"/>
               <circle cx="1550" cy="636" r="8" fill="#9A6E1B"/><text class="rl-n" x="1550" y="676">Wider communication</text>
             </g>
@@ -1085,11 +1113,16 @@ ANTI_SLOP_BRIEF
               <line x1="1672" y1="450" x2="1862" y2="450" stroke="#B8232A" stroke-width="2.4" opacity=".55"/>
               <circle class="lensring" pathLength="100" cx="1752" cy="450" r="66" fill="none" stroke="#A8781E" stroke-width="2" opacity=".9"/>
               <circle cx="1752" cy="450" r="53" fill="none" stroke="#A8781E" stroke-width="1" opacity=".3"/>
-              <g transform="rotate(-2 1734 450)">
-                <rect x="1714" y="422" width="40" height="56" fill="#FDF7F0" stroke="#D8C4B4" stroke-width="1"/>
-                <image href="assets/cover.jpg" x="1717" y="425" width="34" height="50" preserveAspectRatio="xMidYMid slice"/>
+              <g transform="rotate(-2 1752 450)">
+                <rect x="1732" y="422" width="40" height="56" fill="#FDF7F0" stroke="#D8C4B4" stroke-width="1"/>
+                <image href="assets/cover.jpg" x="1735" y="425" width="34" height="50" preserveAspectRatio="xMidYMid slice"/>
               </g>
-              <path transform="translate(1778,450)" d="M0 -11 C 2.3 -3.2 3.2 -2.3 11 0 C 3.2 2.3 2.3 3.2 0 11 C -2.3 3.2 -3.2 2.3 -11 0 C -3.2 -2.3 -2.3 -3.2 0 -11 Z" fill="url(#ggrad)"/>
+              <g class="orb">
+                <rect x="1688" y="386" width="128" height="128" fill="none" stroke="none"/>
+                <g transform="translate(1752,399)"><g class="orbi"><use href="#lg-gemini" x="-11" y="-11" width="22" height="22"/></g></g>
+                <g transform="rotate(120 1752 450)"><g transform="translate(1752,399)"><g transform="rotate(-120)"><g class="orbi"><use href="#lg-sharepoint" x="-11" y="-11" width="22" height="22"/></g></g></g></g>
+                <g transform="rotate(240 1752 450)"><g transform="translate(1752,399)"><g transform="rotate(-240)"><g class="orbi"><use href="#lg-cap" x="-11" y="-11" width="22" height="22"/></g></g></g></g>
+              </g>
               <text class="rl-lens" x="1752" y="358">STRATEGY 2030 &middot; MUST-WINS</text>
               <text class="rl-lensb" x="1752" y="614">the SOPs as an enabler</text>
             </g>
