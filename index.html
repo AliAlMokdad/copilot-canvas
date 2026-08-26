@@ -634,13 +634,14 @@ body.stQ .seg i{color:rgba(222,197,131,.75)}
 body.stQ .seg::after{background:var(--gold)}
 /* the closing card carries only the word, the suite and the meeting line */
 body.stQ .segs{display:none}
-body.stQ #topbar{justify-content:flex-end;padding:48px 48px}
+/* the mark moves to the left on this card, on the same margin as the word and the meeting line */
+body.stQ #topbar{justify-content:flex-start;padding:48px clamp(72px,11vw,190px)}
 #sQ .q-eye{display:none}
 body.stQ .mk .wt{color:#fff}
 body.stQ .mk .wt span{color:rgba(255,255,255,.72)}
 /* the document shadows read a touch stronger on the questions card */
 #sQ .gpgs{display:none}
-#sQ .qin{position:absolute;left:clamp(72px,11vw,190px);top:clamp(78px,11vh,132px);max-width:900px}
+#sQ .qin{position:absolute;left:clamp(72px,11vw,190px);top:clamp(114px,13vh,152px);max-width:900px}
 .q-eye{font-family:var(--mono);font-size:clamp(15px,1.6vw,20px);font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);text-shadow:0 1px 0 rgba(0,0,0,.15);margin-bottom:22px;opacity:0}
 .q-title{font-family:var(--serif);font-size:clamp(56px,7.6vw,110px);line-height:1.02;font-weight:600;letter-spacing:-.02em;color:#FBF3F0;margin:0;opacity:0}
 .q-lines{margin-top:38px;display:flex;flex-direction:column;gap:17px}
