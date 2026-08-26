@@ -508,7 +508,7 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 #sR.reveal .rr-names text:nth-of-type(7){animation-delay:1.14s}
 #sR.reveal .rr-ghost{animation:up 1.1s var(--e) .8s both}
 #sR.reveal .ghost-glint{animation:gglint 8s linear 4s infinite}
-#sR.rb6 .ghost-glint,#sR.rb7 .ghost-glint,#sR.rb8 .ghost-glint{animation:none;opacity:0}
+#sR.rb6 .ghost-glint,#sR.rb7 .ghost-glint,#sR.rb8 .ghost-glint,#sR.rb9 .ghost-glint{animation:none;opacity:0}
 @keyframes gglint{0%{stroke-dashoffset:0;opacity:0}4%{opacity:.5}22%{opacity:.5}27%{stroke-dashoffset:-100;opacity:0}100%{stroke-dashoffset:-100;opacity:0}}
 /* months become visible once walked; the one under discussion leans in, the past recedes.
    the pop happens per element, in place, so nothing ever leaves its lane */
@@ -529,7 +529,7 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 #sR[data-rb="1"] .m1 text,#sR[data-rb="2"] .m2 text,#sR[data-rb="3"] .m3 text,#sR[data-rb="4"] .m4 text,#sR[data-rb="5"] .m5 text,#sR[data-rb="1"] .m1 circle,#sR[data-rb="2"] .m2 circle,#sR[data-rb="3"] .m3 circle,#sR[data-rb="4"] .m4 circle,#sR[data-rb="5"] .m5 circle{transition:transform .62s cubic-bezier(.32,1.5,.46,1),filter .55s var(--e)}
 .glit{opacity:0;transition:opacity .65s var(--e)}
 #sR[data-rb="1"] .gl1,#sR[data-rb="2"] .gl2,#sR[data-rb="3"] .gl3,#sR[data-rb="4"] .gl4,#sR[data-rb="5"] .gl5{opacity:1}
-#sR[data-rb="6"] .mm,#sR[data-rb="7"] .mm,#sR[data-rb="8"] .mm{opacity:1;transform:none;filter:none}
+#sR[data-rb="6"] .mm,#sR[data-rb="7"] .mm,#sR[data-rb="8"] .mm,#sR[data-rb="9"] .mm{opacity:1;transform:none;filter:none}
 #sR.rb3 .rr-band{animation:up .8s var(--e) both}
 .stg{opacity:0;transform-box:fill-box;transform-origin:center;transition:filter .6s var(--e)}
 #sR.rb5 .stg5{animation:stgin .75s cubic-bezier(.34,1.45,.5,1) .4s both}
@@ -537,6 +537,52 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 #sR.rb5 .rr-band5{animation:up .8s var(--e) both}
 #sR.rb6 .rl-cv{transition:stroke-dashoffset .9s var(--e);stroke-dashoffset:0}
 #sR.rb6 .rr-lens{animation:up .9s var(--e) .45s both}
+/* THE SEVENTH LINE. It is the one thing on this chart that is an offer rather than a
+   plan, so it arrives last, on its own beat, and it is the only line drawn in a gradient
+   that ends in the brand red: it runs toward the core and then charges it. */
+.rr-org{opacity:0}
+#sR.rb8 .rr-org{opacity:1;transition:opacity .45s var(--e)}
+.org-base,.org-cv{stroke-width:3.6;stroke-linecap:round;fill:none;
+  stroke-dasharray:100;stroke-dashoffset:100}
+#sR.rb8 .org-base{animation:orgdraw 1.5s cubic-bezier(.34,.68,.2,1) .30s both}
+#sR.rb8 .org-cv{animation:orgdraw 1.0s cubic-bezier(.42,.04,.28,1) 1.62s both}
+@keyframes orgdraw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+.org-plate,.org-name,.org-lab{opacity:0}
+#sR.rb8 .org-plate,#sR.rb8 .org-name{animation:up .7s var(--e) .06s both}
+#sR.rb8 .org-lab{animation:up .8s var(--e) 1.02s both}
+/* the serif, so it reads as a pair with the lane name in the gutter, and a deep brick
+   that belongs to this line's own gradient. Measured 6.8:1 on the ground it sits on. */
+.org-lab{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:-.004em;
+  fill:#7A2318;text-anchor:middle}
+.org-name{font-family:var(--serif);font-size:24px;font-weight:600;letter-spacing:-.01em;
+  fill:#33261F;text-anchor:middle}
+/* and when it lands, the core takes the charge: a bloom that stays, one ring thrown off,
+   the gold ring briefly heavier, and the orbit given a single burst of speed */
+.lens-bloom,.lens-surge{opacity:0;transform-box:fill-box;transform-origin:center}
+#sR[data-rb="8"] .lens-bloom{animation:lsbloom 1.9s cubic-bezier(.22,.9,.3,1) 2.24s both,
+  lsbeat 3.6s ease-in-out 4.25s infinite}
+#sR[data-rb="8"] .lens-surge{animation:lsring 1.6s cubic-bezier(.16,.84,.24,1) 2.30s both}
+#sR[data-rb="8"] .lensring{animation:lsthick 1.5s ease-out 2.28s both,
+  lsbreath 3.6s ease-in-out 4.25s infinite}
+@keyframes lsbreath{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+.lensring{transform-box:fill-box;transform-origin:center}
+.orbi use{transform-box:fill-box;transform-origin:center}
+#sR[data-rb="8"] .orbi use{animation:orbgrow 1.6s cubic-bezier(.3,1.5,.42,1) 2.34s both}
+/* they hold the larger size once the chart has moved on */
+#sR.rb9 .orbi use{transform:scale(1.2)}
+#sR[data-rb="8"] .orbboost{transform-box:fill-box;transform-origin:center;
+  animation:orbboost 2.1s cubic-bezier(.18,.86,.22,1) 2.26s both}
+@keyframes lsbloom{0%{opacity:0;transform:scale(.55)}34%{opacity:1;transform:scale(1.04)}
+  100%{opacity:.42;transform:scale(1)}}
+/* once charged it keeps a slow heartbeat, so the core reads as powered and not just lit */
+@keyframes lsbeat{0%,100%{opacity:.42;transform:scale(1)}50%{opacity:.62;transform:scale(1.055)}}
+/* and the three around it come up as the charge lands, and stay a little larger */
+@keyframes orbgrow{0%{transform:scale(1)}42%{transform:scale(1.52)}100%{transform:scale(1.2)}}
+@keyframes lsring{0%{opacity:0;transform:scale(.92)}18%{opacity:.9}100%{opacity:0;transform:scale(1.62)}}
+@keyframes lsthick{0%,100%{stroke-width:2}26%{stroke-width:3.6}}
+@keyframes orbboost{from{transform:rotate(0deg)}to{transform:rotate(168deg)}}
+/* it stays lit once charged */
+#sR.rb9 .lens-bloom{opacity:.42}
 #sR .lensring{stroke-dasharray:100;stroke-dashoffset:100}
 #sR.rb6 .lensring{transition:stroke-dashoffset 1.2s var(--e) .55s;stroke-dashoffset:0}
 #sR.rb7 .rr-end{animation:up .7s var(--e) both}
@@ -562,7 +608,7 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
 @keyframes orb{to{transform:rotate(360deg)}}
 @keyframes orbc{to{transform:rotate(-360deg)}}
 #sR[data-rb="1"] .mo1,#sR[data-rb="2"] .mo2,#sR[data-rb="3"] .mo3,#sR[data-rb="4"] .mo4,#sR[data-rb="5"] .mo5{fill:var(--red);font-size:34px;opacity:1}
-#sR[data-rb="6"] .rl-mo,#sR[data-rb="7"] .rl-mo,#sR[data-rb="8"] .rl-mo{opacity:1}
+#sR[data-rb="6"] .rl-mo,#sR[data-rb="7"] .rl-mo,#sR[data-rb="8"] .rl-mo,#sR[data-rb="9"] .rl-mo{opacity:1}
 .spot{opacity:0}
 #sR[data-rb="1"] .sp1,#sR[data-rb="2"] .sp2,#sR[data-rb="3"] .sp3,#sR[data-rb="4"] .sp4,#sR[data-rb="5"] .sp5{animation:spotland 1.9s var(--e) both}
 @keyframes spotland{0%{opacity:0}28%{opacity:1}100%{opacity:0}}
@@ -575,30 +621,30 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
   radial-gradient(50% 58% at 82% 86%, rgba(217,101,112,.12), transparent 70%),
   radial-gradient(42% 52% at 18% 90%, rgba(114,201,178,.12), transparent 72%),
   linear-gradient(160deg,#FDFAF6,#FAF3EE)}
-#sR[data-rb="8"] .fin{opacity:1}
-#sR[data-rb="8"] .rlo{opacity:0;filter:blur(2px)}
+#sR[data-rb="9"] .fin{opacity:1}
+#sR[data-rb="9"] .rlo{opacity:0;filter:blur(2px)}
 .fin-art{width:100%;height:100%;display:block;padding:34px 40px 20px;box-sizing:border-box}
 .f-sht{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;fill:#33261F;stroke:none;font-weight:600}
 .f-aura,.f-cover,.f-spark,.f-card,.f-stamp,.f-sheet{opacity:0}
 .f-aura,.f-spark,.f-card,.f-stamp{transform-box:fill-box;transform-origin:center}
 .f-path{stroke-dasharray:100;stroke-dashoffset:100;opacity:0}
-#sR[data-rb="8"] .f-aura{animation:finaura 1.4s var(--e) .25s both,finbreathe 5.5s ease-in-out 2s infinite}
-#sR[data-rb="8"] .f-cover{animation:finup 1s var(--e) .15s both}
-#sR[data-rb="8"] .f-spark{animation:finspark .9s cubic-bezier(.34,1.45,.42,1) 1.15s both}
-#sR[data-rb="8"] .fp-1{animation:findraw 1s var(--e) 1.9s forwards}
-#sR[data-rb="8"] .fp-2{animation:findraw 1s var(--e) 2.15s forwards}
-#sR[data-rb="8"] .fp-3{animation:findraw 1s var(--e) 2.4s forwards}
-#sR[data-rb="8"] .fp-4{animation:findraw 1s var(--e) 2.65s forwards}
-#sR[data-rb="8"] .fc-1{animation:fincard .8s var(--e) 2.55s both}
-#sR[data-rb="8"] .fc-2{animation:fincard .8s var(--e) 2.8s both}
-#sR[data-rb="8"] .fc-3{animation:fincard .8s var(--e) 3.05s both}
-#sR[data-rb="8"] .fc-4{animation:fincard .8s var(--e) 3.3s both}
-#sR[data-rb="8"] .fc-1 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 3.45s both}
-#sR[data-rb="8"] .fc-2 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 3.65s both}
-#sR[data-rb="8"] .fc-3 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 3.85s both}
-#sR[data-rb="8"] .fc-4 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 4.05s both}
-#sR[data-rb="8"] .fs-1{animation:finsheet .8s var(--e) .7s both}
-#sR[data-rb="8"] .fs-2{animation:finsheet .8s var(--e) .9s both}
+#sR[data-rb="9"] .f-aura{animation:finaura 1.4s var(--e) .25s both,finbreathe 5.5s ease-in-out 2s infinite}
+#sR[data-rb="9"] .f-cover{animation:finup 1s var(--e) .15s both}
+#sR[data-rb="9"] .f-spark{animation:finspark .9s cubic-bezier(.34,1.45,.42,1) 1.15s both}
+#sR[data-rb="9"] .fp-1{animation:findraw 1s var(--e) 1.9s forwards}
+#sR[data-rb="9"] .fp-2{animation:findraw 1s var(--e) 2.15s forwards}
+#sR[data-rb="9"] .fp-3{animation:findraw 1s var(--e) 2.4s forwards}
+#sR[data-rb="9"] .fp-4{animation:findraw 1s var(--e) 2.65s forwards}
+#sR[data-rb="9"] .fc-1{animation:fincard .8s var(--e) 2.55s both}
+#sR[data-rb="9"] .fc-2{animation:fincard .8s var(--e) 2.8s both}
+#sR[data-rb="9"] .fc-3{animation:fincard .8s var(--e) 3.05s both}
+#sR[data-rb="9"] .fc-4{animation:fincard .8s var(--e) 3.3s both}
+#sR[data-rb="9"] .fc-1 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 3.45s both}
+#sR[data-rb="9"] .fc-2 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 3.65s both}
+#sR[data-rb="9"] .fc-3 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 3.85s both}
+#sR[data-rb="9"] .fc-4 .f-stamp{animation:finstamp .55s cubic-bezier(.34,1.5,.5,1) 4.05s both}
+#sR[data-rb="9"] .fs-1{animation:finsheet .8s var(--e) .7s both}
+#sR[data-rb="9"] .fs-2{animation:finsheet .8s var(--e) .9s both}
 @keyframes finaura{from{opacity:0}to{opacity:1}}
 @keyframes finbreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 @keyframes finup{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:none}}
@@ -619,9 +665,17 @@ body.stQ #fsbtn:hover{border-color:var(--gold);color:var(--gold)}
   #sR .rl-mo{opacity:1!important}
   #sR .ghost-glint{animation:none!important;opacity:0!important}
   #sR .m5idle,#sR .orb,#sR .orbi{animation:none!important;transform:none!important}
-  #sR[data-rb="8"] .fin *{animation:none!important}
-  #sR[data-rb="8"] .f-aura,#sR[data-rb="8"] .f-cover,#sR[data-rb="8"] .f-spark,#sR[data-rb="8"] .f-card,#sR[data-rb="8"] .f-stamp,#sR[data-rb="8"] .f-sheet{opacity:1;transform:none}
-  #sR[data-rb="8"] .f-path{stroke-dashoffset:0;opacity:.85}
+  #sR .rr-org{opacity:1!important}
+  #sR .org-base,#sR .org-cv{stroke-dashoffset:0!important;animation:none!important}
+  #sR .org-plate,#sR .org-name,#sR .org-lab{opacity:1!important;animation:none!important;transform:none!important}
+  #sR .lens-bloom{opacity:.42!important;animation:none!important;transform:none!important}
+  #sR .lens-surge{opacity:0!important;animation:none!important}
+  #sR .orbboost{animation:none!important;transform:none!important}
+  #sR .lensring{animation:none!important;transform:none!important}
+  #sR .orbi use{animation:none!important;transform:none!important}
+  #sR[data-rb="9"] .fin *{animation:none!important}
+  #sR[data-rb="9"] .f-aura,#sR[data-rb="9"] .f-cover,#sR[data-rb="9"] .f-spark,#sR[data-rb="9"] .f-card,#sR[data-rb="9"] .f-stamp,#sR[data-rb="9"] .f-sheet{opacity:1;transform:none}
+  #sR[data-rb="9"] .f-path{stroke-dashoffset:0;opacity:.85}
   .fin,.rlo{transition:none}
 }
 
@@ -1035,6 +1089,19 @@ ANTI_SLOP_BRIEF
               <linearGradient id="spg" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#DEC583" stop-opacity="0"/><stop offset=".5" stop-color="#DEC583" stop-opacity=".24"/><stop offset="1" stop-color="#DEC583" stop-opacity="0"/>
               </linearGradient>
+              <linearGradient id="orgGrad" gradientUnits="userSpaceOnUse" x1="250" y1="0" x2="1700" y2="0">
+                <stop offset="0" stop-color="#C9962B"/><stop offset=".48" stop-color="#BE4A24"/>
+                <stop offset="1" stop-color="#A81820"/>
+              </linearGradient>
+              <radialGradient id="lensBloom" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#FFE7A8" stop-opacity=".85"/>
+                <stop offset="52%" stop-color="#E8B44E" stop-opacity=".34"/>
+                <stop offset="1" stop-color="#E8B44E" stop-opacity="0"/>
+              </radialGradient>
+              <filter id="orgGlow" x="-40%" y="-260%" width="180%" height="620%">
+                <feGaussianBlur stdDeviation="7" result="bl"/>
+                <feMerge><feMergeNode in="bl"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
               <filter id="psh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#4A2A18" flood-opacity=".13"/></filter>
               <symbol id="lg-elearn" viewBox="0 0 32 32" overflow="visible">
                 <path d="M3 13.5 L16 7 L29 13.5 L16 20 Z" fill="#46734A"/>
@@ -1130,10 +1197,10 @@ ANTI_SLOP_BRIEF
             </g>
             <!-- the stage names arrive as glass pills, the apple way -->
                         <g class="stg stg5">
-              <rect x="1280" y="838" width="540" height="68" rx="26" fill="rgba(255,252,246,.62)" stroke="rgba(140,100,70,.22)" stroke-width="1" filter="url(#psh)"/>
-              <line x1="1310" y1="840.5" x2="1790" y2="840.5" stroke="rgba(255,255,255,.85)" stroke-width="1"/>
-              <text class="rl-stageg" x="1550" y="869">PAUSE AND REFLECT</text>
-              <text class="rl-stagegs" x="1550" y="894">SOPS DEVELOPMENT WORKSHOP, SYSTEM THINKING</text>
+              <rect x="1424" y="768" width="396" height="96" rx="26" fill="rgba(255,252,246,.62)" stroke="rgba(140,100,70,.22)" stroke-width="1" filter="url(#psh)"/>
+              <line x1="1452" y1="770.5" x2="1792" y2="770.5" stroke="rgba(255,255,255,.85)" stroke-width="1"/>
+              <text class="rl-stageg" x="1622" y="800">PAUSE AND REFLECT</text>
+              <text class="rl-stagegs" x="1622" y="826">SOPS DEVELOPMENT WORKSHOP</text><text class="rl-stagegs" x="1622" y="850">SYSTEM THINKING</text>
             </g>
             <!-- the light that lands with each month -->
             <g aria-hidden="true">
@@ -1166,9 +1233,9 @@ ANTI_SLOP_BRIEF
               <line class="rl-lk" x1="343" y1="627" x2="343" y2="619" stroke="#9A6E1B"/>
               <circle cx="343" cy="636" r="8" fill="#9A6E1B"/><text class="rl-n" x="343" y="610">Launch webinar</text>
               <line class="rl-lk" x1="343" y1="769" x2="343" y2="777" stroke="#6E5B8E"/>
-              <circle cx="343" cy="760" r="8" fill="#6E5B8E"/><text class="rl-n" x="343" y="793">Session on the SOPs</text>
+              <circle cx="343" cy="760" r="8" fill="#6E5B8E"/><text class="rl-n" x="343" y="793">Introduction session on the SOPs</text>
               <line class="rl-lk" x1="480" y1="769" x2="480" y2="815" stroke="#6E5B8E"/>
-              <circle cx="480" cy="760" r="8" fill="#6E5B8E"/><text class="rl-nf" x="480" y="838">Address feedback and comments</text>
+              <circle cx="655" cy="760" r="8" fill="#6E5B8E"/><text class="rl-n" x="655" y="790">Engagement with the</text><text class="rl-n" x="655" y="814">Transformation /</text><text class="rl-n" x="655" y="838">Restructuring Consultants</text>
             </g>
             <!-- december -->
             <g class="mm m2">
@@ -1211,7 +1278,7 @@ ANTI_SLOP_BRIEF
               <line class="rl-lk" x1="1344" y1="627" x2="1344" y2="619" stroke="#9A6E1B"/>
               <circle cx="1344" cy="636" r="8" fill="#9A6E1B"/><text class="rl-n" x="1359" y="610">Country finance focal point sessions</text>
               <line class="rl-lk" x1="1296" y1="769" x2="1296" y2="777" stroke="#6E5B8E"/>
-              <circle cx="1296" cy="760" r="8" fill="#6E5B8E"/><text class="rl-n" x="1344" y="797">Pause and reflect session</text>
+              <circle cx="1265" cy="760" r="8" fill="#6E5B8E"/><text class="rl-n" x="1288" y="790">Engagement with the</text><text class="rl-n" x="1288" y="814">Transformation /</text><text class="rl-n" x="1288" y="838">Restructuring Consultants</text>
             </g>
             <!-- march -->
             <g class="mm m5">
@@ -1248,22 +1315,36 @@ ANTI_SLOP_BRIEF
               <path class="rl-cv" pathLength="100" d="M1610 760 C 1652 760, 1628 450, 1672 450" stroke="#6E5B8E"/>
             </g>
             <!-- the strategy lens -->
+            <!-- the seventh line: what else could run from November to March -->
+            <g class="rr-org">
+              <rect class="org-plate" x="-154" y="849" width="330" height="46" rx="23" fill="rgba(255,252,246,.74)" stroke="rgba(150,112,84,.22)" stroke-width="1" filter="url(#psh)"/>
+              <rect class="org-plate" x="-151" y="851.5" width="324" height="1" fill="rgba(255,255,255,.85)"/>
+              <text class="org-name" x="11" y="880">Organizational SOPs</text>
+              <g filter="url(#orgGlow)">
+                <line class="org-base" pathLength="100" x1="250" y1="872" x2="1610" y2="872" stroke="url(#orgGrad)"/>
+                <path class="org-cv" pathLength="100" d="M1610 872 C 1660 872, 1620 450, 1672 450" stroke="url(#orgGrad)" fill="none"/>
+              </g>
+              <text class="org-lab" x="930" y="902">Project, Grant and Finance</text>
+            </g>
             <g class="rr-lens">
               <line x1="1672" y1="450" x2="1862" y2="450" stroke="#B8232A" stroke-width="2.4" opacity=".55"/>
+              <circle class="lens-bloom" cx="1752" cy="450" r="82" fill="url(#lensBloom)"/>
               <circle class="lensring" pathLength="100" cx="1752" cy="450" r="66" fill="none" stroke="#A8781E" stroke-width="2" opacity=".9"/>
-              <circle cx="1752" cy="450" r="53" fill="none" stroke="#A8781E" stroke-width="1" opacity=".3"/>
+              <circle class="lens-surge" cx="1752" cy="450" r="66" fill="none" stroke="#E8C36A" stroke-width="2.4"/>
               <g transform="rotate(-2 1752 450)">
                 <rect x="1732" y="422" width="40" height="56" fill="#FDF7F0" stroke="#D8C4B4" stroke-width="1"/>
                 <image href="assets/cover.jpg" x="1735" y="425" width="34" height="50" preserveAspectRatio="xMidYMid slice"/>
               </g>
+              <g class="orbboost">
               <g class="orb">
                 <rect x="1688" y="386" width="128" height="128" fill="none" stroke="none"/>
                 <g transform="translate(1752,399)"><g class="orbi"><use href="#lg-gemini" x="-11" y="-11" width="22" height="22"/></g></g>
                 <g transform="rotate(120 1752 450)"><g transform="translate(1752,399)"><g transform="rotate(-120)"><g class="orbi"><use href="#lg-sharepoint" x="-11" y="-11" width="22" height="22"/></g></g></g></g>
                 <g transform="rotate(240 1752 450)"><g transform="translate(1752,399)"><g transform="rotate(-240)"><g class="orbi"><use href="#lg-cap" x="-11" y="-11" width="22" height="22"/></g></g></g></g>
               </g>
+              </g>
               <text class="rl-lens" x="1752" y="358">STRATEGY 2030 &middot; MUST-WINS</text>
-              <text class="rl-lensb" x="1752" y="614">the SOPs as an enabler</text>
+              <text class="rl-lensb" x="1818" y="618">the SOPs as an enabler</text>
             </g>
             <!-- arrival -->
             <g class="rr-end">
@@ -1710,7 +1791,7 @@ function setBeat(b){
 /* past the closing beat, one more step carries the presenter into Draft 1 */
 function nextStep(){ if(BEAT>=MS.length) go("B"); else setBeat(BEAT+1); }
 $("#launch").addEventListener("click",function(e){ e.stopPropagation(); lxClose(); });
-$("#nvNext").addEventListener("click",function(e){ e.stopPropagation(); if(LXON){ lxClose(); return; } if(STATE==="R"){ if(RB>=8){ go("Q"); } else { rbSet(RB+1); } } else { nextStep(); } });
+$("#nvNext").addEventListener("click",function(e){ e.stopPropagation(); if(LXON){ lxClose(); return; } if(STATE==="R"){ if(RB>=9){ go("Q"); } else { rbSet(RB+1); } } else { nextStep(); } });
 $("#fsbtn").addEventListener("click",function(e){ e.stopPropagation();
   if(document.fullscreenElement){ document.exitFullscreen(); }
   else{ document.documentElement.requestFullscreen().catch(function(){}); }
@@ -2519,24 +2600,24 @@ function goNow(s){
   } else { qcfStop(); }
   if(s==="R"){
     var sR=$("#sR");
-    sR.classList.remove("reveal","rb1","rb2","rb3","rb4","rb5","rb6","rb7");
+    sR.classList.remove("reveal","rb1","rb2","rb3","rb4","rb5","rb6","rb7","rb8","rb9");
     void sR.offsetWidth;
     sR.classList.add("reveal");
     rbSet(0);
   }
 }
 /* the rollout's own presenter beats: 0 frame, 1-5 the months, 6 the lens, 7 the arrival */
-var RB=0, RB_DRAW=[5,17,40,62,85,100,100,100,100];
+var RB=0, RB_DRAW=[5,17,40,62,85,100,100,100,100,100];
 function rbSet(n){
-  RB=Math.max(0,Math.min(8,n));
+  RB=Math.max(0,Math.min(9,n));
   var sR=$("#sR");
-  for(var k=1;k<=8;k++) sR.classList.toggle("rb"+k, k<=RB);
+  for(var k=1;k<=9;k++) sR.classList.toggle("rb"+k, k<=RB);
   sR.setAttribute("data-rb", RB);
   Array.prototype.forEach.call(sR.querySelectorAll(".rl-base"),function(l){
     l.style.strokeDashoffset=(100-RB_DRAW[RB]);
   });
 }
-$("#sR").addEventListener("click",function(){ if(STATE==="R"){ if(RB>=8){ go("Q"); } else { rbSet(RB+1); } } });
+$("#sR").addEventListener("click",function(){ if(STATE==="R"){ if(RB>=9){ go("Q"); } else { rbSet(RB+1); } } });
 document.addEventListener("click",function(e){
   var g=e.target.closest("[data-go]"); if(g) go(g.getAttribute("data-go"));
 });
@@ -2557,7 +2638,7 @@ document.addEventListener("keydown",function(e){
   else if(STATE==="A" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); nextStep(); }
   /* at the very start of the timeline, back means the cover, never a dead key */
   else if(STATE==="A" && e.key==="ArrowLeft"){ e.preventDefault(); if(BEAT<=-1){ go("0"); } else { setBeat(BEAT-1); } }
-  else if(STATE==="R" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); if(RB>=8){ go("Q"); } else { rbSet(RB+1); } }
+  else if(STATE==="R" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); if(RB>=9){ go("Q"); } else { rbSet(RB+1); } }
   /* at the first month, back means the volume he just came from */
   else if(STATE==="R" && e.key==="ArrowLeft"){ e.preventDefault(); if(RB<=0){ go("B"); } else { rbSet(RB-1); } }
   else if(STATE==="R" && e.key==="End"){ e.preventDefault(); rbSet(7); }
