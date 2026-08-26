@@ -1820,7 +1820,7 @@ $("#fsbtn").addEventListener("click",function(e){ e.stopPropagation();
   else{ document.documentElement.requestFullscreen().catch(function(){}); }
 });
 document.addEventListener("fullscreenchange",function(){ document.body.classList.toggle("isfs", !!document.fullscreenElement); });
-$("#nvPrev").addEventListener("click",function(e){ e.stopPropagation(); if(LXON){ lxClose(); return; } if(STATE==="R"){ rbSet(RB-1); } else { setBeat(BEAT-1); } });
+$("#nvPrev").addEventListener("click",function(e){ e.stopPropagation(); if(LXON){ lxClose(); return; } backStep(); });
 $("#roadzone").addEventListener("click",function(e){
   var d=e.target.closest(".ms");
   if(d){ setBeat(+d.getAttribute("data-i")); return; }
@@ -2622,15 +2622,20 @@ function goNow(s){
     qcfEnter();
   } else { qcfStop(); }
   if(s==="R"){
-    var sR=$("#sR");
-    sR.classList.remove("reveal","rb1","rb2","rb3","rb4","rb5","rb6","rb7","rb8","rb9");
-    void sR.offsetWidth;
-    sR.classList.add("reveal");
-    rbSet(0);
+    /* stepping back from the closing card must land on the chart he left standing.
+       Resetting here dropped him on an empty frame, nine presses from where he was. */
+    if(RB_KEEP){ RB_KEEP=false; $("#sR").classList.add("reveal"); }
+    else {
+      var sR=$("#sR");
+      sR.classList.remove("reveal","rb1","rb2","rb3","rb4","rb5","rb6","rb7","rb8","rb9");
+      void sR.offsetWidth;
+      sR.classList.add("reveal");
+      rbSet(0);
+    }
   }
 }
 /* the rollout's own presenter beats: 0 frame, 1-5 the months, 6 the lens, 7 the arrival */
-var RB=0, RB_DRAW=[5,17,40,62,85,100,100,100,100,100];
+var RB=0, RB_KEEP=false, RB_DRAW=[5,17,40,62,85,100,100,100,100,100];
 function rbSet(n){
   RB=Math.max(0,Math.min(9,n));
   var sR=$("#sR");
@@ -2639,6 +2644,14 @@ function rbSet(n){
   Array.prototype.forEach.call(sR.querySelectorAll(".rl-base"),function(l){
     l.style.strokeDashoffset=(100-RB_DRAW[RB]);
   });
+}
+/* one back for the whole deck, so the on-screen arrow and the arrow key cannot drift
+   apart again: the button used to die at the closing card and at the first month */
+function backStep(){
+  if(STATE==="Q"){ RB_KEEP=true; go("R"); }
+  else if(STATE==="R"){ if(RB<=0){ go("B"); } else { rbSet(RB-1); } }
+  else if(STATE==="B"){ go("A"); }
+  else if(STATE==="A"){ if(BEAT<=-1){ go("0"); } else { setBeat(BEAT-1); } }
 }
 $("#sR").addEventListener("click",function(){ if(STATE==="R"){ if(RB>=9){ go("Q"); } else { rbSet(RB+1); } } });
 document.addEventListener("click",function(e){
@@ -2660,20 +2673,20 @@ document.addEventListener("keydown",function(e){
   else if(STATE==="0" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); go("A"); }
   else if(STATE==="A" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); nextStep(); }
   /* at the very start of the timeline, back means the cover, never a dead key */
-  else if(STATE==="A" && e.key==="ArrowLeft"){ e.preventDefault(); if(BEAT<=-1){ go("0"); } else { setBeat(BEAT-1); } }
+  else if(STATE==="A" && e.key==="ArrowLeft"){ e.preventDefault(); backStep(); }
   else if(STATE==="R" && (e.key==="ArrowRight"||e.key===" "||e.key==="Enter")){ e.preventDefault(); if(RB>=9){ go("Q"); } else { rbSet(RB+1); } }
   /* at the first month, back means the volume he just came from */
-  else if(STATE==="R" && e.key==="ArrowLeft"){ e.preventDefault(); if(RB<=0){ go("B"); } else { rbSet(RB-1); } }
-  else if(STATE==="R" && e.key==="End"){ e.preventDefault(); rbSet(7); }
+  else if(STATE==="R" && e.key==="ArrowLeft"){ e.preventDefault(); backStep(); }
+  else if(STATE==="R" && e.key==="End"){ e.preventDefault(); rbSet(9); }
   else if(STATE==="R" && e.key==="Home"){ e.preventDefault(); rbSet(0); }
   else if(STATE==="B" && e.key==="ArrowRight"){ e.preventDefault(); readerFirst(); }
-  else if(STATE==="B" && e.key==="ArrowLeft"){ e.preventDefault(); go("A"); }
+  else if(STATE==="B" && e.key==="ArrowLeft"){ e.preventDefault(); backStep(); }
   /* right nudges the fan on and keeps it running, so his habit of pressing next never kills the motion */
   else if(STATE==="Q" && (e.key==="ArrowRight"||e.key===" ")){ e.preventDefault();
     qcfStep(QCF_DIR); if(!QCF_HOLD) qcfRun(); }
   else if(STATE==="Q" && (e.key==="p"||e.key==="P")){ e.preventDefault();
     QCF_HOLD=!QCF_HOLD; if(!QCF_HOLD) qcfRun(); else qcfStop(); }
-  else if(STATE==="Q" && e.key==="ArrowLeft"){ e.preventDefault(); go("R"); }
+  else if(STATE==="Q" && e.key==="ArrowLeft"){ e.preventDefault(); backStep(); }
   else if(e.key==="Escape") go("0");
 });
 </script>
